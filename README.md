@@ -1,6 +1,8 @@
 # 3AInternship2022-2023
 
 TODO : 
+
+
 ----------------------------------------week 2-------------------------------------------------------- 
 The week (from November, monday december 5th to december 12th) : 
 - Finish the background section.
