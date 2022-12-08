@@ -1,1 +1,11 @@
 
+Le projet long se déroule en 2 phases :
+- Une première phase appelée "étude"  destinée à l'analyse du sujet, la recherche de documents, d’outils, de méthodes, …, qui vont permettre de répondre au problème proposé par le sujet. Pour cette première phase les étudiants disposent des mardi après midi des semaines 47, 49, 2, 5.
+- Une deuxième phase appelée "mise en oeuvre" dont le but est la mise en oeuvre des solutions trouvées dans la première phase et validées par les encadrants (il peut s’agir de créer un outil ou de réaliser des simulations permettant de comparer des méthodes). Pour cette seconde phase, les étudiants sont à plein temps pendant les semaines 6, 7, 8, 9, 10.
+
+La première phase servira à préciser le travail à réaliser dans la phase 2 et donc à être plus efficace pendant les 5 semaines de travail. A la fin de la première phase, une évaluation sera faite par les encadrants qui tiendra lieu de note pour le semestre 9 en SHS. A la fin de la deuxième, des soutenances seront organisées, les jurys étant composé à partir des encadrants. 
+
+
+Dates : 
+- lancement de la 1ère phase : lundi 7 novembre 2022  (juste après les vacances de Toussaint)
+- déroulement de la 2ème phase : du lundi 6 février 2023 au vendredi 10 mars 2023 
