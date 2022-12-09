@@ -21,6 +21,7 @@ state of the art section, be careful !!!!
 2.6- ECG: please here be careful to define as well windows (for sure you have to present the most significant window parameters, which we will model later in our DSL) and signals
 2.7- Signals processing and Signals synchronisation : notice that we are interested in applying AI for signal processing with the aim of saving human lifes 
 as best as we can. That is why we would like to study signals' synchronisation. Regarding synchronisation, you should take a look at the folder References/GALS&ClockSynchronisation in order to learn how existing work do with (clock and/or data?) synchronisation in distributed systems. 
+For this subsection, you have to check in the Reference folder how langauges such as Scada, Signal, and Esterel do with (signals) synchronisation. 
 
 
 3- State-of-the-Art:
