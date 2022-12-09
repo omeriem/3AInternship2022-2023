@@ -7,7 +7,7 @@ TODO :
 
 The week (from November, monday december 5th to december 12th) : 
 - Finish the background section : check the outline.txt file added here in the git for guidelins !
-- As I asked you during our last meeting, move the background paragraphs in the state of the art section and rewrite them as stated in the outline file. 
+- As I asked you during our last meeting, in the background section keep only the general definitions and move the background paragraphs in the state of the art section and rewrite them as stated in the outline file. 
 
 ----------------------------------------week 1-------------------------------------------------------- 
 
