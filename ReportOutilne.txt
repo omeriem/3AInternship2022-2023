@@ -1,0 +1,42 @@
+Report Title
+    Authors'names
+    
+
+Abstarct
+
+
+Keywords
+
+
+1- Introduction
+
+
+2- Bakcground: Here you have to present definitions from the litterature, existing papers can help you to retrieve these definitions. But, this is nit a 
+state of the art section, be careful !!!!
+2.1- Model driven Engineering
+2.2- DSL 
+2.3- Artificial Intelligence
+2.4- IoT
+2.5- EEG : please here do nit forget to define as well windows and signals
+2.6- ECG: please here do nit forget to define as well windows and signals
+
+
+3- State-of-the-Art:
+3.1- AI for MDE/DSL : you have to take a look first at all the papers in the references folder and maybe others from the litterature 
+in order to check how AI is applied for MDE and particularly DSL building (with a particular focus on IoT application!).
+3.2- MDE/DSL for AI : you have to take a look first at all the papers in the references folder and maybe others from the litterature 
+in order to check how MDE and particularly DSL building can imply a better data processing using AI (e.g. Machine Learning)(with a particular 
+focus on IoT application!).
+Remark : for each existing work, you have to present the approach (the main idea), then you have to state their methods and tools (used languages as well).
+
+4- Case studies : we focus here in our case where we handle health care use case with, but in exhaustive way, two sensors, namely EEG and ECG devices. 
+We are interrested among other properties signal synchronisation. In a very first step, you have to check from the litterature, existing use cases 
+bridging MDE/IoT/AI. Learned lessons should be later applied to our case that is iDSL for IoT with a particular application for health care systems. 
+
+5- Application Domains : you should complete this section with application domains for the use (if exists) of all "together" MDE/IoT/AI that you check out 
+from existing work. 
+
+6- Conclusion 
+
+Remark : all along the report you have to cite existing work using bibtex format! in the latex source use ~\cite{}, add the .bib file and \input it the main 
+file. 
