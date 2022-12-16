@@ -101,3 +101,24 @@ The different notions of models in AI and MDE also brings some difficulty in int
         \item Finally, the article \uline{Create Your Own Internet of Things} targets anyone who wants to make their own iot device by proposing a selection of           hardwares, platforms, and programming langages for Iot creation. It compares different aspects such as prices, connectivity or compatibility.
       \end{itemize}
   \end{itemize}
+
+\subsection{GALS \& Clock Synchronisation}
+
+\subsubsection{Globally-asynchronous locally-synchronous systems}
+
+Synchrounous systems are systems which "each of its components receive a common periodic signal (clock) that is used to control its operation and its interaction with other components". Synchrounous systems are not efficient when its internal components are not tied to the same clock. A solution is to blend asynchronous solutions with synchronous solutions, this is the purpose of this paper which aim to present globally-asynchronous locally-synchronous systems, introduced  as an optimum middle between synchrounous and asynchrounous systems and as a solution to implement multiclocks systems. The Chapter 2 of this paper provide background on synchronization and asynchrounous communication protocol. Chapter 3 discusses the reasons that led to the GALS approach. Chapter 4 is about the class of "unsynchronous" machines and how they are constructed. Chapter 5 is about the class of "escapement" machines and presents algorithms to verify their value-safety.
+
+
+\subsubsection{The ESTEREL language}
+
+ESTEREL is a synchrounous programming language for the developpement of reactive synchronous parralel systems. A reactive system which is continuously interacting with the exteral environnement, continously waiting from outside activation in order to react. An ESTEREL program can be viewed as a specification since it is a set of rules, each rule describe which signal is awaited and how the system will react on activation. ESTEREL programs have formal and mathemical semantics described in this paper. This paper also describe how ESTEREL is implemented.
+
+
+\subsubsection{SystemJ: A GALS language for system level design}
+
+SystemJ is a system-level programming language which can be used to implements GALS. Like ESTEREL, SystemJ also targets the synchronous reactive systems. SystemJ programs are "a collection of asynchronous nodes called clock-domains where each clock-domain is a purely synchronous node analogous to a SR program in a language like ESTEREL".
+
+\subsubsection{Formalization and Correctness of the PALS Architectural Pattern for Distributed Real-Time Systems}
+
+Physically Asynchronous Logically Synchronous (PALS) is a architectural pattern that targets the developpement of Distributed Real-Time Systems (DRTS), the key idea of PALS is to reduce the effort of designing, verifying and implementing DRTS. This paper presents a formal method for PALS transformation expressed in Real-Time Maude formal specification language. A bisimulation theorem "showing that the original synchronous design and
+the so-called stable states of the corresponding PALS asynchronous design constitute bisimilar systems, and two further generalizations of such a theorem" and An avionics case study illustrating the usefulness of the PALS patern for formal verification purposes.
