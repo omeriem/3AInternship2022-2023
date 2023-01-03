@@ -11,9 +11,9 @@ Keywords
 1- Introduction
 
 
-2- Bakcground: Here you have to present definitions from the litterature, existing papers can help you to retrieve these definitions. But, this is nit a 
+2- Bakcground: Here you have to present definitions from the litterature, existing papers can help you to retrieve these definitions. But, this is not a 
 state of the art section, be careful !!!!
-2.1- Model driven Engineering
+2.1- Model driven Engineering : rewrite this section. This is not a state fo the art section ! you have to summarize the current section and pay attention each time you reuse concepts/definitions/etc. from existing papers then you have to cite it usin "\cite{xxx}" where xxx is the bibliogaphy entry in you refreneces.bib file.  
 2.2- DSL : rewrite this section, give first general definiton of DSL and then state if exists related DSLs from the litterature that can inspire us. Then move, rewrite, and re-organise the actual proposed content of this section into the new subsections 2.5 and 2.6.   
 2.3- Artificial Intelligence
 2.4- IoT : nothing to be moed into section 3 right now. Cite references if you reused definition from existing papers !
