@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/n7.intern.v2.iDSL/src-gen" creationIcons="false"
+    editDirectory="/n7.intern.v2.iDSL.edit/src-gen" editorDirectory="/n7.intern.v2.iDSL.editor/src-gen"
+    modelPluginID="n7.intern.v2.iDSL" modelName="IDSL" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>iDSL.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="IDSL" basePackage="n7.intern.v2" disposableProviderFactory="true"
+      ecorePackage="iDSL.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="iDSL.ecore#//Type">
+      <genEnumLiterals ecoreEnumLiteral="iDSL.ecore#//Type/String"/>
+      <genEnumLiterals ecoreEnumLiteral="iDSL.ecore#//Type/byte"/>
+      <genEnumLiterals ecoreEnumLiteral="iDSL.ecore#//Type/short"/>
+      <genEnumLiterals ecoreEnumLiteral="iDSL.ecore#//Type/int"/>
+      <genEnumLiterals ecoreEnumLiteral="iDSL.ecore#//Type/long"/>
+      <genEnumLiterals ecoreEnumLiteral="iDSL.ecore#//Type/float"/>
+      <genEnumLiterals ecoreEnumLiteral="iDSL.ecore#//Type/double"/>
+      <genEnumLiterals ecoreEnumLiteral="iDSL.ecore#//Type/char"/>
+      <genEnumLiterals ecoreEnumLiteral="iDSL.ecore#//Type/boolean"/>
+    </genEnums>
+    <genClasses ecoreClass="iDSL.ecore#//IoTFramework">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference iDSL.ecore#//IoTFramework/components"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute iDSL.ecore#//IoTFramework/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute iDSL.ecore#//IoTFramework/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference iDSL.ecore#//IoTFramework/outputs"/>
+    </genClasses>
+    <genClasses ecoreClass="iDSL.ecore#//Component">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute iDSL.ecore#//Component/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute iDSL.ecore#//Component/samplingRate"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference iDSL.ecore#//Component/data"/>
+    </genClasses>
+    <genClasses ecoreClass="iDSL.ecore#//DataProvider">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference iDSL.ecore#//DataProvider/connections"/>
+    </genClasses>
+    <genClasses ecoreClass="iDSL.ecore#//DataProcessor">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference iDSL.ecore#//DataProcessor/dataProviders"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference iDSL.ecore#//DataProcessor/outputs"/>
+    </genClasses>
+    <genClasses ecoreClass="iDSL.ecore#//Output">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute iDSL.ecore#//Output/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute iDSL.ecore#//Output/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference iDSL.ecore#//Output/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="iDSL.ecore#//Connection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute iDSL.ecore#//Connection/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute iDSL.ecore#//Connection/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference iDSL.ecore#//Connection/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="iDSL.ecore#//Data">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference iDSL.ecore#//Data/dataTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference iDSL.ecore#//Data/data"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute iDSL.ecore#//Data/name"/>
+    </genClasses>
+    <genClasses ecoreClass="iDSL.ecore#//DataType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute iDSL.ecore#//DataType/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute iDSL.ecore#//DataType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="iDSL.ecore#//Parameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute iDSL.ecore#//Parameter/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute iDSL.ecore#//Parameter/content"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: n7.intern.v2.xtext.idsl
+Bundle-ManifestVersion: 2
+Bundle-Name: n7.intern.v2.xtext.idsl
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: n7.intern.v2.xtext.idsl; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: n7.intern.v2.iDSL,
+ org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: n7.intern.v2.xtext.scoping,
+ n7.intern.v2.xtext,
+ n7.intern.v2.xtext.formatting2,
+ n7.intern.v2.xtext.parser.antlr.internal,
+ n7.intern.v2.xtext.services,
+ n7.intern.v2.xtext.parser.antlr,
+ n7.intern.v2.xtext.validation,
+ n7.intern.v2.xtext.generator,
+ n7.intern.v2.xtext.serializer
+Import-Package: org.apache.log4j

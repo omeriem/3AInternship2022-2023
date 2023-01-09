@@ -1,0 +1,75 @@
+<IoTFramework>
+	test_iDSL
+	<description>'description'</description>
+	<DataProvider>
+		ECGdevice
+		<samplingRate>1024</samplingRate> 
+		<data>
+			ecgSignalWindow 
+			<dataComponent>period<type>int</type></dataComponent>
+			<dataComponent>duration<type>int</type></dataComponent>
+			<dataComponent> monitor_clock_ecg <type> long </type> </dataComponent>
+			<data> 
+				ecgSignal
+				<dataComponent>timestamp<type>long</type> </dataComponent>
+				<dataComponent>value<type>double</type> </dataComponent>
+			</data>
+		</data>
+		<Connection> 
+			Bluetooth_ecg 
+			<description>'ecg_bluetooth_socket_connection'</description> 
+			<parameter>MAC<content>'aa:12:34:aa:12:34'</content></parameter>
+			<parameter>IP_address<content>'localhost'</content></parameter>
+			<parameter>port<content>'12345'</content></parameter>
+		</Connection>	
+	</DataProvider>
+	
+	
+	<DataProvider>
+		EEGdevice
+		<samplingRate>256</samplingRate> 
+		<data>
+			eegSignalWindow 
+			<dataComponent>period<type>int</type> </dataComponent>
+			<dataComponent>duration<type>int</type> </dataComponent> 
+			<dataComponent> monitor_clock_eeg <type> long </type> </dataComponent>
+			<data> 
+				eegSignal
+				<dataComponent>timestamp<type>long</type> </dataComponent>
+				<dataComponent>value<type>double</type> </dataComponent>
+			</data>
+		</data>
+		<Connection> 
+			Bluetooth_eeg 
+			<description>'eeg dedicate bluetooth socket connection'</description> 
+			<parameter>IP_address<content>'localhost'</content></parameter>
+			<parameter>port<content>'12346'</content></parameter>
+		</Connection>	
+	</DataProvider>
+	
+	
+	<DataProcessor>
+		Synchronizer
+		<samplingRate>2000</samplingRate>
+		<dataProviders>ECGdevice,EEGdevice</dataProviders>
+		<outputs>Console,Database</outputs>
+	</DataProcessor>
+	
+	
+	<Output>
+		Console
+		<description>'display directly'</description>
+	</Output>
+	
+	
+	<Output>
+		Database
+		<description>'output to DB'</description>
+		<parameter>dbName<content>'db'</content></parameter>
+		<parameter>hostname<content>'localhost'</content></parameter>
+		<parameter>port<content>'5555'</content></parameter>
+		<parameter>username<content>'admin'</content></parameter>
+		<parameter>password<content>'123456'</content></parameter>
+	</Output>		
+		
+</IoTFramework>

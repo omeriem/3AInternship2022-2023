@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" name="idsl" version="12.0.0.2017041100">
+  <ownedViewpoints name="idslViewpoint" modelFileExtension="idsl">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="IDSLDiagram" domainClass="iDSL::IoTFramework" enablePopupBars="true">
+      <metamodel href="http://iDSL#/"/>
+      <defaultLayer name="Default">
+        <nodeMappings name="OutputNode" domainClass="iDSL::Output">
+          <style xsi:type="style:EllipseNodeDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="DataProcessorNode" domainClass="iDSL::DataProcessor">
+          <style xsi:type="style:EllipseNodeDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='orange']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="DataProviderNode" domainClass="iDSL::DataProvider">
+          <style xsi:type="style:EllipseNodeDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="ConnectionNode" domainClass="iDSL::Connection">
+          <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_chocolate']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="DataNode" domainClass="iDSL::Data">
+          <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="DataTypeNode" domainClass="iDSL::DataType">
+          <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_yellow']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="ParameterNode" domainClass="iDSL::Parameter">
+          <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_yellow']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="Processor2OutputEdge" sourceMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='DataProcessorNode']" targetMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='OutputNode']" targetFinderExpression="feature:outputs">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="Provider2ProcessorEDGE" sourceMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='DataProcessorNode']" targetMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='DataProviderNode']" targetFinderExpression="feature:dataProviders">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="Provider2ConnectionEdge" sourceMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='DataProviderNode']" targetMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='ConnectionNode']" targetFinderExpression="feature:connections">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="Component2DataEdge" sourceMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='DataProviderNode']" targetMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='DataNode']" targetFinderExpression="feature:data">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="Data2TypeEdge" sourceMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='DataNode']" targetMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='DataTypeNode']" targetFinderExpression="feature:dataTypes">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="Data2DataEdge" sourceMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='DataNode']" targetMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='DataNode']" targetFinderExpression="feature:data">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="Connection2ParameterEdge" sourceMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='ConnectionNode']" targetMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='ParameterNode']" targetFinderExpression="feature:parameters">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="Output2ParameterEdge" sourceMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='OutputNode']" targetMapping="//@ownedViewpoints[name='idslViewpoint']/@ownedRepresentations[name='IDSLDiagram']/@defaultLayer/@nodeMappings[name='ParameterNode']" targetFinderExpression="feature:parameters">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="n7.intern.v2.sirius.design.Services"/>
+  </ownedViewpoints>
+</description:Group>

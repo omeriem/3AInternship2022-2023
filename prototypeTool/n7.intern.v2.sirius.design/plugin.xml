@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+  <extension point="org.eclipse.sirius.componentization">
+    <component class="n7.intern.v2.sirius.design.Activator"
+               id="n7.intern.v2.sirius.design"
+	       name="idsl">
+    </component>
+  </extension>
+</plugin>

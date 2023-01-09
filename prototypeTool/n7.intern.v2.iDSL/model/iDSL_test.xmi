@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iDSL:IoTFramework
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:iDSL="http://iDSL"
+    xsi:schemaLocation="http://iDSL iDSL.ecore"
+    name="test_iDSL">
+  <components
+      xsi:type="iDSL:DataProvider"
+      name="ECGdevice"
+      samplingRate="1024">
+    <data name="ecgSignalWindow">
+      <dataTypes
+          name="duration"
+          type="int"/>
+      <dataTypes
+          name="period"
+          type="int"/>
+      <data
+          name="ecgSignal">
+        <dataTypes
+            name="timestamp"
+            type="long"/>
+        <dataTypes
+            name="value"
+            type="int"/>
+      </data>
+    </data>
+    <connections
+        name="Bluetooth_ecg">
+      <parameters
+          name="MAC"
+          content="aa:00:11:22:33:44"/>
+    </connections>
+  </components>
+  <components
+      xsi:type="iDSL:DataProvider"
+      name="EEGdevice"
+      samplingRate="256">
+    <data name="eegSignalWindow">
+      <dataTypes
+          name="duration"
+          type="int"/>
+      <dataTypes
+          name="period"
+          type="int"/>
+      <data
+          name="eegSignal">
+        <dataTypes
+            name="timestamp"
+            type="long"/>
+        <dataTypes
+            name="counter"
+            type="int"/>
+        <dataTypes
+            name="value"
+            type="double"/>
+      </data>
+    </data>
+    <connections
+        name="Bluetooth_eeg"
+        description="eeg_dedicate_BT"/>
+  </components>
+  <components
+      xsi:type="iDSL:DataProcessor"
+      name="Synchroniser"
+      samplingRate="2000"
+      dataProviders="//@components.0 //@components.1"
+      outputs="//@outputs.0"/>
+  <outputs name="Database"
+      description="Database_test">
+    <parameters
+        name="hostname"
+        content="titi"/>
+    <parameters
+        name="dbName"
+        content="db"/>
+    <parameters
+        name="username"
+        content="admin"/>
+    <parameters
+        name="password"
+        content="123456"/>
+    <parameters
+        name="port"
+        content="5555"/>
+  </outputs>
+</iDSL:IoTFramework>

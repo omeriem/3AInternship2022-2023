@@ -1,0 +1,396 @@
+[comment encoding = UTF-8 /]
+[module toJAVA('http://iDSL')]
+
+
+[template public toJAVA(anIoTFramework : IoTFramework)]
+[comment @main/]
+[let className:String = anIoTFramework.name.toUpperFirst()]
+[file (className.concat('.java'), false, 'UTF-8')]
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+
+
+public class [className/] {
+	private String description = "[anIoTFramework.description/]";
+
+	public static void main(String['[]'/] args) throws InterruptedException {
+	[for (dpc : DataProcessor | anIoTFramework.components)]
+	[dpc.name.toUpperFirst()/] [dpc.name.toLowerFirst()/] = new [dpc.name.toUpperFirst()/]();
+	[dpc.name.toLowerFirst()/].synchronize();
+	[/for]
+	}
+}
+
+[for (dpv : DataProvider | anIoTFramework.components)]
+	
+ class [dpv.name.toUpperFirst()/] extends Thread{
+	private int samplingRate = [dpv.samplingRate/];
+	[for (con : Connection | dpv.connections)]
+	private [con.name.toUpperFirst()/] [con.name.toLowerFirst()/];
+	[/for]
+	[for (data : Data | anIoTFramework.components.data)]
+	private [data.name.toUpperFirst()/] [data.name.toLowerFirst()/];
+	[/for]
+
+	public int getSamplingRate() {
+        return samplingRate;
+    }
+	public long getFirstSignalClock(){
+        return [dpv.data.name.toLowerFirst()/].getSignals().get(0).getTimestamp();
+    }
+
+    public long getFirstMonitorClock(){
+        return [dpv.data.name.toLowerFirst()/].getMonitorClock();
+    }
+
+    public double getOneSignalValue(long timestamp){
+        return [dpv.data.name.toLowerFirst()/].getSpeicifiedSignal(timestamp).getValue();
+    }
+
+    public int getSignalDuration(){
+        return [dpv.data.name.toLowerFirst()/].getDuration();
+    }
+
+    public static final int PORT = 12345;
+    public boolean flag = false;
+	
+	@Override
+    public void run() {
+        super.run();
+        try {
+            ServerSocket serverSocket = new ServerSocket(PORT);
+            while (true) {
+                Socket client = serverSocket.accept();
+                new HandlerThread(client);
+            }
+        } catch (Exception e) {
+            System.out.println("Server exception: " + e.getMessage());
+        }
+    }
+	
+	private class HandlerThread implements Runnable {
+        private Socket socket;
+        public HandlerThread(Socket client) {
+            socket = client;
+            new Thread(this).start();
+        }
+
+        @Override
+        public void run() {
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                [dpv.data.name.toLowerFirst()/] = new [dpv.data.name.toUpperFirst()/]();
+                //monitor's local absolute clock when we received clock_ecg or clock_eeg
+                long monitor_clock_[dpv.data.name.toLowerFirst()/] = 1504;
+                [dpv.data.name.toLowerFirst()/].setMonitorClock(monitor_clock_[dpv.data.name.toLowerFirst()/]);
+                while(true){
+                    String clientInputStr = bufferedReader.readLine();
+                    if(clientInputStr.contains("=")){
+                        String['[]'/] temp;
+                        String delimeter = "=";
+                        temp = clientInputStr.split(delimeter);
+                        if(temp['[0]'/].equals("samplingRate_ecg")){
+                            samplingRate = Integer.parseInt(temp['[1]'/]);
+                        }
+						else if(temp['[0]'/].equals("samplingRate_eeg")){
+                            samplingRate = Integer.parseInt(temp['[1]'/]);
+                        }
+						else if(temp['[0]'/].equals("duration_eeg")){
+                            [dpv.data.name.toLowerFirst()/].setDuration(Integer.parseInt(temp['[1]'/]));
+                        }
+                        else if(temp['[0]'/].equals("duration_ecg")){
+                            [dpv.data.name.toLowerFirst()/].setDuration(Integer.parseInt(temp['[1]'/]));
+                        }
+                        else{
+                            [dpv.data.name.toLowerFirst()/].addSignal(Long.parseLong(temp['[0]'/]), Double.parseDouble(temp['[1]'/]));
+                        }
+                    }
+                    else{
+                        flag = true;
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Server run exception: " + e.getMessage());
+            } finally {
+                if (socket != null) {
+                    try {
+                        socket.close();
+                    } catch (Exception e) {
+                        socket = null;
+                        System.out.println("Server finally exception:" + e.getMessage());
+                    }
+                }
+            }
+        }
+    }
+}
+
+[for (con : Connection | dpv.connections)]
+ class [con.name.toUpperFirst()/] {
+	[ getConParameter (con)/]
+}
+[/for]
+[/for]
+
+
+[for (dpc : DataProcessor | anIoTFramework.components)]
+	
+ class [dpc.name.toUpperFirst()/] {
+	private int samplingRate = [dpc.samplingRate/];
+	[for (dpv : DataProvider | dpc.dataProviders)]
+	private [dpv.name.toUpperFirst()/] [dpv.name.toLowerFirst()/];
+	[/for]
+	[for (out : Output | dpc.outputs)]
+	private static [out.name.toUpperFirst()/] [out.name.toLowerFirst()/];
+	[/for]
+
+	public [dpc.name.toUpperFirst()/](){
+		[for (out : Output | dpc.outputs)]
+		[out.name.toLowerFirst()/] = new [out.name.toUpperFirst()/]();
+		[/for]
+		[for (dpv : DataProvider | dpc.dataProviders)]
+		[dpv.name.toLowerFirst()/] = new [dpv.name.toUpperFirst()/]();
+		[/for]
+    }
+
+	public void synchronize() throws InterruptedException {
+        [for (dpv : DataProvider | dpc.dataProviders)]
+		System.out.println("[dpv.name.toUpperFirst()/] starts...");
+		[dpv.name.toLowerFirst()/].start();
+		[/for]
+		
+        while(true){
+            Thread.sleep(1000);
+			if([for (dpv : DataProvider | dpc.dataProviders) separator('&&')][dpv.name.toLowerFirst()/].flag[/for]){
+                signalsSynchronize();
+				[for (dpv : DataProvider | dpc.dataProviders)]
+				[dpv.name.toLowerFirst()/].flag = false;
+				[/for]                
+            }
+        }
+    }
+
+	private void signalsSynchronize(){
+
+        [for (dpv : DataProvider | dpc.dataProviders)]
+		int samplingRate_[dpv.name.toLowerFirst()/] = [dpv.name.toLowerFirst()/].getSamplingRate();
+		long local_clock_[dpv.name.toLowerFirst()/] = [dpv.name.toLowerFirst()/].getFirstSignalClock();
+		long monitor_clock_[dpv.name.toLowerFirst()/] = [dpv.name.toLowerFirst()/].getFirstMonitorClock();
+		int duration_[dpv.name.toLowerFirst()/] = [dpv.name.toLowerFirst()/].getSignalDuration();
+		[/for]
+
+        long head = findHead(local_clock_eEGdevice,monitor_clock_eEGdevice,samplingRate_eEGdevice,local_clock_eCGdevice,monitor_clock_eCGdevice);
+
+        console.formattedOutput("EEG head", head, "value", eEGdevice.getOneSignalValue(head));
+        console.formattedOutput("ECG clock", local_clock_eCGdevice, "value", eCGdevice.getOneSignalValue(local_clock_eCGdevice));
+
+        console.formattedOutput("After synchronization");
+       console.formattedOutput("EEG");
+
+        for(int i=0;i<samplingRate_eEGdevice*(duration_eCGdevice/1000);i++){
+            console.formattedOutput("time stamp", (head+(1000 / samplingRate_eEGdevice + 1) * i), "value", eEGdevice.getOneSignalValue(head + (1000 / samplingRate_eEGdevice + 1) * i));
+        }
+
+        System.out.println("ECG:");
+        for(int i=0;i<samplingRate_eCGdevice*(duration_eCGdevice/1000);i++){
+            console.formattedOutput("time stamp", (local_clock_eCGdevice+(1000 / samplingRate_eCGdevice + 1) * i), "value", eCGdevice.getOneSignalValue(local_clock_eCGdevice + (1000 / samplingRate_eCGdevice + 1) * i));
+        }
+    }
+
+	private static long findHead(long local_clock_continuous, long monitor_clock_continuous, int samplingRate_continuous, long local_clock_discontinuous, long monitor_clock_discontinuous, int samplingRate_discontinuous){
+
+        console.formattedOutput("local_clock_continuous", local_clock_continuous,
+                "monitor_clock_continuous", monitor_clock_continuous,
+                "samplingRate_continuous", samplingRate_continuous,
+                "local_clock_discontinuous",  local_clock_discontinuous,
+                "monitor_clock_discontinuous", monitor_clock_discontinuous);
+
+        long head = 0;
+
+        int samplingInterval = 1000/samplingRate_continuous + 1;
+
+        int timeDifferenceForward = 0;
+
+        int timeDifferenceBackward = 0;
+
+        long offset_continuous = monitor_clock_continuous - local_clock_continuous;
+
+        long actual_continuous = monitor_clock_discontinuous - offset_continuous;
+
+        while((actual_continuous + timeDifferenceForward - local_clock_continuous) % samplingInterval != 0){
+            timeDifferenceForward++;
+        }
+
+        if(timeDifferenceForward == 0){
+            head = actual_continuous;
+            return head;
+        }
+
+        while((actual_continuous - timeDifferenceBackward - local_clock_continuous) % samplingInterval != 0){
+            timeDifferenceBackward++;
+        }
+
+        if(timeDifferenceForward - timeDifferenceBackward >0){
+            head = actual_continuous-timeDifferenceBackward;
+            console.formattedOutput("time difference", 0-timeDifferenceBackward);
+        }else {
+            head = actual_continuous + timeDifferenceForward;
+            console.formattedOutput("time difference", timeDifferenceForward);
+        }
+
+        return head;
+    }
+	
+}
+
+[/for]
+
+
+
+[for (data : Data | anIoTFramework.components.data)]
+	
+ class [data.name.toUpperFirst()/] {
+
+[for (dat : Data | data.data)]
+private ArrayList<[dat.name.toUpperFirst()/]> signals = new ArrayList<>();
+[/for]
+
+[for (dt : DataType | data.dataTypes)]
+private [dt.type/] [dt.name.toLowerFirst()/] ;
+[/for]
+
+	public ArrayList<[data.data.name.toUpperFirst()/]> getSignals() {
+        return signals;
+    }
+
+    public long getMonitorClock() {
+	[for (dt : DataType | data.dataTypes)]
+	[if (dt.name.contains('monitor'))]
+	return [dt.name.toLowerFirst()/];
+	[/if]
+	[/for]
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setMonitorClock(long MonitorClock) {
+       
+		[for (dt : DataType | data.dataTypes)]
+		[if (dt.name.contains('monitor'))]
+		this.[dt.name.toLowerFirst()/] = MonitorClock;
+		[/if]
+		[/for]
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public [data.data.name.toUpperFirst()/] getSpeicifiedSignal(long timestamp){
+        for([data.data.name.toUpperFirst()/] signal: signals){
+            if(signal.getTimestamp() == timestamp){
+                return signal;
+            }
+        }
+        return null;
+    }
+
+    public void addSignal([for (dt : DataType | data.data.dataTypes) separator(',')][dt.type/] [dt.name.toLowerFirst()/][/for]){
+        signals.add(new [data.data.name.toUpperFirst()/]([for (dt : DataType | data.data.dataTypes) separator(',')][dt.name.toLowerFirst()/][/for]));
+    }
+}
+
+[for (dat : Data | data.data)]
+	
+ class [dat.name.toUpperFirst()/] {
+
+[for (dt : DataType | dat.dataTypes)]
+private [dt.type/] [dt.name.toLowerFirst()/] ;
+[/for]
+
+public [dat.name.toUpperFirst()/]([for (dt : DataType | dat.dataTypes) separator(',')][dt.type/] [dt.name.toLowerFirst()/][/for]){
+        [for (dt : DataType | dat.dataTypes)]
+		this.[dt.name.toLowerFirst()/] =  [dt.name.toLowerFirst()/];
+		[/for]
+    }
+	
+	[for (dt : DataType | dat.dataTypes)]
+		public [dt.type/] get[dt.name.toUpperFirst()/](){
+		return [dt.name.toLowerFirst()/];
+		}
+	[/for]
+
+}
+[/for]
+
+[/for]
+
+
+
+
+[for (out : Output | anIoTFramework.outputs)]
+	
+
+
+ class [out.name.toUpperFirst()/] {
+	private String description = "[out.description/]";
+	[ getOutParameter (out)/]
+	
+[if (out.name.toUpperFirst().equalsIgnoreCase('Console'))]
+	public void formattedOutput(String identifier) {
+        System.out.println(identifier + ": ");
+    }
+
+    public void formattedOutput(String identifier, int value) {
+        System.out.println(identifier + ": " + value);
+    }
+
+    public void formattedOutput(String identifier1, long value1, String identifier2, double value2) {
+        System.out.println(identifier1 + ": " + value1 + ", " + identifier2 + ": " + value2);
+    }
+
+    public void formattedOutput(String identifier1, long value1, String identifier2, long value2,
+                                String identifier3, int value3, String identifier4, long value4,
+                                String identifier5, long value5) {
+        System.out.println(identifier1 + ": " + value1 + ", " + identifier2 + ": " + value2
+                + ", " + identifier3 + ": " + value3 + ", " + identifier4 + ": " + value4
+                + ", " + identifier5 + ": " + value5);
+    }
+[/if]
+}
+
+[/for]
+
+
+
+[/file]
+[/let]
+[/template]
+
+
+
+
+
+[template public getConParameter(conn : Connection)]
+[for (para : Parameter | conn.parameters)]
+private String [para.name /] = "[para.content/]" ; 
+[/for]
+[/template]
+
+[template public getOutParameter(out : Output)]
+[for (para : Parameter | out.parameters)]
+private String [para.name /] = "[para.content/]" ;
+[/for]
+[/template]
+
+
+
+
+
