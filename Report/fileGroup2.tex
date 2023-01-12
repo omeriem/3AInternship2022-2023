@@ -1,0 +1,24 @@
+The different notions of models in AI and MDE brings some difficulty in integrating these two domain together. ML models or techniques as mentioned before are completely distinct than the models used in MDE; one is a statistical model while another is a structural model. Even though the terminology of the model-based ML exists in the domain, this refers to the capability of the models to function without the need of the training datasets. This is contrary to the instance-based models, which requires some part of the observed dataset even once the training phase is done. However, these two terms however seems to have a nuanced notion after the emergence of the term model-based in Infer.Net \cite{inferNet}. The notion model-based ML thereafter can be used to refer to any of these term: instance-based or model based architecture.
+
+As mentioned in \cite{mdApproach}, the notion of models in the Data Analytics and Machine Learning(DAML) community is completely different than the one in Software and System Engineering(SSE). A model in the DAML community is more an abstraction to the values inside the datasets rather than the architecture of the datasets itself. For example, a statistical model in DAML is a model defining the probability distribution in the dataset and a feature-based models represents the summarization or the approximation of the data instances. In this Machine Learning era, most of the ML models used : Support Vector Machine(SVM), Artifical Neural Network(ANN), Probabilistic Graphical Models(PGM) or Bayesian Deep Learning are among the models that characterise the observed datas from the analytics perspective. 
+
+The two main principles of MDE is to provide a level of abstraction in order to hide the complexity behind a model and providing a partial or full automation of the transformations needed in the system, such as model-to-text for code generation or model-to-model for transferring current model to another system. These two principles can be found in the existing libraries or frameworks in the ML domain, for example with Tensorflow \cite{tensorflow} which provides a powerful API using advanced implemented technique, Keras \cite{keras} which add another layer of abstraction allowing the use of the APIs of Tensorflow and other API frameworks e.g. PlaidML \cite{plaidML}, or with the workflow designers: KNIME \cite{knime} and RapidMiner \cite{rapidminer} and visualization toolkits: TensorBoard \cite{tensorboard}, which allows a graphical user interface instead of using code. 
+However, these libraries or frameworks are not conformed to the holistic approach introduced in MDSE, where the models need to also includes the information about the entire application, and the code generation should be able to generate the software implementation with the code.
+
+Moreover, the abstraction of the functionalities of these frameworks and libraries are further explored by the idea of Model-Interchange Formats, e.g. Predictive Model Language(PMML) \cite{pmml}, Portable Format for Analytics(PFA) \cite{pfa} and Open Neural Network Exchange(ONNX) \cite{onnx}. The code generation of a ML models are also explored by the Infer.Net \cite{inferNet} by using the PGMs as a MDSE model therefore allowing a whole software implementation in C\# from the model. However, as Infer.Net only use PGMS as its source, there may be shortcomings in terms of expressiveness for the whole software system. The approach by ML-Quadrat \cite{mdApproach}, \cite{ThingML}, based on ThingML(a modelling language specifically for Internet of Things (IoT)) is the nearest technology found to be implementing the holistic nature of the MDSE. This technology are looking forward to create a synergy between the two different notion of models, allowing a more seamless model engineering in these two domains.
+
+% Please add the following required packages to your document preamble:
+\begin{table}[]
+\begin{adjustbox}{width=\columnwidth,center}
+\begin{tabular}{@{}|l|l|l|l|l|@{}}
+\toprule
+Description                    & Technologies            & Full-code generation      & DAML-support              & Model Type           \\ \midrule
+ML libraries \& frameworks     & TensorFlow, Keras, etc. &                           & \ding{51} & DAML models          \\ \midrule
+DAML workflow designers        & KNIME, RapidMiner, etc. &                           & \ding{51} & DAML models          \\ \midrule
+Model Interchange Formats(MIF) & PMML,PFA,ONNX           &                           & \ding{51} & DAML models          \\ \midrule
+'Model-based' ML               & Infer.Net               & \ding{51} & \ding{51} & SE \& ML(PGM) models \\ \midrule
+MDE4IOT + ML                   & ML-Quadrat              & \ding{51} & \ding{51} & SE \& DAML models    \\ \bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{\label{MDE4AI-table}Comparison in features provided by each related works mentioned.}
+\end{table}
