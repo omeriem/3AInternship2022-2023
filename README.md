@@ -9,7 +9,7 @@ The week (from November, monday december 16th to december 23th) : ?
 1- Finish the background section : check the outline.txt file added here in the git for guidelins !
 2- As I asked you during our last meeting, in the background section keep only the general definitions and move the background paragraphs in the state of the art section and rewrite them as stated in the outline file.
 3- Continue State-of-the-Art Section (Section 3)
-4- Apply all comments from the report-guidelines files on the git!
+4- Apply all comments from the report-outline files on the git!
 5- Prepare two presentations : the first by Subhi and the second by William.
 6- Check both the EMF framework and the paper we published in idsl. 
 
@@ -19,7 +19,7 @@ The week (from November, monday January 9th to January 16th) : ?
 1- Finish the background section : check the outline.txt file added here in the git for guidelins !
 2- As I asked you during our last meeting, in the background section keep only the general definitions and move the background paragraphs in the state of the art section and rewrite them as stated in the outline file.
 3- Continue State-of-the-Art Section (Section 3)
-4- Apply all comments from the report-guidelines files on the git!
+4- Apply all comments from the report-outline files on the git!
 5- Prepare two presentations : the first by Subhi and the second by William.
 6- Check both the EMF framework and the paper we published in idsl. 
 
