@@ -11,30 +11,17 @@ In addition to simplifying the development process, MDE and DSLs can also improv
 
 In summary, MDE and DSLs provide a powerful toolset for software development, allowing developers to work at a higher level of abstraction and to focus on the problem domain rather than on the technical details. By using models and domain-specific languages, developers can create more reliable and maintainable software systems that are easier to understand and modify.
 
-\subsection{Domain Specification Language: ECG et EEG}
+\subsection{Domain Specification Language:}
 
-Electrocardiograms (ECG) and Electroencephalograms (EEG) are processes that measure the heart and brain activities respectively using the electrical signals they produce. The correct modeling and treatment of these signals is essential for medical purposes because they are critical for the diagnosis and treatment of diseases. During the following sections, several applications for the treatment and modeling of these signals are going to be shown.
+A Domain Specific Language (DSL) is a computer language that has constructs and notations tailored to a specific application domain \cite{DSL}, contrary to General Purpose Languages (GPLs) which are applicable across several domains. These constructs and notations offer substantial gains in expressiveness, eases the programing understanding and reduces the semantic distance to the domain in question \cite{DSLwhenwhere}. They can also give tools to perform analysis, verification, optimization, and error checking thar GPLs can’t offer to the given domain.
 
-\subsubsection{Changes in Cortical Activity During Real and Imagined Movements: an ERP Studies}
+There are two types of DSLs, internal and external DSLs \cite{usabilityDSL}. Firstly, the internal DSLs which are an extension of core language, usually a GPLs, which offers specific functionalities over the core language syntax.  On the other hand, external DSLs, that are completely independent from the core language, offer their own syntactic and semantic structures, and have their own parser, interpreter, or compiler.
 
-Changes in cortical activities in movement imagination MI (when a person imagines performing a movement) and movement execution ME(when a person actually performs a movement) are similar. There is a similar topology for the activated brain areas for both ME and MI, especially in the collateral motor area of the brain. However contrary to ME, the activation of the motor neurons is insufficient for triggering spinal motor neurons, and therefore the movement is blocked.
+The utilization of DSLs leads to a new paradigm of programing called Language-Oriented programing, in which engineering problems are solved by creating a DSLs that are able to describe the problem and give the solution to it. By creating a new language, the solution will be more reliable, portable, and reusable in other problems of the same domain.
 
-Therefore, MI is very important for the use of prosthetic implants as it activates the motor areas of the brain even when it does not perform an action. Understanding the brain behavior during the MI is important, for this purpose electroencephalogram (EEG) is used, with the intent of recording the brain’s electrical activity and describing it through complex waves.  However, the signals are not-periodical, don't have standardized patterns, and have small voltage amplitudes, which make them easy to be mixed up with noise from exterior factors like heartbeat, muscle movements, and environment. In order to solve this, window functions are used to reduce noise and enhance movement intention signals.
+DSLs can be closely related to MDE. Not only there are some DSLs such as UML and SysML that are used to model systems and from there generate software components through generative programming. But also, DSLs can be themselves artifacts for MDE, as they are metamodels for the domain in question, that describe classes, attributes, datatypes, and their relations. From there, it is possible to adapt this metamodel to specify more refined systems in the domain.
 
-\subsubsection{Window functions}
 
-Window functions are used in signal processing for reducing noise and enhancing the original signal. There are several types of functions, each of them serving different types of signal waves.  For this reason, two studies were made to compare the performance of different window functions over EEG signals.\\
-
-In \textit{Window Function for EEG Power Density Estimation and Its Application in SSVEP Based BCIs} the Rectangle, Hamming, Hann and Triangular functions were compared and the triangular function was the most accurate. Moreover, it was found that the use of a high pass filter enhances the accuracy of the signal produced.\\
-
-On the other hand, in Window Functions Analysis in Filters for EEG Movement Intention Signals Bartlett, Blackman, Hanning, Hamming, Kaiser, Rectangular and Triangular window functions were compared, calculating the euclidean distance of the signal to the simulated signal. It was found that Blackman and Barlett window functions have the highest accuracy describe these signals.
-
-\subsubsection{Formalizing electrocardiogram (ECG) signal behavior in event-B}
-
-As the electrocardiogram is a process for measuring the heart's electrical signals, it is used for medical examinations to evaluate several medical conditions. This makes the treatment of ECG signals critical in situations like a stroke, where the medical response needs to be urgent. For this reason, its treatment needs to be done in real-time. This study implements a real-time monitoring system, using LabView, a medical laboratory toolkit, to treat the heartbeat signals by reducing noise, and when an anomaly is found an SMS is sent to a designated doctor.
-
-\subsubsection{Development of real-time ECG signal monitoring system for telemedicine application}
-There is a lack of formal specification of the interpretation of these signals. This study proposes a model in Event-B, a language for specifying and verifying complex systems using proof. The three stages in which a heartbeat produces signals depolarization were modeled, namely atrial depolarization, ventricular depolarization, and ventricular repolarization, and among them three characteristic waves observable by the ECG P, QRS and T. It was constructed using invariants of the heart behavior, which could help identify when a problem is occurring.
 
 
 \subsection{Artificial Intelligence} 
@@ -97,3 +84,28 @@ SystemJ is a system-level programming language which can be used to implements G
 
 Physically Asynchronous Logically Synchronous (PALS) is a architectural pattern that targets the developpement of Distributed Real-Time Systems (DRTS), the key idea of PALS is to reduce the effort of designing, verifying and implementing DRTS. This paper presents a formal method for PALS transformation expressed in Real-Time Maude formal specification language. A bisimulation theorem "showing that the original synchronous design and
 the so-called stable states of the corresponding PALS asynchronous design constitute bisimilar systems, and two further generalizations of such a theorem" and An avionics case study illustrating the usefulness of the PALS patern for formal verification purposes.
+
+\subsection{EEG}
+
+EEG is a medical imaging technique that records the brain’s electrical activity and describes it through complex waves.  This technique utilices electrodes over the head surface in order to record the electrical activity. When a neuron activates it generates a difference in the potential between the somma (body of the neuron), and its dendrites, this potential is then recorded in the electrode commonly in the form of a sinusoidal wave \cite{EEGfundamentals}. Electrodes are put in various regions of the brain each of one recording the behavior of a local region. The signals obtained by the electrodes are amplified, transformed to the power spectrum using the FFT and rendered into either representations of the wave or brain imagery (MRI).
+
+Elements like the frequency, the amplitude, and latency the spikes or special patterns  are measured  in order to detect anomalies in the brain activity. For this reason, this technique can reflect both normal and abnormal electrical activity of the brain, which makes it a valuable asset in the field of neurology and clinical treatments. 
+
+However, as the EEG is very sensitive to noises, such as breathing, physical movements and other electrical waves occurring in the brain. In order to reduce this noise, window functions are used. In \cite{EEGwindowfunc1} and \cite{EEGwindowfunc3} the performance of several windows functions are compared. In \cite{EEGwindowfunc1} the Rectangle, Hamming, Hann and Triangular functions were compared and the triangular function was the most accurate. On the other hand, in \cite{EEGwindowfunc2} Bartlett, Blackman, Hanning, Hamming, Kaiser, Rectangular and Triangular window functions were compared, calculating the euclidean distance of the signal to the simulated signal. It was found that Blackman and Barlett window functions have the highest accuracy describe these signals.
+
+Moreover, \cite{EEGwindowfunc1} shows that the use of a high pass filter enhances the accuracy of the signal produced.
+
+\subsection{ECG}
+The Electrocardiogram (ECG) is a medical technique for measuring the heart's electrical signals detected by sensors on the body of the patient. Although the heart system has unpredictable behaviors, the signal produced in the electrical activity of the heart can be represented by certain patterns  as shown in the figure 1. The heartbeat has 3 phases: the first one is the activation of the atria letting the blood flow in, which generates the characteristic P wave. The second one is the activation of the ventricle in which the ventricle depolarizes, producing the QRS wave. Finally, the recovery phase where the ventricle depolarizes, the muscle relaxes  and the T wave is produced. There are also flat signals that represent the interval between these waves. 
+\begin{center}
+\includegraphics[scale=0.5]{images/ECG.png}
+\\Figure 1. ECG waves specification
+\\Source: Adapted from \cite{ECGEventB}
+\end{center}
+
+
+The overall processing of the ECG waves consists of capturing the signals from the sensors, de-noising them, detecting the QRS patterns to detect the heartbeat from them, and finally delineating the wave \cite{ECGsignalprocc}.
+As in the EEG, ECGs muscle movements, power line interference (PLI), baseline wandering (BW), and motion artifacts (MA) are factors that create noise and prevent the signal from being correclty analysed. For this reason window functions are used to modify the impulse response of the FIR filters in order to reduce the noise.  After having the signal proccessed, the frequency, the distance, the skewness and the existence of the above resulting waves reveal important facts of the heart condition.
+
+
+As it is used for medical examinations to evaluate several medical conditions, which make the treatment of ECG signals critical in situations like a stroke. For this reason, its treatment needs to be done in real time. The study made in \cite{ECGsyc} implements a real time monitoring system, using LabView, a medical laboratory toolkit, to treat the heartbeat signals reducing noise and when an anomaly is found an SMS is sent to a designated doctor.
