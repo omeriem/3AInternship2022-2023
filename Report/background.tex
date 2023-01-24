@@ -66,24 +66,40 @@ The different notions of models in AI and MDE also brings some difficulty in int
 
 \subsection{GALS \& Clock Synchronisation}
 
-\subsubsection{Globally-asynchronous locally-synchronous systems}
+\subsubsection{Signal synchronization}
 
-Synchrounous systems are systems which "each of its components receive a common periodic signal (clock) that is used to control its operation and its interaction with other components". Synchrounous systems are not efficient when its internal components are not tied to the same clock. A solution is to blend asynchronous solutions with synchronous solutions, this is the purpose of this paper which aim to present globally-asynchronous locally-synchronous systems, introduced  as an optimum middle between synchrounous and asynchrounous systems and as a solution to implement multiclocks systems. The Chapter 2 of this paper provide background on synchronization and asynchrounous communication protocol. Chapter 3 discusses the reasons that led to the GALS approach. Chapter 4 is about the class of "unsynchronous" machines and how they are constructed. Chapter 5 is about the class of "escapement" machines and presents algorithms to verify their value-safety.
+\paragraph{Reactive system} Reactive systems are systems that are continuously interacting with the exteral environnement, waiting from outside activation in order to react. "The environment can be some physical devices to be controlled, a human operator, or other reactive systems. These systems receive from the environment input events, and compute the output information, which are finally returned to the environment."\cite{SignalPaper}
 
+\begin{figure}[H]
+\centering
+\includegraphics{reactive-system}
+\end{figure}
 
-\subsubsection{The ESTEREL language}
+The arrival time of events may be different, and the computation needs time. Therefore, it is necessary to follow a correct methodology to implement a reactive system, for example by using synchronization  (synchronous methods), asynchronization (asynchronous methods), or both (GALS are an example).
 
-ESTEREL is a synchrounous programming language for the developpement of reactive synchronous parralel systems. A reactive system which is continuously interacting with the exteral environnement, continously waiting from outside activation in order to react. An ESTEREL program can be viewed as a specification since it is a set of rules, each rule describe which signal is awaited and how the system will react on activation. ESTEREL programs have formal and mathemical semantics described in this paper. This paper also describe how ESTEREL is implemented.
+\paragraph{Synchronous method} A way to make programs for reactive system is using synchronous methods. "Synchronous method is an important choice to design these systems, which relies on the synchronous hypothesis. Firstly, the computation time is abstracted as zero, that lets system behaviours be divided into a discrete sequence of instants. At each instant, the system does input-computation output, which takes zero time. Secondly, the different arrival time of events are abstracted as the relative order between events. Even of the physical time is abstracted, the inherent functional properties are not changed, so we can say this method focuses on functional behaviours at a platform-independent level."\cite{SignalPaper} Examples of synchronous languages are : Esterel, Signal, Lustre, which are implementations of the synchronous hypothesis. Synchrounous systems are built using synchronous languages, therefore "each of [the] components of [these systems] receive a common periodic signal (clock) that is used to control its operation and its interaction with other components"\cite{GalsArticle}.
 
+\paragraph{Globally-asynchronous locally-synchronous systems} Synchrounous systems are not efficient when its internal components are not tied to the same clock. A solution is to blend asynchronous solutions with synchronous solutions, this is the purpose of \textit{globally-asynchronous locally-synchronous systems} (GALS), which can be considered  as an optimum middle between synchrounous and asynchrounous systems and as a solution to implement multiclocks systems. 
 
-\subsubsection{SystemJ: A GALS language for system level design}
+\paragraph{Physically Asynchronous Logically Synchronous} An alternative to GALS are Physically Asynchronous Logically Synchronous Systems (PALS), PALS is a architectural pattern that targets the developpement of Distributed Real-Time Systems (DRTS), the key idea of PALS is to reduce the effort of designing, verifying and implementing DRTS. PALS can be transformed to Real-Time Maude formal specification language by using a formal method\cite{PALSPaper}. There is also a bisimulation theorem "showing that the original synchronous design and the so-called stable states of the corresponding PALS asynchronous design constitute bisimilar systems"\cite{PALSPaper}.
 
-SystemJ is a system-level programming language which can be used to implements GALS. Like ESTEREL, SystemJ also targets the synchronous reactive systems. SystemJ programs are "a collection of asynchronous nodes called clock-domains where each clock-domain is a purely synchronous node analogous to a SR program in a language like ESTEREL".
+\paragraph{Comparison between synchronous languages}
 
-\subsubsection{Formalization and Correctness of the PALS Architectural Pattern for Distributed Real-Time Systems}
+The following table compare each synchronous language with a set of specifications. All of these languages can be used to build both synchronous system and GALS.
 
-Physically Asynchronous Logically Synchronous (PALS) is a architectural pattern that targets the developpement of Distributed Real-Time Systems (DRTS), the key idea of PALS is to reduce the effort of designing, verifying and implementing DRTS. This paper presents a formal method for PALS transformation expressed in Real-Time Maude formal specification language. A bisimulation theorem "showing that the original synchronous design and
-the so-called stable states of the corresponding PALS asynchronous design constitute bisimilar systems, and two further generalizations of such a theorem" and An avionics case study illustrating the usefulness of the PALS patern for formal verification purposes.
+\begin{table}[H]
+\begin{adjustbox}{width=\columnwidth,center}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+\hline
+        & Specification language & Programming approach                                                               & Language of compilation & Compile to f. state-machine & Formal semantic & Formal verification & Multi clock \\ \hline
+Esterel & Yes                    & Imperative, set of rules                                                           & C                       & Yes                         & Yes             & Yes                 & No          \\ \hline
+Signal  & Yes                    & Declarative, data flow                                                             & ?                       & ?                           & Yes             & Yes                 & No?         \\ \hline
+Lustre  & Yes                    & \begin{tabular}[c]{@{}l@{}}Declarative, data flow,\\ set of equations\end{tabular} & C                       & Yes                         & Yes             & Yes                 & Yes         \\ \hline
+SystemJ & Yes                    & Declarative, data flow                                                             & Java                    & No?                         & Yes             & Yes                 & Yes         \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
 
 \subsection{EEG}
 
