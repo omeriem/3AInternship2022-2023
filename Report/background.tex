@@ -85,13 +85,82 @@ SystemJ is a system-level programming language which can be used to implements G
 Physically Asynchronous Logically Synchronous (PALS) is a architectural pattern that targets the developpement of Distributed Real-Time Systems (DRTS), the key idea of PALS is to reduce the effort of designing, verifying and implementing DRTS. This paper presents a formal method for PALS transformation expressed in Real-Time Maude formal specification language. A bisimulation theorem "showing that the original synchronous design and
 the so-called stable states of the corresponding PALS asynchronous design constitute bisimilar systems, and two further generalizations of such a theorem" and An avionics case study illustrating the usefulness of the PALS patern for formal verification purposes.
 
+\subsection{Signal proccesing}
+
+A signal can be defined as “a formal description of a phenomenon evolving over time or space”[1], they convey physical information. Signal processing is any action that modifies, analyses or manipulates the information there represented. 
+
+\subsubsection{LTI Systems}
+Digital signals are often represented as Linear Time-Invariant (LTI) systems, which map a sequence x(n) into an output sequence y(n) = T\{x(n)\}, being T{} the operator that maps the input to the output sequence. LTI systems follow two principles: linearity and time-invariance. Linearity supposes that if the input of the system is a linear combination of multiple signals, then the output constitutes the linear combination of the transformation of these individual signals as it follows:
+
+
+$$T\{ax_1(n) + bx_2(n)\} = aT\{x_1(n)\} + bT\{x_2(n)\}$$
+
+They are also time invariant, which means that the output of the impulse does not depend on when it was applied, this also means  that given an input and an output, it  the input is given whit a certain shifting, then the output will be equally shifted:
+
+$$y(n) = T\{x(n)\} \Rightarrow y(n - k) = T\{x(n - k)\}
+$$
+
+\subsubsection{Time and frequency domain}
+Signals can be either represented by their time or frequency domain. In the time domain, the output is expressed as a function of time:
+
+\begin{center}
+\includegraphics[scale = 0.6]
+{images/timedomain.png}\\
+Figure 1. Sigal in time domain
+\end{center}
+
+In the frequency domain, the output is represented as the function of frequency, this is useful to understand in which frequencies lay the signals.
+
+\begin{center}
+\includegraphics[scale = 0.6]
+{images/frequencydomain.png}\\
+Figure 1. Sigal in frequency domain
+\end{center}
+
+
+\subsubsection{Fast Fourier transform}
+
+The Discrete Fourier Transform (DFT) is a convolution operation of a signal. Convolution is a method representing signals by a composition of signals, thus, it helps to understand the nature of the signals by describing the signal in the form of the signals that created it. Then, the DFT operation decomposes the signal in its frequency domain components in discrete values, obtaining the wave in the frequency domain. It can be expressed in the following equation:
+
+$$X(\omega) = \sum_{n = - \infty}^{\infty} x[n]e^{-jwn}$$
+
+where $x[n]$ represents the signal in the time domain, $X(\omega)$ represents the signal in the frequency domain, and $e^{-jwn}$ is a sinusoid in its complex form.
+
+On the other hand, the Inverse Discrete Fourier Transform (IDFT), is an operation that transforms the signal in the frequency domain to the time domain. As the frequency domain is continuous, the operation is done by an integral rather than a sum.
+
+$$ x[n]= \frac{1}{2\pi}\int_{\omega = - \pi}^{\pi} X(\omega)e^{-jwn} dw$$
+
+The DFT and de IDFT are used to transform the signals between the time and frequency domains for their proccesing and analysis.
+
+\subsubsection{Window Functions}
+ There are signals in nature that have a non-integer number of periods, this may be shown as discontinuities in the system on its time domain and, when on this signals the DFT is applied, in the frequency domain may appear frequencies that are not present in the original signal. This phenomenon is called spectral leakage.
+
+ In order to solve spectral leakage window functions are used. Window functions are mathematical functions that are zero outside a chosen interval. They are used to truncate the time of the signal, so that it doesn't cause spectral leakage. The following are some examples of window functions:
+ \begin{center}
+ \includegraphics[scale = 0.2]{images/window_functions.png} \\
+ Figure 3. Window functions
+ \end{center}
+
+In signal processing, window functions are used to reduce spectral leakage and noise from signals.
+
+\subsubsection{Filters}
+
+Filters are functions that truncate an input signal into a desired frequency; they allow specific frequencies to pass, while giving the others 0 values. There are 4 main types of filters: low-pass filters, high-pass filters, bandpass filters, and notches. Low-pass filters let the signals with frequencies lower than a cutoff component pass. On the other hand, high-pass filters let the signals with frequencies higher than a cutoff component pass. The bandpass filter lets the signal whose frequencies lie within a specific interval pass.  Finally, notches are filters that reject signals that are within an interval. The following image shows how the filters work on the frequency domain:
+
+\begin{center}
+    \includegraphics[scale = 1.0]{images/filters.png}\\
+    Figure 5. Filter functions
+\\Source: Adapted from \cite{filterImg}
+\end{center}
+
+As window functions do, filters are used in signal processing in order to reduce noise by filtering undesired signal frequencies.
 \subsection{EEG}
 
 EEG is a medical imaging technique that records the brain’s electrical activity and describes it through complex waves.  This technique utilices electrodes over the head surface in order to record the electrical activity. When a neuron activates it generates a difference in the potential between the somma (body of the neuron), and its dendrites, this potential is then recorded in the electrode commonly in the form of a sinusoidal wave \cite{EEGfundamentals}. Electrodes are put in various regions of the brain each of one recording the behavior of a local region. The signals obtained by the electrodes are amplified, transformed to the power spectrum using the FFT and rendered into either representations of the wave or brain imagery (MRI).
 
 Elements like the frequency, the amplitude, and latency the spikes or special patterns  are measured  in order to detect anomalies in the brain activity. For this reason, this technique can reflect both normal and abnormal electrical activity of the brain, which makes it a valuable asset in the field of neurology and clinical treatments. 
 
-However, as the EEG is very sensitive to noises, such as breathing, physical movements and other electrical waves occurring in the brain. In order to reduce this noise, window functions are used. In \cite{EEGwindowfunc1} and \cite{EEGwindowfunc3} the performance of several windows functions are compared. In \cite{EEGwindowfunc1} the Rectangle, Hamming, Hann and Triangular functions were compared and the triangular function was the most accurate. On the other hand, in \cite{EEGwindowfunc2} Bartlett, Blackman, Hanning, Hamming, Kaiser, Rectangular and Triangular window functions were compared, calculating the euclidean distance of the signal to the simulated signal. It was found that Blackman and Barlett window functions have the highest accuracy describe these signals.
+However, as the EEG is very sensitive to noises, such as breathing, physical movements and other electrical waves occurring in the brain. In order to reduce this noise, window functions are used. In \cite{EEGwindowfunc1} and \cite{EEGwindowfunc2} the performance of several windows functions are compared. In \cite{EEGwindowfunc1} the Rectangle, Hamming, Hann and Triangular functions were compared and the triangular function was the most accurate. On the other hand, in \cite{EEGwindowfunc2} Bartlett, Blackman, Hanning, Hamming, Kaiser, Rectangular and Triangular window functions were compared, calculating the euclidean distance of the signal to the simulated signal. It was found that Blackman and Barlett window functions have the highest accuracy describe these signals.
 
 Moreover, \cite{EEGwindowfunc1} shows that the use of a high pass filter enhances the accuracy of the signal produced.
 
@@ -99,7 +168,7 @@ Moreover, \cite{EEGwindowfunc1} shows that the use of a high pass filter enhance
 The Electrocardiogram (ECG) is a medical technique for measuring the heart's electrical signals detected by sensors on the body of the patient. Although the heart system has unpredictable behaviors, the signal produced in the electrical activity of the heart can be represented by certain patterns  as shown in the figure 1. The heartbeat has 3 phases: the first one is the activation of the atria letting the blood flow in, which generates the characteristic P wave. The second one is the activation of the ventricle in which the ventricle depolarizes, producing the QRS wave. Finally, the recovery phase where the ventricle depolarizes, the muscle relaxes  and the T wave is produced. There are also flat signals that represent the interval between these waves. 
 \begin{center}
 \includegraphics[scale=0.5]{images/ECG.png}
-\\Figure 1. ECG waves specification
+\\Figure 5. ECG waves specification
 \\Source: Adapted from \cite{ECGEventB}
 \end{center}
 
