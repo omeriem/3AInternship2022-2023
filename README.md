@@ -2,16 +2,18 @@
 
 TODO : 
 
+----------------------------------------week 9-------------------------------------------------------- 
+- 1- Finish the background section 2.7 : check the ReportOutline.txt file. For any exsisting work, you have to distinguish three points : good, limits, tools wrt. our approach. 
 
 ----------------------------------------week 8-------------------------------------------------------- 
 
 The week (from November, monday January 16th to december 23th) : 
 - 1- Finish the background section : check the outline.txt file added here in the git for guidelins !
 - 2- As I asked you during our last meeting, in the background section keep only the general definitions and move the background paragraphs in the state of the art section and rewrite them as stated in the outline file.
-- 3- Continue State-of-the-Art Section (Section 3)
+- 3- Continue State-of-the-Art Section (Section 3). stand-by!
 - 4- Apply all comments from the report-outline files on the git!
-- 5- Prepare two presentations : the first by Subhi and the second by William.
-- 6- Check both the EMF framework and the paper we published in idsl. 
+- 5- Prepare two presentations : the first by Subhi and the second by William. Done!
+- 6- Check both the EMF framework and the paper we published in idsl. stand-by!
 
 ----------------------------------------week 7-------------------------------------------------------- 
 
