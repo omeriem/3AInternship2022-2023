@@ -64,9 +64,46 @@ The different notions of models in AI and MDE also brings some difficulty in int
       \end{itemize}
   \end{itemize}
 
-\subsection{GALS \& Clock Synchronisation}
 
-\subsubsection{Signal synchronization}
+
+
+\subsection{EEG}
+
+EEG is a medical imaging technique that records the brain’s electrical activity and describes it through complex waves.  This technique utilices electrodes over the head surface in order to record the electrical activity. When a neuron activates it generates a difference in the potential between the somma (body of the neuron), and its dendrites, this potential is then recorded in the electrode commonly in the form of a sinusoidal wave \cite{EEGfundamentals}. Electrodes are put in various regions of the brain each of one recording the behavior of a local region. The signals obtained by the electrodes are amplified, transformed to the power spectrum using the FFT and rendered into either representations of the wave or brain imagery (MRI).
+
+Elements like the frequency, the amplitude, and latency the spikes or special patterns  are measured  in order to detect anomalies in the brain activity. For this reason, this technique can reflect both normal and abnormal electrical activity of the brain, which makes it a valuable asset in the field of neurology and clinical treatments. 
+
+However, as the EEG is very sensitive to noises, such as breathing, physical movements and other electrical waves occurring in the brain. In order to reduce this noise, window functions are used. In \cite{EEGwindowfunc1} and \cite{EEGwindowfunc3} the performance of several windows functions are compared. In \cite{EEGwindowfunc1} the Rectangle, Hamming, Hann and Triangular functions were compared and the triangular function was the most accurate. On the other hand, in \cite{EEGwindowfunc2} Bartlett, Blackman, Hanning, Hamming, Kaiser, Rectangular and Triangular window functions were compared, calculating the euclidean distance of the signal to the simulated signal. It was found that Blackman and Barlett window functions have the highest accuracy describe these signals.
+
+Moreover, \cite{EEGwindowfunc1} shows that the use of a high pass filter enhances the accuracy of the signal produced.
+
+\subsection{ECG}
+The Electrocardiogram (ECG) is a medical technique for measuring the heart's electrical signals detected by sensors on the body of the patient. Although the heart system has unpredictable behaviors, the signal produced in the electrical activity of the heart can be represented by certain patterns  as shown in the figure 1. The heartbeat has 3 phases: the first one is the activation of the atria letting the blood flow in, which generates the characteristic P wave. The second one is the activation of the ventricle in which the ventricle depolarizes, producing the QRS wave. Finally, the recovery phase where the ventricle depolarizes, the muscle relaxes  and the T wave is produced. There are also flat signals that represent the interval between these waves. 
+
+\begin{center}
+\includegraphics[scale=0.5]{images/ECG.png}
+\\Figure 1. ECG waves specification
+\\Source: Adapted from \cite{ECGEventB}
+\end{center}
+
+
+The overall processing of the ECG waves consists of capturing the signals from the sensors, de-noising them, detecting the QRS patterns to detect the heartbeat from them, and finally delineating the wave \cite{ECGsignalprocc}.
+As in the EEG, ECGs muscle movements, power line interference (PLI), baseline wandering (BW), and motion artifacts (MA) are factors that create noise and prevent the signal from being correclty analysed. For this reason window functions are used to modify the impulse response of the FIR filters in order to reduce the noise.  After having the signal proccessed, the frequency, the distance, the skewness and the existence of the above resulting waves reveal important facts of the heart condition.
+
+
+As it is used for medical examinations to evaluate several medical conditions, which make the treatment of ECG signals critical in situations like a stroke. For this reason, its treatment needs to be done in real time. The study made in \cite{ECGsyc} implements a real time monitoring system, using LabView, a medical laboratory toolkit, to treat the heartbeat signals reducing noise and when an anomaly is found an SMS is sent to a designated doctor.
+
+
+\subsection{Signals Synchronisation and Processing}
+
+
+
+
+
+
+\subsubsection{Signals Synchronisation}
+
+GALS \& Clock Synchronisation ??? 
 
 \paragraph{Reactive system} Reactive systems are systems that are continuously interacting with the exteral environnement, waiting from outside activation in order to react. "The environment can be some physical devices to be controlled, a human operator, or other reactive systems. These systems receive from the environment input events, and compute the output information, which are finally returned to the environment."\cite{SignalPaper}
 
@@ -102,28 +139,6 @@ SystemJ & Yes                    & Declarative, data flow                       
 \end{table}
 
 
-\subsection{EEG}
 
-EEG is a medical imaging technique that records the brain’s electrical activity and describes it through complex waves.  This technique utilices electrodes over the head surface in order to record the electrical activity. When a neuron activates it generates a difference in the potential between the somma (body of the neuron), and its dendrites, this potential is then recorded in the electrode commonly in the form of a sinusoidal wave \cite{EEGfundamentals}. Electrodes are put in various regions of the brain each of one recording the behavior of a local region. The signals obtained by the electrodes are amplified, transformed to the power spectrum using the FFT and rendered into either representations of the wave or brain imagery (MRI).
-
-Elements like the frequency, the amplitude, and latency the spikes or special patterns  are measured  in order to detect anomalies in the brain activity. For this reason, this technique can reflect both normal and abnormal electrical activity of the brain, which makes it a valuable asset in the field of neurology and clinical treatments. 
-
-However, as the EEG is very sensitive to noises, such as breathing, physical movements and other electrical waves occurring in the brain. In order to reduce this noise, window functions are used. In \cite{EEGwindowfunc1} and \cite{EEGwindowfunc3} the performance of several windows functions are compared. In \cite{EEGwindowfunc1} the Rectangle, Hamming, Hann and Triangular functions were compared and the triangular function was the most accurate. On the other hand, in \cite{EEGwindowfunc2} Bartlett, Blackman, Hanning, Hamming, Kaiser, Rectangular and Triangular window functions were compared, calculating the euclidean distance of the signal to the simulated signal. It was found that Blackman and Barlett window functions have the highest accuracy describe these signals.
-
-Moreover, \cite{EEGwindowfunc1} shows that the use of a high pass filter enhances the accuracy of the signal produced.
-
-\subsection{ECG}
-The Electrocardiogram (ECG) is a medical technique for measuring the heart's electrical signals detected by sensors on the body of the patient. Although the heart system has unpredictable behaviors, the signal produced in the electrical activity of the heart can be represented by certain patterns  as shown in the figure 1. The heartbeat has 3 phases: the first one is the activation of the atria letting the blood flow in, which generates the characteristic P wave. The second one is the activation of the ventricle in which the ventricle depolarizes, producing the QRS wave. Finally, the recovery phase where the ventricle depolarizes, the muscle relaxes  and the T wave is produced. There are also flat signals that represent the interval between these waves. 
-
-\begin{center}
-\includegraphics[scale=0.5]{images/ECG.png}
-\\Figure 1. ECG waves specification
-\\Source: Adapted from \cite{ECGEventB}
-\end{center}
-
-
-The overall processing of the ECG waves consists of capturing the signals from the sensors, de-noising them, detecting the QRS patterns to detect the heartbeat from them, and finally delineating the wave \cite{ECGsignalprocc}.
-As in the EEG, ECGs muscle movements, power line interference (PLI), baseline wandering (BW), and motion artifacts (MA) are factors that create noise and prevent the signal from being correclty analysed. For this reason window functions are used to modify the impulse response of the FIR filters in order to reduce the noise.  After having the signal proccessed, the frequency, the distance, the skewness and the existence of the above resulting waves reveal important facts of the heart condition.
-
-
-As it is used for medical examinations to evaluate several medical conditions, which make the treatment of ECG signals critical in situations like a stroke. For this reason, its treatment needs to be done in real time. The study made in \cite{ECGsyc} implements a real time monitoring system, using LabView, a medical laboratory toolkit, to treat the heartbeat signals reducing noise and when an anomaly is found an SMS is sent to a designated doctor.
+\subsubsection{Signal Processing}
+TBC!
