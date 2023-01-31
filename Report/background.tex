@@ -103,9 +103,11 @@ As it is used for medical examinations to evaluate several medical conditions, w
 
 \subsubsection{Signals Synchronisation}
 
-GALS \& Clock Synchronisation ??? 
+{\color{red}TODO : You must present ``Clock Synchronisation'' with respect to each method, language, and/or system given bellow.}
 
-\paragraph{Reactive system} Reactive systems are systems that are continuously interacting with the exteral environnement, waiting from outside activation in order to react. "The environment can be some physical devices to be controlled, a human operator, or other reactive systems. These systems receive from the environment input events, and compute the output information, which are finally returned to the environment."\cite{SignalPaper}
+\bigskip
+
+\noindent{\textbf{Reactive Systems.}) Reactive systems are systems that are continuously interacting with the exteral environnement, waiting from outside activation in order to react. "The environment can be some physical devices to be controlled, a human operator, or other reactive systems. These systems receive from the environment input events, and compute the output information, which are finally returned to the environment."\cite{SignalPaper}
 
 \begin{figure}[H]
 \centering
@@ -115,14 +117,17 @@ GALS \& Clock Synchronisation ???
 
 The arrival time of events may be different, and the computation needs time. Therefore, it is necessary to follow a correct methodology to implement a reactive system, for example by using synchronization  (synchronous methods), asynchronization (asynchronous methods), or both (GALS are an example).
 
-\paragraph{Synchronous method} A way to make programs for reactive system is using synchronous methods. "Synchronous method is an important choice to design these systems, which relies on the synchronous hypothesis. Firstly, the computation time is abstracted as zero, that lets system behaviours be divided into a discrete sequence of instants. At each instant, the system does input-computation output, which takes zero time. Secondly, the different arrival time of events are abstracted as the relative order between events. Even of the physical time is abstracted, the inherent functional properties are not changed, so we can say this method focuses on functional behaviours at a platform-independent level."\cite{SignalPaper} Examples of synchronous languages are : Esterel, Signal, Lustre, which are implementations of the synchronous hypothesis. Synchrounous systems are built using synchronous languages, therefore "each of [the] components of [these systems] receive a common periodic signal (clock) that is used to control its operation and its interaction with other components"\cite{GalsArticle}.
+\smallskip
+\noindent{{\textbf{Synchronous Method.}} A way to make programs for reactive system is using synchronous methods. "Synchronous method is an important choice to design these systems, which relies on the synchronous hypothesis. Firstly, the computation time is abstracted as zero, that lets system behaviours be divided into a discrete sequence of instants. At each instant, the system does input-computation output, which takes zero time. Secondly, the different arrival time of events are abstracted as the relative order between events. Even of the physical time is abstracted, the inherent functional properties are not changed, so we can say this method focuses on functional behaviours at a platform-independent level."\cite{SignalPaper} Examples of synchronous languages are : Esterel, Signal, Lustre, which are implementations of the synchronous hypothesis. Synchrounous systems are built using synchronous languages, therefore "each of [the] components of [these systems] receive a common periodic signal (clock) that is used to control its operation and its interaction with other components"\cite{GalsArticle}.
 
-\paragraph{Globally-asynchronous locally-synchronous systems} Synchrounous systems are not efficient when its internal components are not tied to the same clock. A solution is to blend asynchronous solutions with synchronous solutions, this is the purpose of \textit{globally-asynchronous locally-synchronous systems} (GALS), which can be considered  as an optimum middle between synchrounous and asynchrounous systems and as a solution to implement multiclocks systems. 
+\smallskip
+\noindent{{\textbf{Globally-Asynchronous Locally-Synchronous Systems (GALS).}} Synchrounous systems are not efficient when its internal components are not tied to the same clock. A solution is to blend asynchronous solutions with synchronous solutions, this is the purpose of \textit{globally-asynchronous locally-synchronous systems} (GALS), which can be considered  as an optimum middle between synchrounous and asynchrounous systems and as a solution to implement multiclocks systems. 
 
-\paragraph{Physically Asynchronous Logically Synchronous} An alternative to GALS are Physically Asynchronous Logically Synchronous Systems (PALS), PALS is a architectural pattern that targets the developpement of Distributed Real-Time Systems (DRTS), the key idea of PALS is to reduce the effort of designing, verifying and implementing DRTS. PALS can be transformed to Real-Time Maude formal specification language by using a formal method\cite{PALSPaper}. There is also a bisimulation theorem "showing that the original synchronous design and the so-called stable states of the corresponding PALS asynchronous design constitute bisimilar systems"\cite{PALSPaper}.
+\smallskip
+\noindent{{\textbf{Physically Asynchronous Logically Synchronous (PALS).}} An alternative to GALS are Physically Asynchronous Logically Synchronous Systems (PALS), PALS is a architectural pattern that targets the developpement of Distributed Real-Time Systems (DRTS), the key idea of PALS is to reduce the effort of designing, verifying and implementing DRTS. PALS can be transformed to Real-Time Maude formal specification language by using a formal method\cite{PALSPaper}. There is also a bisimulation theorem "showing that the original synchronous design and the so-called stable states of the corresponding PALS asynchronous design constitute bisimilar systems"\cite{PALSPaper}.
 
-\paragraph{Comparison between synchronous languages}
-
+\smallskip
+\noindent{{\textbf{Comparison between synchronous languages.}}
 The following table compare each synchronous language with a set of specifications. All of these languages can be used to build both synchronous system and GALS.
 
 \begin{table}[H]
@@ -136,6 +141,7 @@ Lustre  & Yes                    & \begin{tabular}[c]{@{}l@{}}Declarative, data 
 SystemJ & Yes                    & Declarative, data flow                                                             & Java                    & No?                         & Yes             & Yes                 & Yes         \\ \hline
 \end{tabular}
 \end{adjustbox}
+\caption{\color{red} TODO : Give a caption for this Table!}
 \end{table}
 
 
