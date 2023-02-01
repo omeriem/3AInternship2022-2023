@@ -2,6 +2,15 @@
 
 TODO : 
 
+----------------------------------------week 10-------------------------------------------------------- 
+
+The week (from monday January 30th to Febrary 6th) : 
+- 1- Finish the background section 2.7 : check the ReportOutline.txt file. For any exsisting work, you have to distinguish three points : good, limits, tools wrt. our approach. 
+- 3- Continue State-of-the-Art Section (Section 3). 
+- 4- Check and apply all comments from the report-outline files on the git and those in the main.pdf !
+- 5- Merge your overleaf and github drafts, and share with me your overleaf link. 
+
+
 ----------------------------------------week 9-------------------------------------------------------- 
 The week (from monday January 23th to January 30th) : 
 - 1- Finish the background section 2.7 : check the ReportOutline.txt file. For any exsisting work, you have to distinguish three points : good, limits, tools wrt. our approach. 
