@@ -147,4 +147,141 @@ SystemJ & Yes                    & Declarative, data flow                       
 
 
 \subsubsection{Signal Processing}
-TBC!
+A signal can be defined as “a formal description of a phenomenon evolving over time or space”[1], they convey physical information. Signal processing is any action that modifies, analyses or manipulates the information there represented. 
+
+\paragraph{LTI Systems}
+Digital signals are often represented as Linear Time-Invariant (LTI) systems, which map a sequence x(n) into an output sequence y(n) = T\{x(n)\}, being T{} the operator that maps the input to the output sequence. LTI systems follow two principles: linearity and time-invariance. Linearity supposes that if the input of the system is a linear combination of multiple signals, then the output constitutes the linear combination of the transformation of these individual signals as it follows:
+
+
+$$T\{ax_1(n) + bx_2(n)\} = aT\{x_1(n)\} + bT\{x_2(n)\}$$
+
+They are also time invariant, which means that the output of the impulse does not depend on when it was applied, this also means  that given an input and an output, it  the input is given whit a certain shifting, then the output will be equally shifted:
+
+$$y(n) = T\{x(n)\} \Rightarrow y(n - k) = T\{x(n - k)\}
+$$
+
+\paragraph{Time and frequency domain}
+Signals can be either represented by their time or frequency domain. In the time domain, the output is expressed as a function of time:
+
+\begin{center}
+\includegraphics[scale = 0.6]
+{images/timedomain.png}\\
+Figure 2. Sigal in time domain
+\end{center}
+
+In the frequency domain, the output is represented as the function of frequency, this is useful to understand in which frequencies lay the signals.
+
+\begin{center}
+\includegraphics[scale = 0.6]
+{images/frequencydomain.png}\\
+Figure 3. Sigal in frequency domain
+\end{center}
+
+
+\paragraph{Fast Fourier transform}
+
+The Discrete Fourier Transform (DFT) is a convolution operation of a signal. Convolution is a method representing signals by a composition of signals, thus, it helps to understand their nature by describing them in the form of the signals that created it. Then, the DFT operation decomposes the signal in its frequency domain components in discrete values, obtaining the wave in the frequency domain. It can be expressed in the following equation:
+
+$$X(\omega) = \sum_{n = - \infty}^{\infty} x[n]e^{-jwn}$$
+
+where $x[n]$ represents the signal in the time domain, $X(\omega)$ represents the signal in the frequency domain, and $e^{-jwn}$ is a sinusoid in its complex form.
+
+On the other hand, the Inverse Discrete Fourier Transform (IDFT), is an operation that transforms the signal in the frequency domain to the time domain. As the frequency domain is continuous, the operation is done by an integral rather than a sum.
+
+$$ x[n]= \frac{1}{2\pi}\int_{\omega = - \pi}^{\pi} X(\omega)e^{-jwn} dw$$
+
+The DFT and de IDFT are used to transform the signals between the time and frequency domains for their proccesing and analysis.
+
+\paragraph{Window Functions}
+ There are signals in nature that have a non-integer number of periods, this may be shown as discontinuities in the system on its time domain and, when on this signals the DFT is applied, in the frequency domain may appear frequencies that are not present in the original signal. This phenomenon is called spectral leakage. 
+
+ In order to solve spectral leakage window functions are used. Window functions are mathematical functions that are zero outside a chosen interval. They are multiplied to signal functions, truncating their time interval, so that it doesn't cause spectral leakage.  The following are some examples of window functions:
+\begin{itemize}
+    \item Rectangular Window: is the direct truncation of a signal for an interval $2\tau$:
+
+        \begin{equation*}
+          w[t]=
+        \begin{cases}
+          1  &|t| < \tau \\
+          0  &elsewhere \\
+        \end{cases}
+      \end{equation*}
+  
+ 
+         \begin{center}
+         \includegraphics[scale = 0.4]{images/rectangular.png} \\
+         Figure 4. Rectangular window
+         \end{center}
+
+    \item Triangle Window: is the result of convolving two rectangular windows for a period of time of $2\tau$:
+  
+         \begin{equation*}
+          w[t]=
+        \begin{cases}
+          1 - \frac{|t|}{\tau}  &|t| < \tau \\
+          0  &elsewhere \\
+        \end{cases}
+      \end{equation*}
+  
+ 
+         \begin{center}
+         \includegraphics[scale = 0.4]{images/triangular.png} \\
+         Figure 5. Triangular window
+         \end{center}
+
+     \item Cosine windows: are functions expressed in the form of the sum of cosines
+     with periods of $\frac{\pi}{\tau} $:
+
+
+     \begin{equation*}
+          w[t]=
+        \begin{cases}
+          \sum_{k=0}^{K} a_k*cos(\frac{\pi t k}{\tau})  &|t| < \tau \\
+          0  &elsewhere \\
+        \end{cases}
+      \end{equation*}
+    They are helpful for removing side lobes and adjusting the width of the signal. Two examples of the cosine windows are  the Hann and the Hamming windows. The Hann window can be defined as:
+     \begin{equation*}
+          w[t]=
+        \begin{cases}
+          0.5 - 0.5cos(\frac{\pi t}{\tau})  &|t| < \tau \\
+          0  &elsewhere \\
+        \end{cases}
+      \end{equation*}
+
+
+       \begin{center}
+         \includegraphics[scale = 0.4]{images/hann.png} \\
+         Figure 6. Hann window
+         \end{center}
+
+
+    On the other hand, the Hamming window changes the coefficients and its defined as:
+
+    \begin{equation*}
+          w[t]=
+        \begin{cases}
+          0.54 - 0.46cos(\frac{\pi t}{\tau})  &|t| < \tau \\
+          0  &elsewhere \\
+        \end{cases}
+      \end{equation*}
+
+      \begin{center}
+         \includegraphics[scale = 0.4]{images/hamming.png} \\
+         Figure 7. Hamming window
+         \end{center}
+
+\end{itemize}
+
+
+\paragraph{Filters}
+
+Filters are functions that truncate an input signal into a desired frequency; they allow specific frequencies to pass, while giving the others 0 values. There are 4 main types of filters: low-pass filters, high-pass filters, bandpass filters, and notches. Low-pass filters let the signals with frequencies lower than a cutoff component pass. On the other hand, high-pass filters let the signals with frequencies higher than a cutoff component pass. The bandpass filter lets the signal whose frequencies lie within a specific interval pass.  Finally, notches are filters that reject signals that are within an interval. The following image shows how the filters work on the frequency domain:
+
+\begin{center}
+    \includegraphics[scale = 1.0]{images/filters.png}\\
+    Figure 8. Filter functions
+\\Source: Adapted from \cite{filterImg}
+\end{center}
+
+As window functions do, filters are used in signal processing in order to reduce noise by filtering undesired signal frequencies.
