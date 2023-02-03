@@ -12,6 +12,7 @@ The week (from monday January 30th to Febrary 6th) :
 
 
 ----------------------------------------week 9-------------------------------------------------------- 
+
 The week (from monday January 23th to January 30th) : 
 - 1- Finish the background section 2.7 : check the ReportOutline.txt file. For any exsisting work, you have to distinguish three points : good, limits, tools wrt. our approach. 
 
