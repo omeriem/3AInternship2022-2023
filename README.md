@@ -2,6 +2,14 @@
 
 TODO : 
 
+----------------------------------------week 11-------------------------------------------------------- 
+
+- Finish section 2.7.1
+- Willem write our contribution for synchronisation with the "learning ? component" at the meta-model, and which will instanciated as synchroniser in the model. 
+- Willem suggest to extend the grammar to better user-freindly !
+- Wich formal language ? how to formalise synchronisation ? how to reuse for example window parameters (formally) within IA components ? 
+
+
 ----------------------------------------week 10-------------------------------------------------------- 
 
 The week (from monday January 30th to Febrary 6th) : 
