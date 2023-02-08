@@ -3,6 +3,7 @@
 TODO : 
 
 ----------------------------------------week 11-------------------------------------------------------- 
+- Mohamed Subhi prepare a presentation for meeting on thursday. 
 
 - Finish section 2.7.1
 - Willem write our contribution for synchronisation with the "learning ? component" at the meta-model, and which will instanciated as synchroniser in the model. 
