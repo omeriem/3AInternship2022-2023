@@ -37,32 +37,29 @@ The different notions of models in AI and MDE also brings some difficulty in int
 
 \subsection{IoT Definition : }
 %Do not forget that we are particularly working on IoT domain application and specifically on signal synchronisation for healthcare use case (EEG and ECG).
-  \begin{itemize}
-  
-      \item IOT stands for Internet Of Things, it can be defined as " a self configuring and adaptive system consisting 
+  IOT stands for Internet Of Things, it can be defined as "a self configuring and adaptive system consisting 
       of networks of sensors and smart objects whose purpose is to interconnect ‘all’ things" 
       according to the IEEE Iot Community\cite{buildingIot}.
-      Three general classes for use cases of IOT in healthcare can be defined. They are the purposes for  
-      collecting data : Tracking humans, tracking things and tracking both \cite{buildingIot}.
-
-      \item One important aspect of Iot, especially for healthcare Iots, is clock synchronisation. 
+     
+     One important aspect of Iot, especially for healthcare Iots, is clock synchronisation. 
       A solution for this challenge has been proposed in 2018 \cite{clockIot}:
-      it is called SPoT, it is a packet exchange protocol, and it has advantages in comparison to other standard protocols.
-
-      \item IOT applications\newline
-      \begin{itemize}
-        \item Iot in healthcare domains is widely used, so there is a need for
-        formalizing the way to describe, specify and implement an IOT application \cite{buildingIot}. 
-        There is also a need for an expertise in healthcare domain and         
-        a strong collaboration between engineers and healthcare workers.
-        \item One exemple of an Iot implementation a real-time
-        electrocardiogram (ECG) acquisition application \cite{ecgIot}.
-        \item Finally, the article \cite{yourOwnIot} targets anyone 
+      it is called SPoT, it is a packet exchange protocol, and it has advantages in comparison to other standard protocols. 
+      Moreover, IOT can be made using different hardware or tools. The article \cite{yourOwnIot} targets anyone 
         who wants to make their own iot device by proposing a selection of           
         hardwares, platforms, and programming langages for Iot creation. 
         It compares different aspects such as prices, connectivity or compatibility.
-      \end{itemize}
-  \end{itemize}
+
+      \paragraph{IOT in healthcare domains } is widely used, so there is a need for
+        formalizing the way to describe, specify and implement an IOT application \cite{buildingIot}. 
+        There is also a need for an expertise in healthcare domain and  
+        a strong collaboration between engineers and healthcare workers.
+     Three general classes for use cases of IOT in healthcare can be defined. They are the purposes for  
+      collecting data : Tracking humans, tracking things and tracking both \cite{buildingIot}.
+        
+  
+   One other example of an Iot implementation is a real-time electrocardiogram (ECG) acquisition application \cite{ecgIot}.
+
+
 
 
 
@@ -125,6 +122,56 @@ The arrival time of events may be different, and the computation needs time. The
 
 \smallskip
 \noindent{{\textbf{Physically Asynchronous Logically Synchronous (PALS).}} An alternative to GALS are Physically Asynchronous Logically Synchronous Systems (PALS), PALS is a architectural pattern that targets the developpement of Distributed Real-Time Systems (DRTS), the key idea of PALS is to reduce the effort of designing, verifying and implementing DRTS. PALS can be transformed to Real-Time Maude formal specification language by using a formal method\cite{PALSPaper}. There is also a bisimulation theorem "showing that the original synchronous design and the so-called stable states of the corresponding PALS asynchronous design constitute bisimilar systems"\cite{PALSPaper}.
+
+\paragraph{SystemJ} allows computations on a set of mutually asynchronous and concurrent processus. Each one of these processus perform on their own independent clock, in SystemJ this is called a ClockDomains. A clock domain is composed of a set of signals, channels and synchronous processes called reactions. A reaction is a set of concurrent or sequential  statements operating over signals and channels. A channel is a communication pipe between clock domains. A signal is a dataflow of status and possibly a value. A signal status follows ternary logic : bottom, false, and true and a value can be of any Java  type.
+SystemJ allows several operators for guiding and synchronizing signals, for instance present  that condition an expression over the presence or not of a signal. Some operators and their description are shown in figure … 
+The example below displays a simple SystemJ program used for the synchronization of the emission and reception of a signal between two clock domains.
+
+\begin{tcolorbox}[
+        boxrule=0pt,
+        sharp corners]
+    \begin{verbatim}
+system{ 
+    interface{ 
+        input signal I,I1;
+        output signal O,O1; channel C;
+    }
+    { 
+    //The body of the system
+    { 
+        //First clock-domain 
+        present(I) emit O; 
+        send C(); //synchronizing with the second clock-domain
+    } 
+    > < 
+    { 
+        //Second clock-domain 
+        present(I1) emit O1;
+        receive C; //synchronizing with the first clock-domain 
+    } 
+}
+    \end{verbatim}
+\end{tcolorbox}
+
+\paragraph{Lustre and Signal} 
+These languages are dataflow, meaning that the flow of control depends on the availability of the ressources. SIGNAL and LUSTRE are equational (or have a declarative style) rather than imperative, like ESTEREL. SIGNAL is based on multiple-clocked flows of data and events, which has a  single-clocked design, represented by a totally ordered set of instants. SIGNAL’s compiler calculates the synchronization and the data/control dependencies in a program. It has been proven that Signal is more expressive than Lustre.
+“In Signal language, a signal is a sequence of values of the same type, which are present at
+some instants. The set of instants where a signal is present is the clock of the signal.” \cite{signalTutoring}
+A Signal program is a process, with input and output signals. We can define signals and their clocks, and two signals with the same clock are synchronous signals. However, a Signal program “does not deal with the exact duration between two signals. It only knows the relative order of signals, with the fact they are simultaneous, or not.”\cite{signalTutoring}
+
+\begin{tcolorbox}[
+        boxrule=0pt,
+        sharp corners]
+    \begin{verbatim}
+process PLUS1 =
+    ( ? integer IN;
+    ! integer OUT; )
+(| OUT := IN + 1 |)
+    \end{verbatim}
+\end{tcolorbox}
+
+This short example shows a program in Signal language : the ? symbol indicates the input signal, and the ! symbol indicates the output signal. The equation says that IN and OUT have the same clock, and it has the same meaning than the equation OUT
+ \string ^ = IN, with \string ^ being the clock equality operator. In some programs the clock equality is not straightforward, so the second equation is needed.
 
 \smallskip
 \noindent{{\textbf{Comparison between synchronous languages.}}
