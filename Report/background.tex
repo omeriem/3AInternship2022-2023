@@ -1,0 +1,344 @@
+\subsection{Model Driven Engineering}
+Model-driven engineering (MDE) is a software development approach that focuses on creating and using domain-specific models as the main artifacts for software development. These models are used to represent the different aspects of the software system, such as its functionality, behavior, structure, and data. MDE aims to provide a higher level of abstraction for software development, allowing developers to focus on the problem domain rather than on the technical details of the implementation\cite{methodologyBasedMDE}..
+
+MDE is based on the idea that models can be transformed into different representations, such as code, configuration files, or documentation. This process is supported by model transformation techniques, which are used to transform the models into the desired representations.
+
+One of the main benefits of MDE is that it allows developers to work with domain-specific languages (DSLs). DSLs are specialized languages that are tailored to a particular problem domain. They allow developers to express the concepts and rules of the domain in a more concise and intuitive way, making it easier to understand and manipulate the models.
+There are different types of DSLs, ranging from visual languages \cite{designDSLandIDEforIOTa}, such as UML diagrams, to textual languages, such as regular expressions. Each type of DSL has its own advantages and disadvantages, and the choice of a particular DSL depends on the specific needs of the project.
+
+In addition to simplifying the development process, MDE and DSLs can also improve the quality and maintainability of the software. By using models as the main artifacts, developers can better capture the intended behavior and structure of the system\cite{MDE4IOT}, making it easier to understand and modify the software. This can reduce the number of defects and improve the overall reliability of the system.
+
+In summary, MDE and DSLs provide a powerful toolset for software development, allowing developers to work at a higher level of abstraction and to focus on the problem domain rather than on the technical details. By using models and domain-specific languages, developers can create more reliable and maintainable software systems that are easier to understand and modify.
+
+\subsection{Domain Specification Language:}
+
+A Domain Specific Language (DSL) is a computer language that has constructs and notations tailored to a specific application domain \cite{DSL}, contrary to General Purpose Languages (GPLs) which are applicable across several domains. These constructs and notations offer substantial gains in expressiveness, eases the programing understanding and reduces the semantic distance to the domain in question \cite{DSLwhenwhere}. They can also give tools to perform analysis, verification, optimization, and error checking thar GPLs can’t offer to the given domain.
+
+There are two types of DSLs, internal and external DSLs \cite{usabilityDSL}. Firstly, the internal DSLs which are an extension of core language, usually a GPLs, which offers specific functionalities over the core language syntax.  On the other hand, external DSLs, that are completely independent from the core language, offer their own syntactic and semantic structures, and have their own parser, interpreter, or compiler.
+
+The utilization of DSLs leads to a new paradigm of programing called Language-Oriented programing, in which engineering problems are solved by creating a DSLs that are able to describe the problem and give the solution to it. By creating a new language, the solution will be more reliable, portable, and reusable in other problems of the same domain.
+
+DSLs can be closely related to MDE. Not only there are some DSLs such as UML and SysML that are used to model systems and from there generate software components through generative programming. But also, DSLs can be themselves artifacts for MDE, as they are metamodels for the domain in question, that describe classes, attributes, datatypes, and their relations. From there, it is possible to adapt this metamodel to specify more refined systems in the domain.
+
+
+
+
+\subsection{Artificial Intelligence} 
+Artificial intelligence has been an interesting domain in this era, allowing developers and others to benefit from its capacity. Although this domain is usually vast, its current branch called Machine Learning(ML) has seen a rise in popularity. Machine learning uses statistical modelling and computational learning technology in order to recognise pattern in a given datasets. All the ML existing techniques can be divided into several categories based on its different characteristic: frequency of learning, nature of learning, etc.
+
+For the frequency of learning, we can divide the ML techniques into two categories, online and offline learning. Online Learning uses real time input and output to incrementally modify its state for each observation. However in an offline learning, a batch of this observations are sent to the model from time to time.
+
+Nonetheless, ML techniques can also be recognized from its different nature of learning. In this category, the ML techniques are called supervised and unsupervised learning. A supervised learning differs from unsupervised learning in terms of the pre-recognition of the labels or classed that can be found in the datasets, such as regression or classification. The unsupervised techniques starts the learning process with zero knowledge of the data, constructing the labels in the dataset one step after another, where the clustering technique is the mostly wide used. 
+
+The challenges in using Artificial Intelligence(or more precisely Machine Learning) in Model-Driven Engineering is due to the lack of datasets that the ML models can learn from. Even if the datasets are available, the heterogenous nature of the datasets specifically for the Internet of Things(IoT) technologies are delimiting the application of AI techniques in the domain. The learning granularity of the AI models needs to be fine-grained in order to obtain a more accurate and efficient learning.
+
+The different notions of models in AI and MDE also brings some difficulty in integrating these two domain together. ML models or techniques as mentioned above are completely distinct than the models used in MDE; one is a statistical model while another is a structural model. Various works such as ML-Quadrat are looking forward to create a synergy between this models, allowing a more seamless model engineering in the domain.
+
+\subsection{IoT Definition }
+%Do not forget that we are particularly working on IoT domain application and specifically on signal synchronisation for healthcare use case (EEG and ECG).
+ IOT stands for Internet Of Things, it can be defined as "a self configuring and adaptive system consisting 
+      of networks of sensors and smart objects whose purpose is to interconnect ‘all’ things" 
+      according to the IEEE Iot Community\cite{buildingIot}.
+     
+     One important aspect of Iot, especially for healthcare Iots, is clock synchronisation. 
+      A solution for this challenge has been proposed in 2018 \cite{clockIot}:
+      it is called SPoT, it is a packet exchange protocol, and it has advantages in comparison to other standard protocols. 
+      Moreover, IOT can be made using different hardware or tools. The article \cite{yourOwnIot} targets anyone 
+        who wants to make their own iot device by proposing a selection of           
+        hardwares, platforms, and programming langages for Iot creation. 
+        It compares different aspects such as prices, connectivity or compatibility.
+
+      \paragraph{IOT in healthcare domains } is widely used, so there is a need for
+        formalizing the way to describe, specify and implement an IOT application \cite{buildingIot}. 
+        There is also a need for an expertise in healthcare domain and  
+        a strong collaboration between engineers and healthcare workers.
+     Three general classes for use cases of IOT in healthcare can be defined. They are the purposes for  
+      collecting data : Tracking humans, tracking things and tracking both \cite{buildingIot}.
+        
+  
+   One other example of an Iot implementation is a real-time electrocardiogram (ECG) acquisition application \cite{ecgIot}.
+
+
+\subsection{EEG}
+
+EEG is a medical imaging technique that records the brain’s electrical activity and describes it through complex waves.  This technique utilices electrodes over the head surface in order to record the electrical activity. When a neuron activates it generates a difference in the potential between the somma (body of the neuron), and its dendrites, this potential is then recorded in the electrode commonly in the form of a sinusoidal wave \cite{EEGfundamentals}. Electrodes are put in various regions of the brain each of one recording the behavior of a local region. The signals obtained by the electrodes are amplified, transformed to the power spectrum using the FFT and rendered into either representations of the wave or brain imagery (MRI).
+
+Elements like the frequency, the amplitude, and latency the spikes or special patterns  are measured  in order to detect anomalies in the brain activity. For this reason, this technique can reflect both normal and abnormal electrical activity of the brain, which makes it a valuable asset in the field of neurology and clinical treatments. 
+
+However, as the EEG is very sensitive to noises, such as breathing, physical movements and other electrical waves occurring in the brain. In order to reduce this noise, window functions are used. In \cite{EEGwindowfunc1} and \cite{EEGwindowfunc3} the performance of several windows functions are compared. In \cite{EEGwindowfunc1} the Rectangle, Hamming, Hann and Triangular functions were compared and the triangular function was the most accurate. On the other hand, in \cite{EEGwindowfunc2} Bartlett, Blackman, Hanning, Hamming, Kaiser, Rectangular and Triangular window functions were compared, calculating the euclidean distance of the signal to the simulated signal. It was found that Blackman and Barlett window functions have the highest accuracy describe these signals.
+
+Moreover, \cite{EEGwindowfunc1} shows that the use of a high pass filter enhances the accuracy of the signal produced.
+
+\subsection{ECG}
+The Electrocardiogram (ECG) is a medical technique for measuring the heart's electrical signals detected by sensors on the body of the patient. Although the heart system has unpredictable behaviors, the signal produced in the electrical activity of the heart can be represented by certain patterns  as shown in the figure 1. The heartbeat has 3 phases: the first one is the activation of the atria letting the blood flow in, which generates the characteristic P wave. The second one is the activation of the ventricle in which the ventricle depolarizes, producing the QRS wave. Finally, the recovery phase where the ventricle depolarizes, the muscle relaxes  and the T wave is produced. There are also flat signals that represent the interval between these waves. 
+
+\begin{center}
+\includegraphics[scale=0.5]{images/ECG.png}
+\\Figure 1. ECG waves specification
+\\Source: Adapted from \cite{ECGEventB}
+\end{center}
+
+
+The overall processing of the ECG waves consists of capturing the signals from the sensors, de-noising them, detecting the QRS patterns to detect the heartbeat from them, and finally delineating the wave \cite{ECGsignalprocc}.
+As in the EEG, ECGs muscle movements, power line interference (PLI), baseline wandering (BW), and motion artifacts (MA) are factors that create noise and prevent the signal from being correclty analysed. For this reason window functions are used to modify the impulse response of the FIR filters in order to reduce the noise.  After having the signal proccessed, the frequency, the distance, the skewness and the existence of the above resulting waves reveal important facts of the heart condition.
+
+
+As it is used for medical examinations to evaluate several medical conditions, which make the treatment of ECG signals critical in situations like a stroke. For this reason, its treatment needs to be done in real time. The study made in \cite{ECGsyc} implements a real time monitoring system, using LabView, a medical laboratory toolkit, to treat the heartbeat signals reducing noise and when an anomaly is found an SMS is sent to a designated doctor.
+
+
+\subsection{Signals Synchronisation and Processing}
+
+
+
+
+
+
+\subsubsection{Signals Synchronisation}
+
+{\color{red}TODO : You must present ``Clock Synchronisation'' with respect to each method, language, and/or system given bellow.}
+
+
+In our example, using EEG and ECG, these two signals are synchronous on their own machine (inferring the existence of a local clock in these machines), while sampling an asynchronous data from the source(e.g. a patient). Interpreting these two signals at the same time requires a global synchroniser to prevent inconsistent digital interpretation of these signals. For example, while receiving the signal from ECG, it is possible that receiver has sampled the signal received while the signal is changing. Therefore, the signal received can be digitally undefined thus allowing a dangerous repercussion during a treatment of the patient. The task of the synchroniser is to properly sample the signal sent by these machines, thus "synchronising" the signals received from the two asynchronous signals. \\
+
+The fact of having a synchroniser such as a D flip-flop or an equivalent regenerative circuit has introduced another problem in signal processing. In between of the two stable local minimae(states) in a bistable elements, such as the flip flop, there exists a maximum separating these two states. It is possible, although with a very small probability, that it exists another "state" called the metastable state in the synchroniser, again producing a digitally undefined data. Several studies have shown that the metastability as a problem in synchronizer is a real problem, and it is impossible to escape from.   
+
+\bigskip
+
+\noindent{\textbf{Reactive Systems.} Reactive systems are systems that are continuously interacting with the exteral environnement, waiting from outside activation in order to react. "The environment can be some physical devices to be controlled, a human operator, or other reactive systems. These systems receive from the environment input events, and compute the output information, which are finally returned to the environment."\cite{SignalPaper}
+
+\begin{figure}[H]
+\centering
+\includegraphics{images/reactive-system.png}
+\caption{Reactive Systems. {\color{red}TODO : put the reference for this figure!}}
+\end{figure}
+
+The arrival time of events may be different, and the computation needs time. Therefore, it is necessary to follow a correct methodology to implement a reactive system, for example by using synchronization  (synchronous methods), asynchronization (asynchronous methods), or both (GALS are an example).
+
+\smallskip
+\noindent{{\textbf{Synchronous Method.}} A way to make programs for reactive system is using synchronous methods. "Synchronous method is an important choice to design these systems, which relies on the synchronous hypothesis. Firstly, the computation time is abstracted as zero, that lets system behaviours be divided into a discrete sequence of instants. At each instant, the system does input-computation output, which takes zero time. Secondly, the different arrival time of events are abstracted as the relative order between events. Even of the physical time is abstracted, the inherent functional properties are not changed, so we can say this method focuses on functional behaviours at a platform-independent level."\cite{SignalPaper} Examples of synchronous languages are : Esterel, Signal, Lustre, which are implementations of the synchronous hypothesis and that we will present in a more precise way. Synchrounous systems are built using synchronous languages, therefore "each of [the] components of [these systems] receive a common periodic signal (clock) that is used to control its operation and its interaction with other components"\cite{GalsArticle}.
+
+\smallskip
+\noindent{{\textbf{Globally-Asynchronous Locally-Synchronous Systems (GALS).}} Synchrounous systems are not efficient when its internal components are not tied to the same clock. A solution is to blend asynchronous solutions with synchronous solutions, this is the purpose of \textit{globally-asynchronous locally-synchronous systems} (GALS), which can be considered  as an optimum middle between synchrounous and asynchrounous systems and as a solution to implement multiclocks systems. 
+
+\smallskip
+\noindent{{\textbf{Physically Asynchronous Logically Synchronous (PALS).}} An alternative to GALS are Physically Asynchronous Logically Synchronous Systems (PALS), PALS is a architectural pattern that targets the developpement of Distributed Real-Time Systems (DRTS), the key idea of PALS is to reduce the effort of designing, verifying and implementing DRTS. PALS can be transformed to Real-Time Maude formal specification language by using a formal method\cite{PALSPaper}. There is also a bisimulation theorem "showing that the original synchronous design and the so-called stable states of the corresponding PALS asynchronous design constitute bisimilar systems"\cite{PALSPaper}.
+
+
+\paragraph{SystemJ} \cite{SystemJ} allows computations on a set of mutually asynchronous and concurrent processus. Each one of these processus perform on their own independent clock, in SystemJ this is called a ClockDomains. A clock domain is composed of a set of signals, channels and synchronous processes called reactions. A reaction is a set of concurrent or sequential  statements operating over signals and channels. A channel is a communication pipe between clock domains. A signal is a dataflow of status and possibly a value. A signal status follows ternary logic : bottom, false, and true and a value can be of any Java  type.
+SystemJ allows several operators for guiding and synchronizing signals, for instance present  that condition an expression over the presence or not of a signal. Some operators and their description are shown below\cite{MulticoreSystemJ}:
+
+\begin{center}[H]
+\includegraphics[scale = 0.6]
+{images/SystemJOperators.png}
+\end{center}
+
+The example below displays a simple SystemJ program used for the synchronization of the emission and reception of a signal between two clock domains.
+
+\begin{tcolorbox}[
+        boxrule=0pt,
+        sharp corners]
+    \begin{verbatim}
+system{ 
+    interface{ 
+        input signal I,I1;
+        output signal O,O1; channel C;
+    }
+    { 
+    //The body of the system
+    { 
+        //First clock-domain 
+        present(I) emit O; 
+        send C(); //synchronizing with the second clock-domain
+    } 
+    > < 
+    { 
+        //Second clock-domain 
+        present(I1) emit O1;
+        receive C; //synchronizing with the first clock-domain 
+    } 
+}
+    \end{verbatim}
+\end{tcolorbox}
+
+\paragraph{Lustre and Signal} 
+These languages are dataflow, meaning that the flow of control depends on the availability of the ressources. SIGNAL and LUSTRE are equational (or have a declarative style) rather than imperative, like ESTEREL. SIGNAL is based on multiple-clocked flows of data and events, which has a  single-clocked design, represented by a totally ordered set of instants. SIGNAL’s compiler calculates the synchronization and the data/control dependencies in a program. It has been proven that Signal is more expressive than Lustre.
+“In Signal language, a signal is a sequence of values of the same type, which are present at
+some instants. The set of instants where a signal is present is the clock of the signal.” \cite{signalTutoring}
+A Signal program is a process, with input and output signals. We can define signals and their clocks, and two signals with the same clock are synchronous signals. However, a Signal program “does not deal with the exact duration between two signals. It only knows the relative order of signals, with the fact they are simultaneous, or not.”\cite{signalTutoring}
+
+\begin{tcolorbox}[
+        boxrule=0pt,
+        sharp corners]
+    \begin{verbatim}
+process PLUS1 =
+    ( ? integer IN;
+    ! integer OUT; )
+(| OUT := IN + 1 |)
+    \end{verbatim}
+\end{tcolorbox}
+
+This short example shows a program in Signal language : the ? symbol indicates the input signal, and the ! symbol indicates the output signal. The equation says that IN and OUT have the same clock, and it has the same meaning than the equation OUT
+ \string ^ = IN, with \string ^ being the clock equality operator. In some programs the clock equality is not straightforward, so the second equation is needed.
+
+\smallskip
+\noindent{{\textbf{Comparison between synchronous languages.}}
+The following table compare each synchronous language with a set of specifications. All of these languages can be used to build both synchronous system and GALS. \\ 
+
+Specification language column specify if the synchronous language is used to built formal specifications .i.e set of rules that describe a formal system. Programming approach is the programming paradigm (e.g. declarative, imperative...) and the way the specifications are defined. The language of compilation is the language to which the specification is transformed/compiled. The column "compile to f. state-machine" specifies if the specification can be transformed to a finite state machine (like a Mealy  Machine, used for formal verification), formal semantic and formal verification columns specify if the language is formal i.e. formally defined and mathematically verifiable, the last column "Multi clock" specifies if the language supports Multiclocks.  
+
+\begin{table}[H]
+\begin{adjustbox}{width=\columnwidth,center}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+\hline
+        & Specification language & Programming approach                                                               & Language of compilation & Compile to f. state-machine & Formal semantic & Formal verification & Multi clock \\ \hline
+Esterel & Yes                    & Imperative, set of rules                                                           & C                       & Yes                         & Yes             & Yes                 & No          \\ \hline
+Signal  & Yes                    & Declarative, data flow                                                             & ?                       & ?                           & Yes             & Yes                 & No?         \\ \hline
+Lustre  & Yes                    & \begin{tabular}[c]{@{}l@{}}Declarative, data flow,\\ set of equations\end{tabular} & C                       & Yes                         & Yes             & Yes                 & Yes         \\ \hline
+SystemJ & Yes                    & Declarative, data flow                                                             & Java                    & No?                         & Yes             & Yes                 & Yes         \\ \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Comparion between synchronous languages}
+%\color{red} TODO : Give a caption for this Table!
+\end{table}
+
+
+
+\subsubsection{Signal Processing}
+A signal can be defined as “a formal description of a phenomenon evolving over time or space”[1], they convey physical information. Signal processing is any action that modifies, analyses or manipulates the information there represented. 
+
+\paragraph{LTI Systems}
+Digital signals are often represented as Linear Time-Invariant (LTI) systems, which map a sequence x(n) into an output sequence y(n) = T\{x(n)\}, being T{} the operator that maps the input to the output sequence. LTI systems follow two principles: linearity and time-invariance. Linearity supposes that if the input of the system is a linear combination of multiple signals, then the output constitutes the linear combination of the transformation of these individual signals as it follows:
+
+
+$$T\{ax_1(n) + bx_2(n)\} = aT\{x_1(n)\} + bT\{x_2(n)\}$$
+
+They are also time invariant, which means that the output of the impulse does not depend on when it was applied, this also means  that given an input and an output, it  the input is given whit a certain shifting, then the output will be equally shifted:
+
+$$y(n) = T\{x(n)\} \Rightarrow y(n - k) = T\{x(n - k)\}
+$$
+
+\paragraph{Time and frequency domain}
+Signals can be either represented by their time or frequency domain. In the time domain, the output is expressed as a function of time:
+
+\begin{center}
+\includegraphics[scale = 0.6]
+{images/timedomain.png}\\
+Figure 2. Sigal in time domain
+\end{center}
+
+In the frequency domain, the output is represented as the function of frequency, this is useful to understand in which frequencies lay the signals.
+
+\begin{center}
+\includegraphics[scale = 0.6]
+{images/frequencydomain.png}\\
+Figure 3. Sigal in frequency domain
+\end{center}
+
+
+\paragraph{Fast Fourier transform}
+
+The Discrete Fourier Transform (DFT) is a convolution operation of a signal. Convolution is a method representing signals by a composition of signals, thus, it helps to understand their nature by describing them in the form of the signals that created it. Then, the DFT operation decomposes the signal in its frequency domain components in discrete values, obtaining the wave in the frequency domain. It can be expressed in the following equation:
+
+$$X(\omega) = \sum_{n = - \infty}^{\infty} x[n]e^{-jwn}$$
+
+where $x[n]$ represents the signal in the time domain, $X(\omega)$ represents the signal in the frequency domain, and $e^{-jwn}$ is a sinusoid in its complex form.
+
+On the other hand, the Inverse Discrete Fourier Transform (IDFT), is an operation that transforms the signal in the frequency domain to the time domain. As the frequency domain is continuous, the operation is done by an integral rather than a sum.
+
+$$ x[n]= \frac{1}{2\pi}\int_{\omega = - \pi}^{\pi} X(\omega)e^{-jwn} dw$$
+
+The DFT and de IDFT are used to transform the signals between the time and frequency domains for their proccesing and analysis.
+
+\paragraph{Window Functions}
+ There are signals in nature that have a non-integer number of periods, this may be shown as discontinuities in the system on its time domain and, when on this signals the DFT is applied, in the frequency domain may appear frequencies that are not present in the original signal. This phenomenon is called spectral leakage. 
+
+ In order to solve spectral leakage window functions are used. Window functions are mathematical functions that are zero outside a chosen interval. They are multiplied to signal functions, truncating their time interval, so that it doesn't cause spectral leakage.  The following are some examples of window functions:
+\begin{itemize}
+    \item Rectangular Window: is the direct truncation of a signal for an interval $2\tau$:
+
+        \begin{equation*}
+          w[t]=
+        \begin{cases}
+          1  &|t| < \tau \\
+          0  &elsewhere \\
+        \end{cases}
+      \end{equation*}
+  
+ 
+         \begin{center}
+         \includegraphics[scale = 0.4]{images/rectangular.png} \\
+         Figure 4. Rectangular window
+         \end{center}
+
+    \item Triangle Window: is the result of convolving two rectangular windows for a period of time of $2\tau$:
+  
+         \begin{equation*}
+          w[t]=
+        \begin{cases}
+          1 - \frac{|t|}{\tau}  &|t| < \tau \\
+          0  &elsewhere \\
+        \end{cases}
+      \end{equation*}
+  
+ 
+         \begin{center}
+         \includegraphics[scale = 0.4]{images/triangular.png} \\
+         Figure 5. Triangular window
+         \end{center}
+
+     \item Cosine windows: are functions expressed in the form of the sum of cosines
+     with periods of $\frac{\pi}{\tau} $:
+
+
+     \begin{equation*}
+          w[t]=
+        \begin{cases}
+          \sum_{k=0}^{K} a_k*cos(\frac{\pi t k}{\tau})  &|t| < \tau \\
+          0  &elsewhere \\
+        \end{cases}
+      \end{equation*}
+    They are helpful for removing side lobes and adjusting the width of the signal. Two examples of the cosine windows are  the Hann and the Hamming windows. The Hann window can be defined as:
+     \begin{equation*}
+          w[t]=
+        \begin{cases}
+          0.5 - 0.5cos(\frac{\pi t}{\tau})  &|t| < \tau \\
+          0  &elsewhere \\
+        \end{cases}
+      \end{equation*}
+
+
+       \begin{center}
+         \includegraphics[scale = 0.4]{images/hann.png} \\
+         Figure 6. Hann window
+         \end{center}
+
+
+    On the other hand, the Hamming window changes the coefficients and its defined as:
+
+    \begin{equation*}
+          w[t]=
+        \begin{cases}
+          0.54 - 0.46cos(\frac{\pi t}{\tau})  &|t| < \tau \\
+          0  &elsewhere \\
+        \end{cases}
+      \end{equation*}
+
+      \begin{center}
+         \includegraphics[scale = 0.4]{images/hamming.png} \\
+         Figure 7. Hamming window
+         \end{center}
+
+\end{itemize}
+
+
+\paragraph{Filters}
+
+Filters are functions that truncate an input signal into a desired frequency; they allow specific frequencies to pass, while giving the others 0 values. There are 4 main types of filters: low-pass filters, high-pass filters, bandpass filters, and notches. Low-pass filters let the signals with frequencies lower than a cutoff component pass. On the other hand, high-pass filters let the signals with frequencies higher than a cutoff component pass. The bandpass filter lets the signal whose frequencies lie within a specific interval pass.  Finally, notches are filters that reject signals that are within an interval. The following image shows how the filters work on the frequency domain:
+
+\begin{center}
+    \includegraphics[scale = 1.0]{images/filters.png}\\
+    Figure 8. Filter functions
+\\Source: Adapted from \cite{filterImg}
+\end{center}
+
+As window functions do, filters are used in signal processing in order to reduce noise by filtering undesired signal frequencies.
