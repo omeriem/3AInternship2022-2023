@@ -30,9 +30,6 @@ For the frequency of learning, we can divide the ML techniques into two categori
 
 Nonetheless, ML techniques can also be recognized from its different nature of learning. In this category, the ML techniques are called supervised and unsupervised learning. A supervised learning differs from unsupervised learning in terms of the pre-recognition of the labels or classed that can be found in the datasets, such as regression or classification. The unsupervised techniques starts the learning process with zero knowledge of the data, constructing the labels in the dataset one step after another, where the clustering technique is the mostly wide used. 
 
-The challenges in using Artificial Intelligence(or more precisely Machine Learning) in Model-Driven Engineering is due to the lack of datasets that the ML models can learn from. Even if the datasets are available, the heterogenous nature of the datasets specifically for the Internet of Things(IoT) technologies are delimiting the application of AI techniques in the domain. The learning granularity of the AI models needs to be fine-grained in order to obtain a more accurate and efficient learning.
-
-The different notions of models in AI and MDE also brings some difficulty in integrating these two domain together. ML models or techniques as mentioned above are completely distinct than the models used in MDE; one is a statistical model while another is a structural model. Various works such as ML-Quadrat are looking forward to create a synergy between this models, allowing a more seamless model engineering in the domain.
 
 \subsection{IoT Definition }
 %Do not forget that we are particularly working on IoT domain application and specifically on signal synchronisation for healthcare use case (EEG and ECG).
@@ -48,11 +45,12 @@ The different notions of models in AI and MDE also brings some difficulty in int
         hardwares, platforms, and programming langages for Iot creation. 
         It compares different aspects such as prices, connectivity or compatibility.
 
-      \paragraph{IOT in healthcare domains } is widely used, so there is a need for
+\bigskip
+\noindent\textbf{IoT Application of Healthcare Domains.} is widely used, so there is a need for
         formalizing the way to describe, specify and implement an IOT application \cite{buildingIot}. 
         There is also a need for an expertise in healthcare domain and  
         a strong collaboration between engineers and healthcare workers.
-     Three general classes for use cases of IOT in healthcare can be defined. They are the purposes for  
+     Three general classes for use cases of IoT in healthcare can be defined. They are the purposes for  
       collecting data : Tracking humans, tracking things and tracking both \cite{buildingIot}.
         
   
@@ -90,22 +88,19 @@ As it is used for medical examinations to evaluate several medical conditions, w
 
 
 
-
-
-
 \subsubsection{Signals Synchronisation}
 
 {\color{red}TODO : You must present ``Clock Synchronisation'' with respect to each method, language, and/or system given bellow.}
 
 
-In our example, using EEG and ECG, these two signals are synchronous on their own machine (inferring the existence of a local clock in these machines), while sampling an asynchronous data from the source(e.g. a patient). Interpreting these two signals at the same time requires a global synchroniser to prevent inconsistent digital interpretation of these signals. For example, while receiving the signal from ECG, it is possible that receiver has sampled the signal received while the signal is changing. Therefore, the signal received can be digitally undefined thus allowing a dangerous repercussion during a treatment of the patient. The task of the synchroniser is to properly sample the signal sent by these machines, thus "synchronising" the signals received from the two asynchronous signals. \\
+In our example, using EEG and ECG, these two signals are synchronous on their own machine (inferring the existence of a local clock in these machines), while sampling an asynchronous data from the source(e.g. a patient). Interpreting these two signals at the same time requires a global synchroniser to prevent inconsistent digital interpretation of these signals. For example, while receiving the signal from ECG, it is possible that receiver has sampled the signal received while the signal is changing. Therefore, the signal received can be digitally undefined thus allowing a dangerous repercussion during a treatment of the patient. The task of the synchroniser is to properly sample the signal sent by these machines, thus "synchronising" the signals received from the two asynchronous signals. 
 
 The fact of having a synchroniser such as a D flip-flop\marginpar[left text]{\color{red} Give a reference for D flip-flop!} or an equivalent regenerative circuit has introduced another problem in signal processing. In between of the two stable local minimae(states) in a bistable elements, such as the flip flop, there exists a maximum separating these two states. It is possible, although with a very small probability, that it exists another "state" called the metastable state in the synchroniser, again producing a digitally undefined data. Several studies have shown that the metastability as a problem in synchronizer is a real problem, and it is impossible to escape from.   
 
 \bigskip
-{\color{red} TODO : introduce the following paragraphs ! why are you giving the next paragraphs? }
+{\color{red} TODO : introduce the following paragraphs ! why are you giving the next paragraphs? You have to explain how synchronisation is defined with respect to each of following system/method.}
 
-\noindent{\textbf{Reactive Systems.} Reactive systems are systems that are continuously interacting with the exteral environnement, waiting from outside activation in order to react. "The environment can be some physical devices to be controlled, a human operator, or other reactive systems. These systems receive from the environment input events, and compute the output information, which are finally returned to the environment."\cite{SignalPaper} \marginpar[left text]{\color{red} the reference~\cite{SignalPaper} is missing here !}
+\noindent{\textbf{Reactive Systems.}} Reactive systems are systems that are continuously interacting with the exteral environnement, waiting from outside activation in order to react. "The environment can be some physical devices to be controlled, a human operator, or other reactive systems. These systems receive from the environment input events, and compute the output information, which are finally returned to the environment."\cite{SignalPaper} \marginpar[left text]{\color{red} the reference~\cite{SignalPaper} is missing here !}
 
 \begin{figure}[H]
 \centering
@@ -116,20 +111,23 @@ The fact of having a synchroniser such as a D flip-flop\marginpar[left text]{\co
 The arrival time of events may be different, and the computation needs time. Therefore, it is necessary to follow a correct methodology to implement a reactive system, for example by using synchronization  (synchronous methods), asynchronization (asynchronous methods), or both (GALS are an example).
 
 \bigskip
-\noindent{{\textbf{Synchronous Method.}} A way to make programs for reactive system is using synchronous methods. "Synchronous method is an important choice to design these systems, which relies on the synchronous hypothesis. Firstly, the computation time is abstracted as zero, that lets system behaviours be divided into a discrete sequence of instants. At each instant, the system does input-computation output, which takes zero time. Secondly, the different arrival time of events are abstracted as the relative order between events. Even of the physical time is abstracted, the inherent functional properties are not changed, so we can say this method focuses on functional behaviours at a platform-independent level."\cite{SignalPaper} Examples of synchronous languages are : Esterel, Signal, Lustre, which are implementations of the synchronous hypothesis and that we will present in a more precise way. Synchrounous systems are built using synchronous languages, therefore "each of [the] components of [these systems] receive a common periodic signal (clock) that is used to control its operation and its interaction with other components"\cite{GalsArticle}.
+\noindent\textbf{Synchronous Method.} A way to make programs for reactive system is using synchronous methods. "Synchronous method is an important choice to design these systems, which relies on the synchronous hypothesis. Firstly, the computation time is abstracted as zero, that lets system behaviours be divided into a discrete sequence of instants. At each instant, the system does input-computation output, which takes zero time. Secondly, the different arrival time of events are abstracted as the relative order between events. Even of the physical time is abstracted, the inherent functional properties are not changed, so we can say this method focuses on functional behaviours at a platform-independent level."\cite{SignalPaper} Examples of synchronous languages are : Esterel, Signal, Lustre, which are implementations of the synchronous hypothesis and that we will present in a more precise way. Synchrounous systems are built using synchronous languages, therefore "each of [the] components of [these systems] receive a common periodic signal (clock) that is used to control its operation and its interaction with other components"\cite{GalsArticle}.
 
 \bigskip
-\noindent{{\textbf{Globally-Asynchronous Locally-Synchronous Systems (GALS).}} Synchrounous systems are not efficient when its internal components are not tied to the same clock. A solution is to blend asynchronous solutions with synchronous solutions, this is the purpose of \textit{globally-asynchronous locally-synchronous systems} (GALS), which can be considered  as an optimum middle between synchrounous and asynchrounous systems and as a solution to implement multiclocks systems. 
+\noindent\textbf{Globally-Asynchronous Locally-Synchronous Systems (GALS).} Synchrounous systems are not efficient when its internal components are not tied to the same clock. A solution is to blend asynchronous solutions with synchronous solutions, this is the purpose of \textit{globally-asynchronous locally-synchronous systems} (GALS), which can be considered  as an optimum middle between synchrounous and asynchrounous systems and as a solution to implement multiclocks systems. 
 
 \bigskip
-\noindent{{\textbf{Physically Asynchronous Logically Synchronous (PALS).}} An alternative to GALS are Physically Asynchronous Logically Synchronous Systems (PALS), PALS is a architectural pattern that targets the developpement of Distributed Real-Time Systems (DRTS), the key idea of PALS is to reduce the effort of designing, verifying and implementing DRTS. PALS can be transformed to Real-Time Maude formal specification language by using a formal method~\cite{PALSPaper}\marginpar[left text]{\color{red}You must check all ? references.}. There is also a bisimulation theorem "showing that the original synchronous design and the so-called stable states of the corresponding PALS asynchronous design constitute bisimilar systems"~\cite{PALSPaper}.
+\noindent\textbf{Physically Asynchronous Logically Synchronous (PALS).} An alternative to GALS are Physically Asynchronous Logically Synchronous Systems (PALS), PALS is a architectural pattern that targets the developpement of Distributed Real-Time Systems (DRTS), the key idea of PALS is to reduce the effort of designing, verifying and implementing DRTS. PALS can be transformed to Real-Time Maude formal specification language by using a formal method~\cite{PALSPaper}\marginpar[left text]{\color{red}You must check all "?" references.}. There is also a bisimulation theorem "showing that the original synchronous design and the so-called stable states of the corresponding PALS asynchronous design constitute bisimilar systems"~\cite{PALSPaper}.
 
 
-\paragraph{SystemJ} the work given in~\cite{SystemJ} allows computations on a set of mutually asynchronous and concurrent processus. Each one of these processus perform on their own independent clock, in SystemJ this is called a ClockDomains. A clock domain is composed of a set of signals, channels and synchronous processes called reactions. A reaction is a set of concurrent or sequential  statements operating over signals and channels. A channel is a communication pipe between clock domains. A signal is a dataflow of status and possibly a value. A signal status follows ternary logic : bottom, false, and true and a value can be of any Java  type.
-SystemJ allows several operators for guiding and synchronizing signals, for instance present  that condition an expression over the presence or not of a signal. Some operators and their description are shown below~\cite{MulticoreSystemJ}:
+\bigskip
+\noindent\textbf{SystemJ} the work given in~\cite{SystemJ} allows computations on a set of mutually asynchronous and concurrent process. Each one of these process perform on their own independent clock, in SystemJ this is called a ClockDomains. A clock domain is composed of a set of signals, channels and synchronous processes called reactions. A reaction is a set of concurrent or sequential  statements operating over signals and channels. A channel is a communication pipe between clock domains. A signal is a dataflow of status and possibly a value. A signal status follows ternary logic : bottom, false, and true and a value can be of any Java  type.
+SystemJ allows several operators for guiding and synchronizing signals, for instance present  that condition an expression over the presence or not of a signal. Some operators and their description are shown below~\cite{MulticoreSystemJ} in Figure~\ref{tab:systemJ}:
 
 \begin{figure}[H]
 \includegraphics[width=\textwidth]{images/SystemJOperators.png}
+\caption{SystemJ Grammar}
+\label{tab:systemJ}
 \end{figure}
 
 The example below displays a simple SystemJ program used for the synchronization of the emission and reception of a signal between two clock domains.
@@ -160,6 +158,7 @@ system{
     \end{verbatim}
 \end{tcolorbox}
 
+\bigskip
 \noindent\textbf{Lustre and Signal Languages.} 
 These languages are dataflow, meaning that the flow of control depends on the availability of the ressources. SIGNAL and LUSTRE are equational (or have a declarative style) rather than imperative, like ESTEREL. SIGNAL is based on multiple-clocked flows of data and events, which has a  single-clocked design, represented by a totally ordered set of instants. SIGNAL’s compiler calculates the synchronization and the data/control dependencies in a program. It has been proven that Signal is more expressive than Lustre.
 “In Signal language, a signal is a sequence of values of the same type, which are present at
@@ -178,10 +177,10 @@ process PLUS1 =
 \end{tcolorbox}
 
 This short example shows a program in Signal language : the ? symbol indicates the input signal, and the ! symbol indicates the output signal. The equation says that IN and OUT have the same clock, and it has the same meaning than the equation OUT
- \string ^ = IN, with \string ^ being the clock equality operator. In some programs the clock equality is not straightforward, so the second equation is needed.
+ $\string ^ = IN, with \string ^$ being the clock equality operator. In some programs the clock equality is not straightforward, so the second equation is needed.
 
 \bigskip
-\noindent{\textbf{Comparison between synchronous Languages.}
+\noindent\textbf{Comparison between synchronous Languages.}
 Table~\ref{tab:comp} compares each synchronous language with respect to a set of specifications. All of these languages can be used to build both synchronous systems and GALS. 
 
 Specification language column specify if the synchronous language is used to built formal specifications .i.e set of rules that describe a formal system. Programming approach is the programming paradigm (e.g. declarative, imperative...) and the way the specifications are defined. The language of compilation is the language to which the specification is transformed/compiled. The column "compile to f. state-machine" specifies if the specification can be transformed to a finite state machine (like a Mealy  Machine, used for formal verification), formal semantic and formal verification columns specify if the language is formal i.e. formally defined and mathematically verifiable, the last column "Multi clock" specifies if the language supports Multiclocks.  
@@ -205,7 +204,13 @@ SystemJ & Yes                    & Declarative, data flow                       
 
 
 \subsubsection{Signal Processing}
+\label{sec:signalProcessing}
+
 A signal can be defined as “a formal description of a phenomenon evolving over time or space”[1], they convey physical information. Signal processing is any action that modifies, analyses or manipulates the information there represented. 
+
+
+\bigskip
+{\color{red} TODO : introduce the following paragraphs! what are you presenting? is it about signal processing or signal definition ? }
 
 \paragraph{LTI Systems}
 Digital signals are often represented as Linear Time-Invariant (LTI) systems, which map a sequence x(n) into an output sequence y(n) = T\{x(n)\}, being T{} the operator that maps the input to the output sequence. LTI systems follow two principles: linearity and time-invariance. Linearity supposes that if the input of the system is a linear combination of multiple signals, then the output constitutes the linear combination of the transformation of these individual signals as it follows:
