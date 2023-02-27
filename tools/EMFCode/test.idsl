@@ -1,0 +1,63 @@
+thing EEG {
+	
+	connexion Bluetooth {
+		string mac = "AA:12:34:AA:12:34";
+		char c = 'a';
+	}
+	stream eegSignal of float <100>;
+}
+
+thing ECG {
+	connexion Wifi{
+		string ip = "192.168.123.132";
+	}
+	stream ecgSignal of float <150>;
+}
+
+output Consol {
+	string out = "stdOut";
+}
+
+output Database {
+	string hostname = '';
+	int port = 5000;
+	string password = '';
+	boolean a1 = true;
+}
+
+preprocessor Classifier <Classifier in python>(EEG) : [ stream x of float ] {
+	int k = -10;
+	with{
+		r = Classifier.f(k);
+		out = Classifier.h(data, r);
+	}
+	
+}
+
+processor MlModel <mlp as mlp in python, library2.exemple.library in python> (EEG):[ stream x of float ] {
+	int k = 10;
+	with{
+		r = mlp.f(data, k);
+	}
+}
+
+synchronizer Synchro (EEG,ECG):  [stream x of float ]   {
+	int k = 10;
+}
+
+configuration iotFramework{
+	let eeg a EEG;
+	let ecg a ECG;
+	let console a Consol;
+	let database a Database;
+	let classifiedECG;
+	let cleanEEG;
+	let synchronizedSignals;
+	
+	classifiedECG = process ecg using MlModel;
+	cleanEEG = pre eeg  using Classifier;
+	synchronizedSignals = synchronize classifiedECG, cleanEEG using Synchro;
+
+	console = synchronizedSignals, eeg;
+	database = classifiedECG, synchronizedSignals;
+}
