@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: n7.intern.v3.xtext.domain.ui
+Bundle-ManifestVersion: 2
+Bundle-Name: n7.intern.v3.xtext.domain.ui
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: n7.intern.v3.xtext.domain.ui; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: n7.intern.v3.xtext.domain,
+ n7.intern.v3.xtext.domain.ide,
+ n7.intern.v3.Domain,
+ org.eclipse.xtext.ui,
+ org.eclipse.xtext.ui.shared,
+ org.eclipse.xtext.ui.codetemplates.ui,
+ org.eclipse.ui.editors;bundle-version="3.5.0",
+ org.eclipse.ui.ide;bundle-version="3.5.0",
+ org.eclipse.ui,
+ org.eclipse.compare,
+ org.eclipse.xtext.builder,
+ org.eclipse.xtext.xbase.ui,
+ org.eclipse.xtext.common.types.ui
+Import-Package: org.apache.log4j
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Export-Package: n7.intern.v3.xtext.domain.ui.internal,
+ n7.intern.v3.xtext.domain.ui.contentassist,
+ n7.intern.v3.xtext.domain.ui.quickfix,
+ n7.intern.v3.xtext.domain.ui.editor
+Bundle-Activator: n7.intern.v3.xtext.domain.ui.internal.DomainActivator

@@ -1,0 +1,38 @@
+domain SYNCHRO_INTERPOLATION{
+	setup {
+		@python {
+			>import numpy<
+		}
+	}
+	def F( int,float )  :  int  {
+		LAGRANGE  {
+			@python  {
+				>f1<
+			}
+			@java  {
+				>f1<
+			}
+		}
+		ML  {
+			@python  {
+				>f2<
+			}
+		}
+		LINEAIRE  {
+			@python  {
+				>f2<
+			}
+		}
+	}
+	
+	int nb_voisin {
+		@assign(Interpolation)
+	}
+	
+	F interpolate = F.LINEAIRE {
+		@do(Interpolation) {
+			this(p1,p2)
+		}
+	}
+	
+}

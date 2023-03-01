@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: n7.intern.v3.xtext.domain
+Bundle-ManifestVersion: 2
+Bundle-Name: n7.intern.v3.xtext.domain
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: n7.intern.v3.xtext.domain; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: n7.intern.v3.Domain,
+ org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
+ org.eclipse.xtext.common.types,
+ org.objectweb.asm;bundle-version="[9.4.0,9.5.0)";resolution:=optional
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Export-Package: n7.intern.v3.xtext.domain,
+ n7.intern.v3.xtext.domain.formatting2,
+ n7.intern.v3.xtext.domain.serializer,
+ n7.intern.v3.xtext.domain.services,
+ n7.intern.v3.xtext.domain.validation,
+ n7.intern.v3.xtext.domain.parser.antlr.internal,
+ n7.intern.v3.xtext.domain.generator,
+ n7.intern.v3.xtext.domain.parser.antlr,
+ n7.intern.v3.xtext.domain.scoping
+Import-Package: org.apache.log4j

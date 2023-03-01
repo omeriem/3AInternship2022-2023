@@ -1,0 +1,29 @@
+domain test{
+	setup {
+		@python {
+			> f <
+		}
+	}
+	def F( int,float )  :  int  {
+		F1  {
+			@python  {
+				>dfvdf<
+			}
+		}
+		F2  {
+			@python  {
+				>dfvdf<
+			}
+		}
+	}
+	float a {
+		@assign(Interpolation)
+	}
+	
+	F proc = F.F1 {
+		@do(Interpolation) {
+			this()
+		}
+	}
+	
+}

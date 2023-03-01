@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/n7.intern.v3.Domain/src" modelPluginID="n7.intern.v3.Domain"
+    modelName="Domain" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>Domain.ecore</foreignModel>
+  <genPackages prefix="Domain" disposableProviderFactory="true" ecorePackage="Domain.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Domain.ecore#//Type">
+      <genEnumLiterals ecoreEnumLiteral="Domain.ecore#//Type/string"/>
+      <genEnumLiterals ecoreEnumLiteral="Domain.ecore#//Type/byte"/>
+      <genEnumLiterals ecoreEnumLiteral="Domain.ecore#//Type/short"/>
+      <genEnumLiterals ecoreEnumLiteral="Domain.ecore#//Type/int"/>
+      <genEnumLiterals ecoreEnumLiteral="Domain.ecore#//Type/long"/>
+      <genEnumLiterals ecoreEnumLiteral="Domain.ecore#//Type/float"/>
+      <genEnumLiterals ecoreEnumLiteral="Domain.ecore#//Type/double"/>
+      <genEnumLiterals ecoreEnumLiteral="Domain.ecore#//Type/char"/>
+      <genEnumLiterals ecoreEnumLiteral="Domain.ecore#//Type/boolean"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Domain.ecore#//MarkerID">
+      <genEnumLiterals ecoreEnumLiteral="Domain.ecore#//MarkerID/INTERPOLATION"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Domain.ecore#//Language">
+      <genEnumLiterals ecoreEnumLiteral="Domain.ecore#//Language/python"/>
+      <genEnumLiterals ecoreEnumLiteral="Domain.ecore#//Language/java"/>
+      <genEnumLiterals ecoreEnumLiteral="Domain.ecore#//Language/c"/>
+    </genEnums>
+    <genClasses ecoreClass="Domain.ecore#//DomainFramework">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//DomainFramework/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//DomainFramework/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Domain.ecore#//DomainFramework/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Domain.ecore#//DomainFramework/setups"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Domain.ecore#//DomainFramework/function_definitions"/>
+    </genClasses>
+    <genClasses ecoreClass="Domain.ecore#//Parameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//Parameter/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//Parameter/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//Parameter/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Domain.ecore#//Parameter/function_type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Domain.ecore#//Parameter/markers"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//Parameter/default_value"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Domain.ecore#//Parameter/default_function_value"/>
+    </genClasses>
+    <genClasses ecoreClass="Domain.ecore#//Setup">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Domain.ecore#//Setup/instructions"/>
+    </genClasses>
+    <genClasses ecoreClass="Domain.ecore#//FunctionDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//FunctionDefinition/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//FunctionDefinition/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Domain.ecore#//FunctionDefinition/values"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//FunctionDefinition/inputs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//FunctionDefinition/outputs"/>
+    </genClasses>
+    <genClasses ecoreClass="Domain.ecore#//FunctionValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//FunctionValue/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Domain.ecore#//FunctionValue/instructions"/>
+    </genClasses>
+    <genClasses ecoreClass="Domain.ecore#//Marker">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//Marker/name"/>
+    </genClasses>
+    <genClasses ecoreClass="Domain.ecore#//FunctionMarker">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Domain.ecore#//FunctionMarker/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Domain.ecore#//AssignationMarker"/>
+    <genClasses ecoreClass="Domain.ecore#//SetupBlock">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//SetupBlock/language"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Domain.ecore#//SetupBlock/instructions"/>
+    </genClasses>
+    <genClasses ecoreClass="Domain.ecore#//StringInstruction">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Domain.ecore#//StringInstruction/content"/>
+    </genClasses>
+    <genClasses ecoreClass="Domain.ecore#//FunctionBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute Domain.ecore#//FunctionBlock/parameters"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Domain" nsURI="http://www.example.org/Domain" nsPrefix="Domain">
+  <eAnnotations source="http://www.eclipse.org/OCL/Import">
+    <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="DomainFramework">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//Parameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="setups" upperBound="-1"
+        eType="#//Setup" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="function_definitions" upperBound="-1"
+        eType="#//FunctionDefinition" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//Type"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="function_type" eType="#//FunctionDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="markers" upperBound="-1"
+        eType="#//Marker" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="default_value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="default_function_value"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Type">
+    <eLiterals name="string"/>
+    <eLiterals name="byte" value="1"/>
+    <eLiterals name="short" value="2"/>
+    <eLiterals name="int" value="3"/>
+    <eLiterals name="long" value="4"/>
+    <eLiterals name="float" value="5"/>
+    <eLiterals name="double" value="6"/>
+    <eLiterals name="char" value="7"/>
+    <eLiterals name="boolean" value="8"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Setup">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instructions" upperBound="-1"
+        eType="#//SetupBlock" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FunctionDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
+        eType="#//FunctionValue" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="inputs" upperBound="-1"
+        eType="#//Type"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="outputs" upperBound="-1"
+        eType="#//Type"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FunctionValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instructions" upperBound="-1"
+        eType="#//SetupBlock" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MarkerID">
+    <eLiterals name="INTERPOLATION"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Language">
+    <eLiterals name="python"/>
+    <eLiterals name="java"/>
+    <eLiterals name="c"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Marker">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="#//MarkerID"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FunctionMarker" eSuperTypes="#//Marker">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="block" lowerBound="1" eType="#//FunctionBlock"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssignationMarker" eSuperTypes="#//Marker"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SetupBlock">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" lowerBound="1"
+        eType="#//Language"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instructions" upperBound="-1"
+        eType="#//StringInstruction" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StringInstruction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FunctionBlock">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parameters" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

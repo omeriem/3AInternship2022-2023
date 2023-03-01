@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/n7.intern.v3.feature.domain_1.0.7.202302281123.jar" id="n7.intern.v3.feature.domain" version="1.0.7.202302281123">
+      <category name="IDSLCategory"/>
+   </feature>
+   <feature url="features/n7.intern.v3.feature.domainGrammar_1.0.8.202302281126.jar" id="n7.intern.v3.feature.domainGrammar" version="1.0.8.202302281126">
+      <category name="IDSLCategory"/>
+   </feature>
+   <feature url="features/n7.intern.v3.feature.metamodel_1.3.4.202302281926.jar" id="n7.intern.v3.feature.metamodel" version="1.3.4.202302281926">
+      <category name="IDSLCategory"/>
+   </feature>
+   <feature url="features/n7.intern.v3.feature.grammar_1.3.0.202302281929.jar" id="n7.intern.v3.feature.grammar" version="1.3.0.202302281929">
+      <category name="IDSLCategory"/>
+   </feature>
+   <category-def name="IDSLCategory" label="IDSLCategory"/>
+</site>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="iDSL" nsURI="http://www.example.org/iDSL" nsPrefix="iDSL">
+  <eAnnotations source="http://www.eclipse.org/OCL/Import">
+    <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="IotFramework">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interfacers" upperBound="-1"
+        eType="#//Interfacer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataflows" lowerBound="1"
+        upperBound="-1" eType="#//DataFlow" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataflowdescriptors" upperBound="-1"
+        eType="#//DataFlowDescriptor" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interfacerdescriptors"
+        upperBound="-1" eType="#//InterfacerDescriptor" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataFlowDescriptor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="streamdescriptors" upperBound="-1"
+        eType="#//StreamDescriptor" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//DomainParameter" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StreamDescriptor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="samplingRate" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//Type"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//DomainParameter" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Type">
+    <eLiterals name="string"/>
+    <eLiterals name="byte" value="1"/>
+    <eLiterals name="short" value="2"/>
+    <eLiterals name="int" value="3"/>
+    <eLiterals name="long" value="4"/>
+    <eLiterals name="float" value="5"/>
+    <eLiterals name="double" value="6"/>
+    <eLiterals name="char" value="7"/>
+    <eLiterals name="boolean" value="8"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Thing" eSuperTypes="#//DataFlowDescriptor">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connexions" upperBound="-1"
+        eType="#//Connexion" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataCenter" eSuperTypes="#//DataFlowDescriptor"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Connexion">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//DomainParameter" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Output" eSuperTypes="#//DataCenter"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataHolder" eSuperTypes="#//DataCenter"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataFlow">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="streams" upperBound="-1"
+        eType="#//Stream"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataflowdescriptor" eType="#//DataFlowDescriptor"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Stream">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="streamdescriptors" upperBound="-1"
+        eType="#//StreamDescriptor"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InterfacerDescriptor">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//DomainParameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inputdataflowdescriptors"
+        lowerBound="1" upperBound="-1" eType="#//DataFlowDescriptor"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outputdataflowdescriptors"
+        upperBound="-1" eType="#//DataFlowDescriptor"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="anomynousinputdataflowdescriptors"
+        upperBound="-1" eType="#//DataHolder" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="anomynousoutputdataflowdescriptors"
+        upperBound="-1" eType="#//DataHolder" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SynchronizerDescriptor" eSuperTypes="#//InterfacerDescriptor"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PreProcessorDescriptor" eSuperTypes="#//InterfacerDescriptor"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataProcessorDescriptor" eSuperTypes="#//InterfacerDescriptor"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Interfacer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
+        eType="#//DataFlow"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outputs" upperBound="-1"
+        eType="#//DataFlow"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interfacerdescriptor" eType="#//InterfacerDescriptor"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PreProcessor" eSuperTypes="#//Interfacer"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataProcessor" eSuperTypes="#//Interfacer"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Synchronizer" eSuperTypes="#//Interfacer"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DomainParameter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//Parameter" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Reference">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

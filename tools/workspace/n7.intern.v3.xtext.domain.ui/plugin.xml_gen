@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+	<extension
+		point="org.eclipse.ui.editors">
+		<editor
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+			contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+			default="true"
+			extensions="dom"
+			id="n7.intern.v3.xtext.domain.Domain"
+			matchingStrategy="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.editor.JavaEditorInputMatcher"
+			name="Domain Editor">
+		</editor>
+	</extension>
+	<extension
+		point="org.eclipse.ui.handlers">
+		<handler
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
+			commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
+			<activeWhen>
+				<reference
+					definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+		<handler
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
+			commandId="n7.intern.v3.xtext.domain.Domain.validate">
+			<activeWhen>
+				<reference
+					definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+		<!-- copy qualified name -->
+		<handler
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedNameHandler"
+			commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName">
+			<activeWhen>
+				<reference definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened" />
+			</activeWhen>
+		</handler>
+		<handler
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedNameHandler"
+			commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName">
+			<activeWhen>
+				<and>
+					<reference definitionId="n7.intern.v3.xtext.domain.Domain.XtextEditor.opened" />
+					<iterate>
+						<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+					</iterate>
+				</and>
+			</activeWhen>
+		</handler>
+	</extension>
+	<extension point="org.eclipse.core.expressions.definitions">
+		<definition id="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+			<and>
+				<reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
+				<with variable="activeEditor">
+					<test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName"
+						value="n7.intern.v3.xtext.domain.Domain"
+						forcePluginActivation="true"/>
+				</with>
+			</and>
+		</definition>
+		<definition id="n7.intern.v3.xtext.domain.Domain.XtextEditor.opened">
+			<and>
+				<reference definitionId="isXtextEditorActive"/>
+				<with variable="activeEditor">
+					<test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName"
+						value="n7.intern.v3.xtext.domain.Domain"
+						forcePluginActivation="true"/>
+				</with>
+			</and>
+		</definition>
+	</extension>
+	<extension
+			point="org.eclipse.ui.preferencePages">
+		<page
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+			id="n7.intern.v3.xtext.domain.Domain"
+			name="Domain">
+			<keywordReference id="n7.intern.v3.xtext.domain.ui.keyword_Domain"/>
+		</page>
+		<page
+			category="n7.intern.v3.xtext.domain.Domain"
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
+			id="n7.intern.v3.xtext.domain.Domain.coloring"
+			name="Syntax Coloring">
+			<keywordReference id="n7.intern.v3.xtext.domain.ui.keyword_Domain"/>
+		</page>
+		<page
+			category="n7.intern.v3.xtext.domain.Domain"
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
+			id="n7.intern.v3.xtext.domain.Domain.templates"
+			name="Templates">
+			<keywordReference id="n7.intern.v3.xtext.domain.ui.keyword_Domain"/>
+		</page>
+	</extension>
+	<extension
+			point="org.eclipse.ui.propertyPages">
+		<page
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+			id="n7.intern.v3.xtext.domain.Domain"
+			name="Domain">
+			<keywordReference id="n7.intern.v3.xtext.domain.ui.keyword_Domain"/>
+			<enabledWhen>
+				<adapt type="org.eclipse.core.resources.IProject"/>
+			</enabledWhen>
+			<filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
+		</page>
+	</extension>
+	<extension
+		point="org.eclipse.ui.keywords">
+		<keyword
+			id="n7.intern.v3.xtext.domain.ui.keyword_Domain"
+			label="Domain"/>
+	</extension>
+	<extension
+		point="org.eclipse.ui.commands">
+		<command
+			description="Trigger expensive validation"
+			id="n7.intern.v3.xtext.domain.Domain.validate"
+			name="Validate">
+		</command>
+		<!-- copy qualified name -->
+		<command
+			id="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
+			categoryId="org.eclipse.ui.category.edit"
+			description="Copy the qualified name for the selected element"
+			name="Copy Qualified Name">
+		</command>
+		<command
+			id="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName"
+			categoryId="org.eclipse.ui.category.edit"
+			description="Copy the qualified name for the selected element"
+			name="Copy Qualified Name">
+		</command>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="popup:#TextEditorContext?after=group.edit">
+			<command
+				commandId="n7.intern.v3.xtext.domain.Domain.validate"
+				style="push"
+				tooltip="Trigger expensive validation">
+				<visibleWhen checkEnabled="false">
+					<reference
+						definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+					</reference>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+		<!-- copy qualified name -->
+		<menuContribution locationURI="popup:#TextEditorContext?after=copy">
+			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
+				style="push" tooltip="Copy Qualified Name">
+				<visibleWhen checkEnabled="false">
+					<reference definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened" />
+				</visibleWhen>
+			</command>
+		</menuContribution>
+		<menuContribution locationURI="menu:edit?after=copy">
+			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
+				style="push" tooltip="Copy Qualified Name">
+				<visibleWhen checkEnabled="false">
+					<reference definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened" />
+				</visibleWhen>
+			</command>
+		</menuContribution>
+		<menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
+			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName"
+				style="push" tooltip="Copy Qualified Name">
+				<visibleWhen checkEnabled="false">
+					<and>
+						<reference definitionId="n7.intern.v3.xtext.domain.Domain.XtextEditor.opened" />
+						<iterate>
+							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+						</iterate>
+					</and>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
+			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
+				<visibleWhen checkEnabled="false">
+					<reference definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+					</reference>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+	<extension point="org.eclipse.ui.handlers">
+		<handler
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
+			commandId="org.eclipse.xtext.ui.editor.FindReferences">
+			<activeWhen>
+				<reference
+					definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type
+			base-type="org.eclipse.core.runtime.text"
+			file-extensions="dom"
+			id="n7.intern.v3.xtext.domain.Domain.contenttype"
+			name="Domain File"
+			priority="normal">
+		</content-type>
+	</extension>
+	<!-- adding resource factories -->
+	<extension
+		point="org.eclipse.emf.ecore.extension_parser">
+		<parser
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			type="dom">
+		</parser>
+	</extension>
+	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
+		<resourceServiceProvider
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+			uriExtension="dom">
+		</resourceServiceProvider>
+	</extension>
+	<!-- marker definitions for n7.intern.v3.xtext.domain.Domain -->
+	<extension
+			id="domain.check.fast"
+			name="Domain Problem"
+			point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.xtext.ui.check.fast"/>
+		<persistent value="true"/>
+	</extension>
+	<extension
+			id="domain.check.normal"
+			name="Domain Problem"
+			point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.xtext.ui.check.normal"/>
+		<persistent value="true"/>
+	</extension>
+	<extension
+			id="domain.check.expensive"
+			name="Domain Problem"
+			point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.xtext.ui.check.expensive"/>
+		<persistent value="true"/>
+	</extension>
+	<extension point="org.eclipse.ui.preferencePages">
+		<page
+			category="n7.intern.v3.xtext.domain.Domain"
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.validation.ValidatorPreferencePage"
+			id="n7.intern.v3.xtext.domain.Domain.validator.preferencePage"
+			name="Errors/Warnings">
+			<keywordReference id="n7.intern.v3.xtext.domain.ui.keyword_Domain"/>
+		</page>
+	</extension>
+	<extension point="org.eclipse.xtext.builder.participant">
+		<participant
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
+			fileExtensions="dom"/>
+	</extension>
+	<extension point="org.eclipse.ui.preferencePages">
+		<page
+			category="n7.intern.v3.xtext.domain.Domain"
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+			id="n7.intern.v3.xtext.domain.Domain.compiler.preferencePage"
+			name="Compiler">
+			<keywordReference id="n7.intern.v3.xtext.domain.ui.keyword_Domain"/>
+		</page>
+	</extension>
+	<extension point="org.eclipse.ui.propertyPages">
+		<page
+			category="n7.intern.v3.xtext.domain.Domain"
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+			id="n7.intern.v3.xtext.domain.Domain.compiler.propertyPage"
+			name="Compiler">
+			<keywordReference id="n7.intern.v3.xtext.domain.ui.keyword_Domain"/>
+			<enabledWhen>
+				<adapt type="org.eclipse.core.resources.IProject"/>
+			</enabledWhen>
+			<filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
+		</page>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution locationURI="popup:#TextEditorContext?after=xtext.ui.openDeclaration">
+			<command
+				commandId="org.eclipse.xtext.ui.OpenGeneratedFileCommand"
+				id="n7.intern.v3.xtext.domain.Domain.OpenGeneratedCode"
+				style="push">
+				<visibleWhen checkEnabled="false">
+					<reference definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened" />
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+	<extension point="org.eclipse.ui.handlers">
+		<handler
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.generator.trace.OpenGeneratedFileHandler"
+			commandId="org.eclipse.xtext.ui.OpenGeneratedFileCommand">
+			<activeWhen>
+				<reference definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened" />
+			</activeWhen>
+		</handler>
+	</extension>
+	<!-- Quick Outline -->
+	<extension
+		point="org.eclipse.ui.handlers">
+		<handler
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
+			commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline">
+			<activeWhen>
+				<reference
+					definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+	<extension
+		point="org.eclipse.ui.commands">
+		<command
+			description="Open the quick outline."
+			id="org.eclipse.xtext.ui.editor.outline.QuickOutline"
+			name="Quick Outline">
+		</command>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="popup:#TextEditorContext?after=group.open">
+			<command commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline"
+				style="push"
+				tooltip="Open Quick Outline">
+				<visibleWhen checkEnabled="false">
+					<reference definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened"/>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+	<!-- quickfix marker resolution generator for n7.intern.v3.xtext.domain.Domain -->
+	<extension
+			point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+			markerType="n7.intern.v3.xtext.domain.ui.domain.check.fast">
+			<attribute
+				name="FIXABLE_KEY"
+				value="true">
+			</attribute>
+		</markerResolutionGenerator>
+		<markerResolutionGenerator
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+			markerType="n7.intern.v3.xtext.domain.ui.domain.check.normal">
+			<attribute
+				name="FIXABLE_KEY"
+				value="true">
+			</attribute>
+		</markerResolutionGenerator>
+		<markerResolutionGenerator
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+			markerType="n7.intern.v3.xtext.domain.ui.domain.check.expensive">
+			<attribute
+				name="FIXABLE_KEY"
+				value="true">
+			</attribute>
+		</markerResolutionGenerator>
+	</extension>
+	<!-- Rename Refactoring -->
+	<extension point="org.eclipse.ui.handlers">
+		<handler
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.DefaultRenameElementHandler"
+			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
+			<activeWhen>
+				<reference
+					definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="popup:#TextEditorContext?after=group.edit">
+			<command commandId="org.eclipse.xtext.ui.refactoring.RenameElement"
+				style="push">
+				<visibleWhen checkEnabled="false">
+					<reference
+						definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+					</reference>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+	<extension point="org.eclipse.ui.preferencePages">
+		<page
+			category="n7.intern.v3.xtext.domain.Domain"
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
+			id="n7.intern.v3.xtext.domain.Domain.refactoring"
+			name="Refactoring">
+			<keywordReference id="n7.intern.v3.xtext.domain.ui.keyword_Domain"/>
+		</page>
+	</extension>
+	<!-- Type Hierarchy  -->
+	<extension point="org.eclipse.ui.handlers">
+		<handler
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.hierarchy.OpenTypeHierarchyHandler"
+			commandId="org.eclipse.xtext.xbase.ui.hierarchy.OpenTypeHierarchy">
+			<activeWhen>
+				<reference
+					definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+		<handler
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.hierarchy.QuickTypeHierarchyHandler"
+			commandId="org.eclipse.jdt.ui.edit.text.java.open.hierarchy">
+			<activeWhen>
+				<reference
+					definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="popup:#TextEditorContext?after=group.open">
+			<command commandId="org.eclipse.xtext.xbase.ui.hierarchy.OpenTypeHierarchy"
+				style="push"
+				tooltip="Open Type Hierarchy">
+				<visibleWhen checkEnabled="false">
+					<reference definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened"/>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+		<menuContribution
+			locationURI="popup:#TextEditorContext?after=group.open">
+			<command commandId="org.eclipse.jdt.ui.edit.text.java.open.hierarchy"
+				style="push"
+				tooltip="Quick Type Hierarchy">
+				<visibleWhen checkEnabled="false">
+					<reference definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened"/>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+	<!-- Call Hierachy -->
+	<extension point="org.eclipse.ui.handlers">
+		<handler
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.hierarchy.OpenCallHierachyHandler"
+			commandId="org.eclipse.xtext.xbase.ui.hierarchy.OpenCallHierarchy">
+			<activeWhen>
+				<reference
+					definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="popup:#TextEditorContext?after=group.open">
+			<command commandId="org.eclipse.xtext.xbase.ui.hierarchy.OpenCallHierarchy"
+				style="push"
+				tooltip="Open Call Hierarchy">
+				<visibleWhen checkEnabled="false">
+					<reference definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened"/>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+	<extension point="org.eclipse.core.runtime.adapters">
+		<factory class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.builder.smap.StratumBreakpointAdapterFactory"
+			adaptableType="n7.intern.v3.xtext.domain.ui.editor.DomainEditor">
+			<adapter type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget"/>
+		</factory>
+	</extension>
+	<extension point="org.eclipse.ui.editorActions">
+		<editorContribution targetID="n7.intern.v3.xtext.domain.Domain"
+			id="n7.intern.v3.xtext.domain.Domain.rulerActions">
+			<action
+				label="Not Used"
+				class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+				style="push"
+				actionID="RulerDoubleClick"
+				id="n7.intern.v3.xtext.domain.Domain.doubleClickBreakpointAction"/>
+		</editorContribution>
+	</extension>
+	<extension point="org.eclipse.ui.popupMenus">
+		<viewerContribution
+			targetID="n7.intern.v3.xtext.domain.Domain.RulerContext"
+			id="n7.intern.v3.xtext.domain.Domain.RulerPopupActions">
+			<action
+				label="Toggle Breakpoint"
+				class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+				menubarPath="debug"
+				id="n7.intern.v3.xtext.domain.Domain.rulerContextMenu.toggleBreakpointAction">
+			</action>
+			<action
+				label="Not used"
+				class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.debug.ui.actions.RulerEnableDisableBreakpointActionDelegate"
+				menubarPath="debug"
+				id="n7.intern.v3.xtext.domain.Domain.rulerContextMenu.enableDisableBreakpointAction">
+			</action>
+			<action
+				label="Breakpoint Properties"
+				helpContextId="breakpoint_properties_action_context"
+				class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.jdt.debug.ui.actions.JavaBreakpointPropertiesRulerActionDelegate"
+				menubarPath="group.properties"
+				id="n7.intern.v3.xtext.domain.Domain.rulerContextMenu.openBreapointPropertiesAction">
+			</action>
+		</viewerContribution>
+	</extension>
+	<!-- Introduce Local Variable Refactoring -->
+	<extension point="org.eclipse.ui.handlers">
+		<handler
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.refactoring.ExtractVariableHandler"
+			commandId="org.eclipse.xtext.xbase.ui.refactoring.ExtractLocalVariable">
+			<activeWhen>
+				<reference
+					definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="popup:#TextEditorContext?after=group.edit">
+			<command commandId="org.eclipse.xtext.xbase.ui.refactoring.ExtractLocalVariable"
+				style="push">
+				<visibleWhen checkEnabled="false">
+					<reference
+						definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+					</reference>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+	<!-- Open implementation -->
+	<extension point="org.eclipse.ui.handlers">
+		<handler
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.navigation.OpenImplementationHandler"
+			commandId="org.eclipse.xtext.xbase.ui.OpenImplementationCommand">
+			<activeWhen>
+				<reference
+					definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="menu:navigate?after=open.ext4">
+			<command commandId="org.eclipse.xtext.xbase.ui.OpenImplementationCommand">
+				<visibleWhen checkEnabled="false">
+					<reference
+						definitionId="n7.intern.v3.xtext.domain.Domain.Editor.opened">
+					</reference>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+	<extension point="org.eclipse.compare.contentViewers">
+		<viewer id="n7.intern.v3.xtext.domain.Domain.compare.contentViewers"
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+			extensions="dom">
+		</viewer>
+		<contentTypeBinding
+			contentTypeId="n7.intern.v3.xtext.domain.Domain.contenttype"
+			contentViewerId="n7.intern.v3.xtext.domain.Domain.compare.contentViewers" />
+	</extension>
+	<extension point="org.eclipse.compare.contentMergeViewers">
+		<viewer id="n7.intern.v3.xtext.domain.Domain.compare.contentMergeViewers"
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+			extensions="dom" label="Domain Compare">
+		</viewer>
+		<contentTypeBinding
+			contentTypeId="n7.intern.v3.xtext.domain.Domain.contenttype"
+			contentMergeViewerId="n7.intern.v3.xtext.domain.Domain.compare.contentMergeViewers" />
+	</extension>
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider id="n7.intern.v3.xtext.domain.Domain.editors.documentProviders"
+			class="n7.intern.v3.xtext.domain.ui.DomainExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
+			extensions="dom">
+		</provider>
+	</extension>
+	<extension point="org.eclipse.team.core.fileTypes">
+		<fileTypes
+			extension="dom"
+			type="text">
+		</fileTypes>
+	</extension>
+</plugin>

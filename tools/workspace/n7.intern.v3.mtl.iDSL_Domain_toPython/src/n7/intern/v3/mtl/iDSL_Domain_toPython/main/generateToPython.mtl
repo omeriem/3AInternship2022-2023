@@ -1,0 +1,215 @@
+[comment encoding = UTF-8 /]
+[module generateToPython('http://www.example.org/iDSL', 'http://www.example.org/Domain')]
+
+[template private generateHolder(iotframework: IotFramework)]
+[file ('Holder.py', false, 'UTF-8')]
+class Holder : 
+	def __init__(self,name):
+		self.name = name
+
+
+[/file]
+[/template]
+[query private isANamedHolder(dataflowdescriptor:DataFlowDescriptor,iotframework: IotFramework) : Boolean = iotframework.dataflowdescriptors->select(e|e.oclIsTypeOf(DataHolder))->collect(name)->includes(dataflowdescriptor.name)/]
+[query private isAHolder(dataflow:DataFlow,iotframework: IotFramework) : Boolean = dataflow.dataflowdescriptor.oclIsUndefined() or isANamedHolder(dataflow.dataflowdescriptor,iotframework)/]
+[template private generateHoldersAssignation(iotframework: IotFramework)]
+[for(d:DataFlow | iotframework.dataflows)]
+[if (isAHolder(d, iotframework))]
+dataflows['["'/][d.name/]['"]'/] = Holder(['"'/][d.name/]['"'/])
+[/if]
+[/for]
+[/template]
+
+[query private getThingsDescriptor(iotframework: IotFramework) : Set(Thing) = iotframework.dataflowdescriptors->select(e | e.oclIsTypeOf(Thing))/]
+[query private getThings(iotframework: IotFramework) : Set(DataFlow) = iotframework.dataflows->select(e|e.dataflowdescriptor.oclIsTypeOf(Thing))->asSet()/]
+[query private isAThing(dataflowdescriptor:DataFlowDescriptor,iotframework: IotFramework) : Boolean = iotframework.dataflowdescriptors->select(e|e.oclIsTypeOf(Thing))->collect(name)->includes(dataflowdescriptor.name)/]
+[template private generateThing(thing: Thing)]
+[file (thing.name.concat('.py'), false, 'UTF-8')]
+class [thing.name/] : 
+	def __init__(self,name):
+		self.name = name
+
+
+[/file]
+[/template]
+[template private generateThings(iotframework: IotFramework)]
+[for(thing:Thing | getThingsDescriptor(iotframework))]
+[generateThing(thing)/]
+[/for]
+[/template]
+[template private generateThingsAssignation(iotframework: IotFramework)]
+[for(thing:DataFlow | iotframework.dataflows)]
+[if (isAThing(thing.dataflowdescriptor, iotframework))]
+dataflows['["'/][thing.name/]['"]'/] = [thing.dataflowdescriptor.name/](['"'/][thing.name/]['"'/])
+[/if]
+[/for]
+[/template]
+
+[query private getPreprocessorsDescriptor(iotframework: IotFramework) : Set(PreProcessorDescriptor) = iotframework.interfacerdescriptors->select(e | e.oclIsTypeOf(PreProcessorDescriptor))/]
+[template private generatePreprocessor(preprocessor: PreProcessorDescriptor)]
+[file (preprocessor.name.concat('.py'), false, 'UTF-8')]
+class [preprocessor.name/] : 
+	def __init__(self):
+		pass
+
+[/file]
+[/template]
+[template private generatePreprocessors(iotframework: IotFramework)]
+[for(preprocessor:PreProcessorDescriptor | getPreprocessorsDescriptor(iotframework))]
+[generatePreprocessor(preprocessor)/]
+[/for]
+[/template]
+
+[template private generatePreprocessorsAssignation(iotframework: IotFramework)]
+[for(preprocessor:PreProcessorDescriptor | getPreprocessorsDescriptor(iotframework))]
+_[preprocessor.name/] = [preprocessor.name/].[preprocessor.name/]("[preprocessor.name/]")
+[/for]
+[/template]
+
+[query private getProcessorsDescriptor(iotframework: IotFramework) : Set(DataProcessorDescriptor) = iotframework.interfacerdescriptors->select(e | e.oclIsTypeOf(DataProcessorDescriptor))/]
+[template private generateProcessor(processor: DataProcessorDescriptor)]
+[file (processor.name.concat('.py'), false, 'UTF-8')]
+class [processor.name/] : 
+	def __init__(self):
+		pass
+
+[/file]
+[/template]
+[template private generateProcessors(iotframework: IotFramework)]
+[for(processor:DataProcessorDescriptor | getProcessorsDescriptor(iotframework))]
+[generateProcessor(processor)/]
+[/for]
+[/template]
+
+[template private generateProcessorsAssignation(iotframework: IotFramework)]
+[for(processor:DataProcessorDescriptor | getProcessorsDescriptor(iotframework))]
+_[processor.name/] = [processor.name/].[processor.name/]("[processor.name/]")
+[/for]
+[/template]
+
+[query private getSynchronizersDescriptor(iotframework: IotFramework) : Set(SynchronizerDescriptor) = iotframework.interfacerdescriptors->select(e | e.oclIsTypeOf(SynchronizerDescriptor))/]
+[template private generateSynchronizer(synchronizer: SynchronizerDescriptor)]
+[file (synchronizer.name.concat('.py'), false, 'UTF-8')]
+class [synchronizer.name/] : 
+	def __init__(self):
+		pass
+
+[/file]
+[/template]
+[template private generateSynchronizers(iotframework: IotFramework)]
+[for(synchronizer:SynchronizerDescriptor | getSynchronizersDescriptor(iotframework))]
+[generateSynchronizer(synchronizer)/]
+[/for]
+[/template]
+
+[template private generateSynchronizersAssignation(iotframework: IotFramework)]
+[for(synchronizer:SynchronizerDescriptor | getSynchronizersDescriptor(iotframework))]
+_[synchronizer.name/] = [synchronizer.name/].[synchronizer.name/]("[synchronizer.name/]")
+[/for]
+[/template]
+
+[template private generateInterfacersConnection(iotframework: IotFramework)]
+[for (it : Interfacer | iotframework.interfacers)]
+	[if (not it.interfacerdescriptor.oclIsUndefined())]
+monitor.connectInput(_[it.interfacerdescriptor.name/],[for (d : DataFlow | it.inputs) separator(',')]datflows['['/]"[d.name/]"[']'/] [/for])
+	[/if]
+[/for]
+
+[/template]
+
+[template private generateThingAllocations(iotframework: IotFramework)]
+[for(d:DataFlow | iotframework.dataflows)]
+monitor.allocDataflow(dataflow['['/]"[d.name/]"[']'/])
+[/for]
+[/template]
+
+[template public generateIotFramework(iotframework : IotFramework)]
+[comment @main/]
+[generateHolder(iotframework)/]
+[generateThings(iotframework)/]
+[generatePreprocessors(iotframework)/]
+[generateProcessors(iotframework)/]
+[generateSynchronizers(iotframework)/]
+[file (iotframework.name.concat('.py'), false, 'UTF-8')]
+import socket, multiprocessing
+import numpy as np
+import synchronizer as sync
+
+
+class Monitor:
+    def __init__(self) -> None:
+        self.servers = ['[]'/]    
+        self.host = socket.gethostname()
+        self.port = 5000 
+        self.nb_workers = 10
+        self.interfacers = ['[]'/] 
+        self.outputs = ['[]'/] 
+        pass
+
+    def allocDataflow(self,dataflow):
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        server.bind((self.host, self.port+1))
+        self.servers.append({"dataflow":dataflow,"server":server})
+    
+    def start(self):
+        def accept(server):
+            with multiprocessing.Pool(self.nb_workers) as pool:
+                while True:
+                    client,address = server['['/] "server"[']'/].accept()
+                    pool.apply(self.handle, (client, server['['/]"thing"[']'/]))
+
+        with multiprocessing.Pool(self.nb_workers) as pool:
+            for server in self.servers:
+                server['['/]"server"[']'/].listen(10)    
+                pool.apply(accept,(server))
+
+    def close(self):
+        for server in self.servers:
+            server['['/]"server"[']'/].close()
+
+    def out(self,from_interfacer,to_address):
+        pass
+
+    def connectInput(self,interfacer,*dataflow_descriptors):
+        interfacer.connectToMonitor(self)
+        interfacer.input(*dataflow_descriptors)
+    def connectOutput(self,interfacer,*dataflow_descriptors):
+        interfacer.output(*dataflow_descriptors) 
+
+    def handle(self,client,dataflow):
+        subscribed_interfacers = ['['/]interfacer for interfacer in self.interfacers \
+                if dataflow.name in interfacer.getInputNames()[']'/]
+        for interfacer in subscribed_interfacers:
+            interfacer.connect(dataflow)
+
+        with client:
+            while True:
+                buff = client.recv(1024)
+                if not buff : break
+                data = np.frombuffer(buff)
+                for interfacer in subscribed_interfacers:
+                    interfacer.buffer(dataflow,data)
+
+    def listen(self,from_interfacer,*dataflows_chunks):
+        print(from_interfacer + " : " + str(len(dataflows_chunks)))
+
+def main():
+    monitor = Monitor()
+	dataflows = {}
+	[generateThingsAssignation(iotframework) /]
+	[generateHoldersAssignation(iotframework) /]
+	[generateSynchronizersAssignation(iotframework) /]
+	[generatePreprocessorsAssignation(iotframework) /]
+	[generateProcessorsAssignation(iotframework) /]
+	[generateInterfacersConnection(iotframework) /]
+	[generateThingAllocations(iotframework) /]
+
+    monitor.start()
+
+
+
+if __name__ == '__main__':
+    main()
+[/file]
+[/template]
