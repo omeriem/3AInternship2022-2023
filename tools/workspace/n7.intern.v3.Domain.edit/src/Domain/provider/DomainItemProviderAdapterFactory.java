@@ -141,6 +141,29 @@ public class DomainItemProviderAdapterFactory extends DomainAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Domain.Instruction} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InstructionItemProvider instructionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Domain.Instruction}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createInstructionAdapter() {
+		if (instructionItemProvider == null) {
+			instructionItemProvider = new InstructionItemProvider(this);
+		}
+
+		return instructionItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link Domain.FunctionDefinition} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -256,52 +279,6 @@ public class DomainItemProviderAdapterFactory extends DomainAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link Domain.SetupBlock} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SetupBlockItemProvider setupBlockItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link Domain.SetupBlock}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSetupBlockAdapter() {
-		if (setupBlockItemProvider == null) {
-			setupBlockItemProvider = new SetupBlockItemProvider(this);
-		}
-
-		return setupBlockItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link Domain.StringInstruction} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected StringInstructionItemProvider stringInstructionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link Domain.StringInstruction}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createStringInstructionAdapter() {
-		if (stringInstructionItemProvider == null) {
-			stringInstructionItemProvider = new StringInstructionItemProvider(this);
-		}
-
-		return stringInstructionItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link Domain.FunctionBlock} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -322,6 +299,52 @@ public class DomainItemProviderAdapterFactory extends DomainAdapterFactory imple
 		}
 
 		return functionBlockItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Domain.Import} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ImportItemProvider importItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Domain.Import}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createImportAdapter() {
+		if (importItemProvider == null) {
+			importItemProvider = new ImportItemProvider(this);
+		}
+
+		return importItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Domain.Reference} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ReferenceItemProvider referenceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Domain.Reference}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createReferenceAdapter() {
+		if (referenceItemProvider == null) {
+			referenceItemProvider = new ReferenceItemProvider(this);
+		}
+
+		return referenceItemProvider;
 	}
 
 	/**
@@ -425,15 +448,16 @@ public class DomainItemProviderAdapterFactory extends DomainAdapterFactory imple
 	public void dispose() {
 		if (domainFrameworkItemProvider != null) domainFrameworkItemProvider.dispose();
 		if (parameterItemProvider != null) parameterItemProvider.dispose();
-		if (setupItemProvider != null) setupItemProvider.dispose();
 		if (functionDefinitionItemProvider != null) functionDefinitionItemProvider.dispose();
 		if (functionValueItemProvider != null) functionValueItemProvider.dispose();
 		if (markerItemProvider != null) markerItemProvider.dispose();
 		if (functionMarkerItemProvider != null) functionMarkerItemProvider.dispose();
 		if (assignationMarkerItemProvider != null) assignationMarkerItemProvider.dispose();
-		if (setupBlockItemProvider != null) setupBlockItemProvider.dispose();
-		if (stringInstructionItemProvider != null) stringInstructionItemProvider.dispose();
+		if (setupItemProvider != null) setupItemProvider.dispose();
+		if (instructionItemProvider != null) instructionItemProvider.dispose();
 		if (functionBlockItemProvider != null) functionBlockItemProvider.dispose();
+		if (importItemProvider != null) importItemProvider.dispose();
+		if (referenceItemProvider != null) referenceItemProvider.dispose();
 	}
 
 }

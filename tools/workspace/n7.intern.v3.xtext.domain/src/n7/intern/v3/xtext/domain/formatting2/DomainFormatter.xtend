@@ -16,9 +16,7 @@ class DomainFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(DomainFramework domainFramework, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		for (setup : domainFramework.setups) {
-			setup.format
-		}
+		domainFramework.setup.format
 		for (functionDefinition : domainFramework.function_definitions) {
 			functionDefinition.format
 		}
@@ -34,5 +32,5 @@ class DomainFormatter extends AbstractFormatter2 {
 		}
 	}
 	
-	// TODO: implement for FunctionMarker, FunctionDefinition, FunctionValue, SetupBlock, Setup
+	// TODO: implement for FunctionMarker, FunctionDefinition, FunctionValue, Instruction, Setup, Import
 }

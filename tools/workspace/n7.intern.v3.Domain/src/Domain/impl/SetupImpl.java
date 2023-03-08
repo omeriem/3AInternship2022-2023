@@ -3,9 +3,8 @@
 package Domain.impl;
 
 import Domain.DomainPackage;
+import Domain.Import;
 import Domain.Setup;
-import Domain.SetupBlock;
-
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -28,22 +27,21 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link Domain.impl.SetupImpl#getInstructions <em>Instructions</em>}</li>
+ *   <li>{@link Domain.impl.SetupImpl#getImports <em>Imports</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class SetupImpl extends MinimalEObjectImpl.Container implements Setup {
 	/**
-	 * The cached value of the '{@link #getInstructions() <em>Instructions</em>}' containment reference list.
+	 * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInstructions()
+	 * @see #getImports()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<SetupBlock> instructions;
-
+	protected EList<Import> imports;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,11 +66,11 @@ public class SetupImpl extends MinimalEObjectImpl.Container implements Setup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<SetupBlock> getInstructions() {
-		if (instructions == null) {
-			instructions = new EObjectContainmentEList<SetupBlock>(SetupBlock.class, this, DomainPackage.SETUP__INSTRUCTIONS);
+	public EList<Import> getImports() {
+		if (imports == null) {
+			imports = new EObjectContainmentEList<Import>(Import.class, this, DomainPackage.SETUP__IMPORTS);
 		}
-		return instructions;
+		return imports;
 	}
 
 	/**
@@ -83,8 +81,8 @@ public class SetupImpl extends MinimalEObjectImpl.Container implements Setup {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case DomainPackage.SETUP__INSTRUCTIONS:
-				return ((InternalEList<?>)getInstructions()).basicRemove(otherEnd, msgs);
+			case DomainPackage.SETUP__IMPORTS:
+				return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
 			default:
 				return super.eInverseRemove(otherEnd, featureID, msgs);
 		}
@@ -98,8 +96,8 @@ public class SetupImpl extends MinimalEObjectImpl.Container implements Setup {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DomainPackage.SETUP__INSTRUCTIONS:
-				return getInstructions();
+			case DomainPackage.SETUP__IMPORTS:
+				return getImports();
 			default:
 				return super.eGet(featureID, resolve, coreType);
 		}
@@ -114,9 +112,9 @@ public class SetupImpl extends MinimalEObjectImpl.Container implements Setup {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DomainPackage.SETUP__INSTRUCTIONS:
-				getInstructions().clear();
-				getInstructions().addAll((Collection<? extends SetupBlock>)newValue);
+			case DomainPackage.SETUP__IMPORTS:
+				getImports().clear();
+				getImports().addAll((Collection<? extends Import>)newValue);
 				return;
 			default:
 				super.eSet(featureID, newValue);
@@ -132,8 +130,8 @@ public class SetupImpl extends MinimalEObjectImpl.Container implements Setup {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DomainPackage.SETUP__INSTRUCTIONS:
-				getInstructions().clear();
+			case DomainPackage.SETUP__IMPORTS:
+				getImports().clear();
 				return;
 			default:
 				super.eUnset(featureID);
@@ -149,8 +147,8 @@ public class SetupImpl extends MinimalEObjectImpl.Container implements Setup {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DomainPackage.SETUP__INSTRUCTIONS:
-				return instructions != null && !instructions.isEmpty();
+			case DomainPackage.SETUP__IMPORTS:
+				return imports != null && !imports.isEmpty();
 			default:
 				return super.eIsSet(featureID);
 		}

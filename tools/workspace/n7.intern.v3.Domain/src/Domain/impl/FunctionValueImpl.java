@@ -4,8 +4,7 @@ package Domain.impl;
 
 import Domain.DomainPackage;
 import Domain.FunctionValue;
-import Domain.SetupBlock;
-
+import Domain.Instruction;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -65,7 +64,7 @@ public class FunctionValueImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<SetupBlock> instructions;
+	protected EList<Instruction> instructions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -112,9 +111,9 @@ public class FunctionValueImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<SetupBlock> getInstructions() {
+	public EList<Instruction> getInstructions() {
 		if (instructions == null) {
-			instructions = new EObjectContainmentEList<SetupBlock>(SetupBlock.class, this, DomainPackage.FUNCTION_VALUE__INSTRUCTIONS);
+			instructions = new EObjectContainmentEList<Instruction>(Instruction.class, this, DomainPackage.FUNCTION_VALUE__INSTRUCTIONS);
 		}
 		return instructions;
 	}
@@ -165,7 +164,7 @@ public class FunctionValueImpl extends MinimalEObjectImpl.Container implements F
 				return;
 			case DomainPackage.FUNCTION_VALUE__INSTRUCTIONS:
 				getInstructions().clear();
-				getInstructions().addAll((Collection<? extends SetupBlock>)newValue);
+				getInstructions().addAll((Collection<? extends Instruction>)newValue);
 				return;
 			default:
 				super.eSet(featureID, newValue);

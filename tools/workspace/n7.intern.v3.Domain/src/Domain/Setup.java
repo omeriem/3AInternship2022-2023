@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link Domain.Setup#getInstructions <em>Instructions</em>}</li>
+ *   <li>{@link Domain.Setup#getImports <em>Imports</em>}</li>
  * </ul>
  *
  * @see Domain.DomainPackage#getSetup()
@@ -24,15 +24,15 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Setup extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Instructions</b></em>' containment reference list.
-	 * The list contents are of type {@link Domain.SetupBlock}.
+	 * Returns the value of the '<em><b>Imports</b></em>' containment reference list.
+	 * The list contents are of type {@link Domain.Import}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Instructions</em>' containment reference list.
-	 * @see Domain.DomainPackage#getSetup_Instructions()
+	 * @return the value of the '<em>Imports</em>' containment reference list.
+	 * @see Domain.DomainPackage#getSetup_Imports()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<SetupBlock> getInstructions();
+	EList<Import> getImports();
 
 } // Setup

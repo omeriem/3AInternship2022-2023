@@ -199,7 +199,7 @@ public class ParameterItemProvider
 				 DomainPackage.Literals.PARAMETER__DEFAULT_FUNCTION_VALUE,
 				 true,
 				 false,
-				 true,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -277,6 +277,7 @@ public class ParameterItemProvider
 			case DomainPackage.PARAMETER__DESCRIPTION:
 			case DomainPackage.PARAMETER__TYPE:
 			case DomainPackage.PARAMETER__DEFAULT_VALUE:
+			case DomainPackage.PARAMETER__DEFAULT_FUNCTION_VALUE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case DomainPackage.PARAMETER__MARKERS:

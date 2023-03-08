@@ -48,7 +48,7 @@ public interface FunctionValue extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Instructions</b></em>' containment reference list.
-	 * The list contents are of type {@link Domain.SetupBlock}.
+	 * The list contents are of type {@link Domain.Instruction}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Instructions</em>' containment reference list.
@@ -56,6 +56,6 @@ public interface FunctionValue extends EObject {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<SetupBlock> getInstructions();
+	EList<Instruction> getInstructions();
 
 } // FunctionValue

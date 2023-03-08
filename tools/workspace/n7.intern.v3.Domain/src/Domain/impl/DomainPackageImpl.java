@@ -10,13 +10,14 @@ import Domain.FunctionBlock;
 import Domain.FunctionDefinition;
 import Domain.FunctionMarker;
 import Domain.FunctionValue;
+import Domain.Import;
+import Domain.Instruction;
 import Domain.Language;
 import Domain.Marker;
 import Domain.MarkerID;
 import Domain.Parameter;
+import Domain.Reference;
 import Domain.Setup;
-import Domain.SetupBlock;
-import Domain.StringInstruction;
 import Domain.Type;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -60,6 +61,13 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass instructionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass functionDefinitionEClass = null;
 
 	/**
@@ -95,21 +103,21 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass setupBlockEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass stringInstructionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass functionBlockEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass importEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass referenceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -233,7 +241,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDomainFramework_Setups() {
+	public EReference getDomainFramework_Function_definitions() {
 		return (EReference)domainFrameworkEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -242,7 +250,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDomainFramework_Function_definitions() {
+	public EReference getDomainFramework_Setup() {
 		return (EReference)domainFrameworkEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -332,8 +340,44 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSetup_Instructions() {
+	public EReference getSetup_Imports() {
 		return (EReference)setupEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getInstruction() {
+		return instructionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInstruction_FunctionName() {
+		return (EAttribute)instructionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInstruction_Language() {
+		return (EAttribute)instructionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInstruction_ImportID() {
+		return (EAttribute)instructionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -467,51 +511,6 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getSetupBlock() {
-		return setupBlockEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getSetupBlock_Language() {
-		return (EAttribute)setupBlockEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSetupBlock_Instructions() {
-		return (EReference)setupBlockEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getStringInstruction() {
-		return stringInstructionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getStringInstruction_Content() {
-		return (EAttribute)stringInstructionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getFunctionBlock() {
 		return functionBlockEClass;
 	}
@@ -523,6 +522,60 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 	 */
 	public EAttribute getFunctionBlock_Parameters() {
 		return (EAttribute)functionBlockEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getImport() {
+		return importEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getImport_Language() {
+		return (EAttribute)importEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getImport_References() {
+		return (EReference)importEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getImport_ImportID() {
+		return (EAttribute)importEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getReference() {
+		return referenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReference_Name() {
+		return (EAttribute)referenceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -584,8 +637,8 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 		createEAttribute(domainFrameworkEClass, DOMAIN_FRAMEWORK__NAME);
 		createEAttribute(domainFrameworkEClass, DOMAIN_FRAMEWORK__DESCRIPTION);
 		createEReference(domainFrameworkEClass, DOMAIN_FRAMEWORK__PARAMETERS);
-		createEReference(domainFrameworkEClass, DOMAIN_FRAMEWORK__SETUPS);
 		createEReference(domainFrameworkEClass, DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS);
+		createEReference(domainFrameworkEClass, DOMAIN_FRAMEWORK__SETUP);
 
 		parameterEClass = createEClass(PARAMETER);
 		createEAttribute(parameterEClass, PARAMETER__NAME);
@@ -595,9 +648,6 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 		createEReference(parameterEClass, PARAMETER__MARKERS);
 		createEAttribute(parameterEClass, PARAMETER__DEFAULT_VALUE);
 		createEAttribute(parameterEClass, PARAMETER__DEFAULT_FUNCTION_VALUE);
-
-		setupEClass = createEClass(SETUP);
-		createEReference(setupEClass, SETUP__INSTRUCTIONS);
 
 		functionDefinitionEClass = createEClass(FUNCTION_DEFINITION);
 		createEAttribute(functionDefinitionEClass, FUNCTION_DEFINITION__NAME);
@@ -618,15 +668,24 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 
 		assignationMarkerEClass = createEClass(ASSIGNATION_MARKER);
 
-		setupBlockEClass = createEClass(SETUP_BLOCK);
-		createEAttribute(setupBlockEClass, SETUP_BLOCK__LANGUAGE);
-		createEReference(setupBlockEClass, SETUP_BLOCK__INSTRUCTIONS);
+		setupEClass = createEClass(SETUP);
+		createEReference(setupEClass, SETUP__IMPORTS);
 
-		stringInstructionEClass = createEClass(STRING_INSTRUCTION);
-		createEAttribute(stringInstructionEClass, STRING_INSTRUCTION__CONTENT);
+		instructionEClass = createEClass(INSTRUCTION);
+		createEAttribute(instructionEClass, INSTRUCTION__FUNCTION_NAME);
+		createEAttribute(instructionEClass, INSTRUCTION__LANGUAGE);
+		createEAttribute(instructionEClass, INSTRUCTION__IMPORT_ID);
 
 		functionBlockEClass = createEClass(FUNCTION_BLOCK);
 		createEAttribute(functionBlockEClass, FUNCTION_BLOCK__PARAMETERS);
+
+		importEClass = createEClass(IMPORT);
+		createEAttribute(importEClass, IMPORT__LANGUAGE);
+		createEReference(importEClass, IMPORT__REFERENCES);
+		createEAttribute(importEClass, IMPORT__IMPORT_ID);
+
+		referenceEClass = createEClass(REFERENCE);
+		createEAttribute(referenceEClass, REFERENCE__NAME);
 
 		// Create enums
 		typeEEnum = createEEnum(TYPE);
@@ -670,8 +729,8 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 		initEAttribute(getDomainFramework_Name(), ecorePackage.getEString(), "name", null, 1, 1, DomainFramework.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDomainFramework_Description(), ecorePackage.getEString(), "description", null, 0, 1, DomainFramework.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDomainFramework_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, DomainFramework.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDomainFramework_Setups(), this.getSetup(), null, "setups", null, 0, -1, DomainFramework.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDomainFramework_Function_definitions(), this.getFunctionDefinition(), null, "function_definitions", null, 0, -1, DomainFramework.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDomainFramework_Setup(), this.getSetup(), null, "setup", null, 0, 1, DomainFramework.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(parameterEClass, Parameter.class, "Parameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getParameter_Name(), ecorePackage.getEString(), "name", null, 0, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -682,9 +741,6 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 		initEAttribute(getParameter_Default_value(), ecorePackage.getEJavaObject(), "default_value", null, 0, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getParameter_Default_function_value(), ecorePackage.getEString(), "default_function_value", null, 0, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(setupEClass, Setup.class, "Setup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSetup_Instructions(), this.getSetupBlock(), null, "instructions", null, 0, -1, Setup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(functionDefinitionEClass, FunctionDefinition.class, "FunctionDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFunctionDefinition_Name(), ecorePackage.getEString(), "name", null, 1, 1, FunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFunctionDefinition_Description(), ecorePackage.getEString(), "description", null, 0, 1, FunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -694,7 +750,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 
 		initEClass(functionValueEClass, FunctionValue.class, "FunctionValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFunctionValue_Name(), ecorePackage.getEString(), "name", null, 1, 1, FunctionValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFunctionValue_Instructions(), this.getSetupBlock(), null, "instructions", null, 0, -1, FunctionValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFunctionValue_Instructions(), this.getInstruction(), null, "instructions", null, 0, -1, FunctionValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(markerEClass, Marker.class, "Marker", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMarker_Name(), this.getMarkerID(), "name", null, 1, 1, Marker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -704,15 +760,24 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 
 		initEClass(assignationMarkerEClass, AssignationMarker.class, "AssignationMarker", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(setupBlockEClass, SetupBlock.class, "SetupBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSetupBlock_Language(), this.getLanguage(), "language", null, 1, 1, SetupBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSetupBlock_Instructions(), this.getStringInstruction(), null, "instructions", null, 0, -1, SetupBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(setupEClass, Setup.class, "Setup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSetup_Imports(), this.getImport(), null, "imports", null, 0, -1, Setup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(stringInstructionEClass, StringInstruction.class, "StringInstruction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getStringInstruction_Content(), ecorePackage.getEString(), "content", null, 1, 1, StringInstruction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(instructionEClass, Instruction.class, "Instruction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getInstruction_FunctionName(), ecorePackage.getEString(), "functionName", null, 1, 1, Instruction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInstruction_Language(), this.getLanguage(), "language", null, 0, 1, Instruction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInstruction_ImportID(), ecorePackage.getEString(), "importID", null, 1, 1, Instruction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(functionBlockEClass, FunctionBlock.class, "FunctionBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFunctionBlock_Parameters(), ecorePackage.getEString(), "parameters", null, 0, -1, FunctionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getImport_Language(), this.getLanguage(), "language", null, 1, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getImport_References(), this.getReference(), null, "references", null, 0, -1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getImport_ImportID(), ecorePackage.getEString(), "importID", null, 1, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(referenceEClass, Reference.class, "Reference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getReference_Name(), ecorePackage.getEString(), "name", null, 1, 1, Reference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(typeEEnum, Type.class, "Type");

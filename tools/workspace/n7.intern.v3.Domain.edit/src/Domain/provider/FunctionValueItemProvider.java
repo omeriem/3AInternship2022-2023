@@ -184,7 +184,7 @@ public class FunctionValueItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DomainPackage.Literals.FUNCTION_VALUE__INSTRUCTIONS,
-				 DomainFactory.eINSTANCE.createSetupBlock()));
+				 DomainFactory.eINSTANCE.createInstruction()));
 	}
 
 	/**

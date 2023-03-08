@@ -96,22 +96,22 @@ public interface DomainPackage extends EPackage {
 	int DOMAIN_FRAMEWORK__PARAMETERS = 2;
 
 	/**
-	 * The feature id for the '<em><b>Setups</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FRAMEWORK__SETUPS = 3;
-
-	/**
 	 * The feature id for the '<em><b>Function definitions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS = 4;
+	int DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS = 3;
+
+	/**
+	 * The feature id for the '<em><b>Setup</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOMAIN_FRAMEWORK__SETUP = 4;
 
 	/**
 	 * The number of structural features of the '<em>Framework</em>' class.
@@ -230,34 +230,17 @@ public interface DomainPackage extends EPackage {
 	 * @see Domain.impl.DomainPackageImpl#getSetup()
 	 * @generated
 	 */
-	int SETUP = 2;
+	int SETUP = 7;
 
 	/**
-	 * The feature id for the '<em><b>Instructions</b></em>' containment reference list.
+	 * The meta object id for the '{@link Domain.impl.InstructionImpl <em>Instruction</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @see Domain.impl.InstructionImpl
+	 * @see Domain.impl.DomainPackageImpl#getInstruction()
 	 * @generated
-	 * @ordered
 	 */
-	int SETUP__INSTRUCTIONS = 0;
-
-	/**
-	 * The number of structural features of the '<em>Setup</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SETUP_FEATURE_COUNT = 1;
-
-	/**
-	 * The number of operations of the '<em>Setup</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SETUP_OPERATION_COUNT = 0;
+	int INSTRUCTION = 8;
 
 	/**
 	 * The meta object id for the '{@link Domain.impl.FunctionDefinitionImpl <em>Function Definition</em>}' class.
@@ -267,7 +250,7 @@ public interface DomainPackage extends EPackage {
 	 * @see Domain.impl.DomainPackageImpl#getFunctionDefinition()
 	 * @generated
 	 */
-	int FUNCTION_DEFINITION = 3;
+	int FUNCTION_DEFINITION = 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -340,7 +323,7 @@ public interface DomainPackage extends EPackage {
 	 * @see Domain.impl.DomainPackageImpl#getFunctionValue()
 	 * @generated
 	 */
-	int FUNCTION_VALUE = 4;
+	int FUNCTION_VALUE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -386,7 +369,7 @@ public interface DomainPackage extends EPackage {
 	 * @see Domain.impl.DomainPackageImpl#getMarker()
 	 * @generated
 	 */
-	int MARKER = 5;
+	int MARKER = 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -423,7 +406,7 @@ public interface DomainPackage extends EPackage {
 	 * @see Domain.impl.DomainPackageImpl#getFunctionMarker()
 	 * @generated
 	 */
-	int FUNCTION_MARKER = 6;
+	int FUNCTION_MARKER = 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -469,7 +452,7 @@ public interface DomainPackage extends EPackage {
 	 * @see Domain.impl.DomainPackageImpl#getAssignationMarker()
 	 * @generated
 	 */
-	int ASSIGNATION_MARKER = 7;
+	int ASSIGNATION_MARKER = 6;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -499,14 +482,40 @@ public interface DomainPackage extends EPackage {
 	int ASSIGNATION_MARKER_OPERATION_COUNT = MARKER_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link Domain.impl.SetupBlockImpl <em>Setup Block</em>}' class.
+	 * The feature id for the '<em><b>Imports</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see Domain.impl.SetupBlockImpl
-	 * @see Domain.impl.DomainPackageImpl#getSetupBlock()
 	 * @generated
+	 * @ordered
 	 */
-	int SETUP_BLOCK = 8;
+	int SETUP__IMPORTS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Setup</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SETUP_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Setup</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SETUP_OPERATION_COUNT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Function Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTRUCTION__FUNCTION_NAME = 0;
 
 	/**
 	 * The feature id for the '<em><b>Language</b></em>' attribute.
@@ -515,71 +524,34 @@ public interface DomainPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SETUP_BLOCK__LANGUAGE = 0;
+	int INSTRUCTION__LANGUAGE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Instructions</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Import ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SETUP_BLOCK__INSTRUCTIONS = 1;
+	int INSTRUCTION__IMPORT_ID = 2;
 
 	/**
-	 * The number of structural features of the '<em>Setup Block</em>' class.
+	 * The number of structural features of the '<em>Instruction</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SETUP_BLOCK_FEATURE_COUNT = 2;
+	int INSTRUCTION_FEATURE_COUNT = 3;
 
 	/**
-	 * The number of operations of the '<em>Setup Block</em>' class.
+	 * The number of operations of the '<em>Instruction</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SETUP_BLOCK_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link Domain.impl.StringInstructionImpl <em>String Instruction</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see Domain.impl.StringInstructionImpl
-	 * @see Domain.impl.DomainPackageImpl#getStringInstruction()
-	 * @generated
-	 */
-	int STRING_INSTRUCTION = 9;
-
-	/**
-	 * The feature id for the '<em><b>Content</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_INSTRUCTION__CONTENT = 0;
-
-	/**
-	 * The number of structural features of the '<em>String Instruction</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_INSTRUCTION_FEATURE_COUNT = 1;
-
-	/**
-	 * The number of operations of the '<em>String Instruction</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_INSTRUCTION_OPERATION_COUNT = 0;
+	int INSTRUCTION_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link Domain.impl.FunctionBlockImpl <em>Function Block</em>}' class.
@@ -589,7 +561,7 @@ public interface DomainPackage extends EPackage {
 	 * @see Domain.impl.DomainPackageImpl#getFunctionBlock()
 	 * @generated
 	 */
-	int FUNCTION_BLOCK = 10;
+	int FUNCTION_BLOCK = 9;
 
 	/**
 	 * The feature id for the '<em><b>Parameters</b></em>' attribute list.
@@ -619,6 +591,98 @@ public interface DomainPackage extends EPackage {
 	int FUNCTION_BLOCK_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link Domain.impl.ImportImpl <em>Import</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Domain.impl.ImportImpl
+	 * @see Domain.impl.DomainPackageImpl#getImport()
+	 * @generated
+	 */
+	int IMPORT = 10;
+
+	/**
+	 * The feature id for the '<em><b>Language</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT__LANGUAGE = 0;
+
+	/**
+	 * The feature id for the '<em><b>References</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT__REFERENCES = 1;
+
+	/**
+	 * The feature id for the '<em><b>Import ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT__IMPORT_ID = 2;
+
+	/**
+	 * The number of structural features of the '<em>Import</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Import</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link Domain.impl.ReferenceImpl <em>Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Domain.impl.ReferenceImpl
+	 * @see Domain.impl.DomainPackageImpl#getReference()
+	 * @generated
+	 */
+	int REFERENCE = 11;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link Domain.Type <em>Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -626,7 +690,7 @@ public interface DomainPackage extends EPackage {
 	 * @see Domain.impl.DomainPackageImpl#getType()
 	 * @generated
 	 */
-	int TYPE = 11;
+	int TYPE = 12;
 
 	/**
 	 * The meta object id for the '{@link Domain.MarkerID <em>Marker ID</em>}' enum.
@@ -636,7 +700,7 @@ public interface DomainPackage extends EPackage {
 	 * @see Domain.impl.DomainPackageImpl#getMarkerID()
 	 * @generated
 	 */
-	int MARKER_ID = 12;
+	int MARKER_ID = 13;
 
 	/**
 	 * The meta object id for the '{@link Domain.Language <em>Language</em>}' enum.
@@ -646,7 +710,7 @@ public interface DomainPackage extends EPackage {
 	 * @see Domain.impl.DomainPackageImpl#getLanguage()
 	 * @generated
 	 */
-	int LANGUAGE = 13;
+	int LANGUAGE = 14;
 
 
 	/**
@@ -693,17 +757,6 @@ public interface DomainPackage extends EPackage {
 	EReference getDomainFramework_Parameters();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link Domain.DomainFramework#getSetups <em>Setups</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Setups</em>'.
-	 * @see Domain.DomainFramework#getSetups()
-	 * @see #getDomainFramework()
-	 * @generated
-	 */
-	EReference getDomainFramework_Setups();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link Domain.DomainFramework#getFunction_definitions <em>Function definitions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -713,6 +766,17 @@ public interface DomainPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getDomainFramework_Function_definitions();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link Domain.DomainFramework#getSetup <em>Setup</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Setup</em>'.
+	 * @see Domain.DomainFramework#getSetup()
+	 * @see #getDomainFramework()
+	 * @generated
+	 */
+	EReference getDomainFramework_Setup();
 
 	/**
 	 * Returns the meta object for class '{@link Domain.Parameter <em>Parameter</em>}'.
@@ -812,15 +876,58 @@ public interface DomainPackage extends EPackage {
 	EClass getSetup();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link Domain.Setup#getInstructions <em>Instructions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link Domain.Setup#getImports <em>Imports</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Instructions</em>'.
-	 * @see Domain.Setup#getInstructions()
+	 * @return the meta object for the containment reference list '<em>Imports</em>'.
+	 * @see Domain.Setup#getImports()
 	 * @see #getSetup()
 	 * @generated
 	 */
-	EReference getSetup_Instructions();
+	EReference getSetup_Imports();
+
+	/**
+	 * Returns the meta object for class '{@link Domain.Instruction <em>Instruction</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Instruction</em>'.
+	 * @see Domain.Instruction
+	 * @generated
+	 */
+	EClass getInstruction();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Domain.Instruction#getFunctionName <em>Function Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Function Name</em>'.
+	 * @see Domain.Instruction#getFunctionName()
+	 * @see #getInstruction()
+	 * @generated
+	 */
+	EAttribute getInstruction_FunctionName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Domain.Instruction#getLanguage <em>Language</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Language</em>'.
+	 * @see Domain.Instruction#getLanguage()
+	 * @see #getInstruction()
+	 * @generated
+	 */
+	EAttribute getInstruction_Language();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Domain.Instruction#getImportID <em>Import ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Import ID</em>'.
+	 * @see Domain.Instruction#getImportID()
+	 * @see #getInstruction()
+	 * @generated
+	 */
+	EAttribute getInstruction_ImportID();
 
 	/**
 	 * Returns the meta object for class '{@link Domain.FunctionDefinition <em>Function Definition</em>}'.
@@ -972,59 +1079,6 @@ public interface DomainPackage extends EPackage {
 	EClass getAssignationMarker();
 
 	/**
-	 * Returns the meta object for class '{@link Domain.SetupBlock <em>Setup Block</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Setup Block</em>'.
-	 * @see Domain.SetupBlock
-	 * @generated
-	 */
-	EClass getSetupBlock();
-
-	/**
-	 * Returns the meta object for the attribute '{@link Domain.SetupBlock#getLanguage <em>Language</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Language</em>'.
-	 * @see Domain.SetupBlock#getLanguage()
-	 * @see #getSetupBlock()
-	 * @generated
-	 */
-	EAttribute getSetupBlock_Language();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link Domain.SetupBlock#getInstructions <em>Instructions</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Instructions</em>'.
-	 * @see Domain.SetupBlock#getInstructions()
-	 * @see #getSetupBlock()
-	 * @generated
-	 */
-	EReference getSetupBlock_Instructions();
-
-	/**
-	 * Returns the meta object for class '{@link Domain.StringInstruction <em>String Instruction</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>String Instruction</em>'.
-	 * @see Domain.StringInstruction
-	 * @generated
-	 */
-	EClass getStringInstruction();
-
-	/**
-	 * Returns the meta object for the attribute '{@link Domain.StringInstruction#getContent <em>Content</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Content</em>'.
-	 * @see Domain.StringInstruction#getContent()
-	 * @see #getStringInstruction()
-	 * @generated
-	 */
-	EAttribute getStringInstruction_Content();
-
-	/**
 	 * Returns the meta object for class '{@link Domain.FunctionBlock <em>Function Block</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1044,6 +1098,70 @@ public interface DomainPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getFunctionBlock_Parameters();
+
+	/**
+	 * Returns the meta object for class '{@link Domain.Import <em>Import</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Import</em>'.
+	 * @see Domain.Import
+	 * @generated
+	 */
+	EClass getImport();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Domain.Import#getLanguage <em>Language</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Language</em>'.
+	 * @see Domain.Import#getLanguage()
+	 * @see #getImport()
+	 * @generated
+	 */
+	EAttribute getImport_Language();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link Domain.Import#getReferences <em>References</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>References</em>'.
+	 * @see Domain.Import#getReferences()
+	 * @see #getImport()
+	 * @generated
+	 */
+	EReference getImport_References();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Domain.Import#getImportID <em>Import ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Import ID</em>'.
+	 * @see Domain.Import#getImportID()
+	 * @see #getImport()
+	 * @generated
+	 */
+	EAttribute getImport_ImportID();
+
+	/**
+	 * Returns the meta object for class '{@link Domain.Reference <em>Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Reference</em>'.
+	 * @see Domain.Reference
+	 * @generated
+	 */
+	EClass getReference();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Domain.Reference#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see Domain.Reference#getName()
+	 * @see #getReference()
+	 * @generated
+	 */
+	EAttribute getReference_Name();
 
 	/**
 	 * Returns the meta object for enum '{@link Domain.Type <em>Type</em>}'.
@@ -1133,20 +1251,20 @@ public interface DomainPackage extends EPackage {
 		EReference DOMAIN_FRAMEWORK__PARAMETERS = eINSTANCE.getDomainFramework_Parameters();
 
 		/**
-		 * The meta object literal for the '<em><b>Setups</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOMAIN_FRAMEWORK__SETUPS = eINSTANCE.getDomainFramework_Setups();
-
-		/**
 		 * The meta object literal for the '<em><b>Function definitions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS = eINSTANCE.getDomainFramework_Function_definitions();
+
+		/**
+		 * The meta object literal for the '<em><b>Setup</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DOMAIN_FRAMEWORK__SETUP = eINSTANCE.getDomainFramework_Setup();
 
 		/**
 		 * The meta object literal for the '{@link Domain.impl.ParameterImpl <em>Parameter</em>}' class.
@@ -1225,12 +1343,46 @@ public interface DomainPackage extends EPackage {
 		EClass SETUP = eINSTANCE.getSetup();
 
 		/**
-		 * The meta object literal for the '<em><b>Instructions</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SETUP__INSTRUCTIONS = eINSTANCE.getSetup_Instructions();
+		EReference SETUP__IMPORTS = eINSTANCE.getSetup_Imports();
+
+		/**
+		 * The meta object literal for the '{@link Domain.impl.InstructionImpl <em>Instruction</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Domain.impl.InstructionImpl
+		 * @see Domain.impl.DomainPackageImpl#getInstruction()
+		 * @generated
+		 */
+		EClass INSTRUCTION = eINSTANCE.getInstruction();
+
+		/**
+		 * The meta object literal for the '<em><b>Function Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INSTRUCTION__FUNCTION_NAME = eINSTANCE.getInstruction_FunctionName();
+
+		/**
+		 * The meta object literal for the '<em><b>Language</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INSTRUCTION__LANGUAGE = eINSTANCE.getInstruction_Language();
+
+		/**
+		 * The meta object literal for the '<em><b>Import ID</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INSTRUCTION__IMPORT_ID = eINSTANCE.getInstruction_ImportID();
 
 		/**
 		 * The meta object literal for the '{@link Domain.impl.FunctionDefinitionImpl <em>Function Definition</em>}' class.
@@ -1355,50 +1507,6 @@ public interface DomainPackage extends EPackage {
 		EClass ASSIGNATION_MARKER = eINSTANCE.getAssignationMarker();
 
 		/**
-		 * The meta object literal for the '{@link Domain.impl.SetupBlockImpl <em>Setup Block</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see Domain.impl.SetupBlockImpl
-		 * @see Domain.impl.DomainPackageImpl#getSetupBlock()
-		 * @generated
-		 */
-		EClass SETUP_BLOCK = eINSTANCE.getSetupBlock();
-
-		/**
-		 * The meta object literal for the '<em><b>Language</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SETUP_BLOCK__LANGUAGE = eINSTANCE.getSetupBlock_Language();
-
-		/**
-		 * The meta object literal for the '<em><b>Instructions</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference SETUP_BLOCK__INSTRUCTIONS = eINSTANCE.getSetupBlock_Instructions();
-
-		/**
-		 * The meta object literal for the '{@link Domain.impl.StringInstructionImpl <em>String Instruction</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see Domain.impl.StringInstructionImpl
-		 * @see Domain.impl.DomainPackageImpl#getStringInstruction()
-		 * @generated
-		 */
-		EClass STRING_INSTRUCTION = eINSTANCE.getStringInstruction();
-
-		/**
-		 * The meta object literal for the '<em><b>Content</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute STRING_INSTRUCTION__CONTENT = eINSTANCE.getStringInstruction_Content();
-
-		/**
 		 * The meta object literal for the '{@link Domain.impl.FunctionBlockImpl <em>Function Block</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1415,6 +1523,58 @@ public interface DomainPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FUNCTION_BLOCK__PARAMETERS = eINSTANCE.getFunctionBlock_Parameters();
+
+		/**
+		 * The meta object literal for the '{@link Domain.impl.ImportImpl <em>Import</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Domain.impl.ImportImpl
+		 * @see Domain.impl.DomainPackageImpl#getImport()
+		 * @generated
+		 */
+		EClass IMPORT = eINSTANCE.getImport();
+
+		/**
+		 * The meta object literal for the '<em><b>Language</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IMPORT__LANGUAGE = eINSTANCE.getImport_Language();
+
+		/**
+		 * The meta object literal for the '<em><b>References</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference IMPORT__REFERENCES = eINSTANCE.getImport_References();
+
+		/**
+		 * The meta object literal for the '<em><b>Import ID</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IMPORT__IMPORT_ID = eINSTANCE.getImport_ImportID();
+
+		/**
+		 * The meta object literal for the '{@link Domain.impl.ReferenceImpl <em>Reference</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Domain.impl.ReferenceImpl
+		 * @see Domain.impl.DomainPackageImpl#getReference()
+		 * @generated
+		 */
+		EClass REFERENCE = eINSTANCE.getReference();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REFERENCE__NAME = eINSTANCE.getReference_Name();
 
 		/**
 		 * The meta object literal for the '{@link Domain.Type <em>Type</em>}' enum.

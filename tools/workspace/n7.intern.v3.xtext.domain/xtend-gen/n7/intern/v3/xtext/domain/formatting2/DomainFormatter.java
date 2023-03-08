@@ -25,10 +25,7 @@ public class DomainFormatter extends AbstractFormatter2 {
   private DomainGrammarAccess _domainGrammarAccess;
 
   protected void _format(final DomainFramework domainFramework, @Extension final IFormattableDocument document) {
-    EList<Setup> _setups = domainFramework.getSetups();
-    for (final Setup setup : _setups) {
-      document.<Setup>format(setup);
-    }
+    document.<Setup>format(domainFramework.getSetup());
     EList<FunctionDefinition> _function_definitions = domainFramework.getFunction_definitions();
     for (final FunctionDefinition functionDefinition : _function_definitions) {
       document.<FunctionDefinition>format(functionDefinition);

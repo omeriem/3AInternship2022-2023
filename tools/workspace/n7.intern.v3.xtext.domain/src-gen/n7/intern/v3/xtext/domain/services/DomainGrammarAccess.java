@@ -39,8 +39,8 @@ public class DomainGrammarAccess extends AbstractElementFinder.AbstractGrammarEl
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cSetupsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cSetupsSetupParserRuleCall_4_0 = (RuleCall)cSetupsAssignment_4.eContents().get(0);
+		private final Assignment cSetupAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cSetupSetupParserRuleCall_4_0 = (RuleCall)cSetupAssignment_4.eContents().get(0);
 		private final Assignment cFunction_definitionsAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cFunction_definitionsFunctionDefinitionParserRuleCall_5_0 = (RuleCall)cFunction_definitionsAssignment_5.eContents().get(0);
 		private final Alternatives cAlternatives_6 = (Alternatives)cGroup.eContents().get(6);
@@ -53,7 +53,7 @@ public class DomainGrammarAccess extends AbstractElementFinder.AbstractGrammarEl
 		//DomainFramework returns DomainFramework hidden(WS, ML_COMMENT, SL_COMMENT):
 		//    ('@description''('description=STRING')')?
 		//    'domain' name=ID '{'
-		//         setups+=Setup
+		//         (setup = Setup)?
 		//         (function_definitions += FunctionDefinition)*
 		//         (parameters += TypedParameter| parameters += FunctionParameter)*
 		//     '}'
@@ -62,7 +62,7 @@ public class DomainGrammarAccess extends AbstractElementFinder.AbstractGrammarEl
 		
 		//('@description''('description=STRING')')?
 		//'domain' name=ID '{'
-		//     setups+=Setup
+		//     (setup = Setup)?
 		//     (function_definitions += FunctionDefinition)*
 		//     (parameters += TypedParameter| parameters += FunctionParameter)*
 		// '}'
@@ -98,11 +98,11 @@ public class DomainGrammarAccess extends AbstractElementFinder.AbstractGrammarEl
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
 		
-		//setups+=Setup
-		public Assignment getSetupsAssignment_4() { return cSetupsAssignment_4; }
+		//(setup = Setup)?
+		public Assignment getSetupAssignment_4() { return cSetupAssignment_4; }
 		
 		//Setup
-		public RuleCall getSetupsSetupParserRuleCall_4_0() { return cSetupsSetupParserRuleCall_4_0; }
+		public RuleCall getSetupSetupParserRuleCall_4_0() { return cSetupSetupParserRuleCall_4_0; }
 		
 		//(function_definitions += FunctionDefinition)*
 		public Assignment getFunction_definitionsAssignment_5() { return cFunction_definitionsAssignment_5; }
@@ -677,15 +677,15 @@ public class DomainGrammarAccess extends AbstractElementFinder.AbstractGrammarEl
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cInstructionsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cInstructionsSetupBlockParserRuleCall_2_0 = (RuleCall)cInstructionsAssignment_2.eContents().get(0);
+		private final RuleCall cInstructionsInstructionParserRuleCall_2_0 = (RuleCall)cInstructionsAssignment_2.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//FunctionValue returns FunctionValue:
-		//    name=ID '{'(instructions+=SetupBlock)+ '}'
+		//    name=ID '{' (instructions+= Instruction)+ '}'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=ID '{'(instructions+=SetupBlock)+ '}'
+		//name=ID '{' (instructions+= Instruction)+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//name=ID
@@ -697,32 +697,123 @@ public class DomainGrammarAccess extends AbstractElementFinder.AbstractGrammarEl
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
 		
-		//(instructions+=SetupBlock)+
+		//(instructions+= Instruction)+
 		public Assignment getInstructionsAssignment_2() { return cInstructionsAssignment_2; }
 		
-		//SetupBlock
-		public RuleCall getInstructionsSetupBlockParserRuleCall_2_0() { return cInstructionsSetupBlockParserRuleCall_2_0; }
+		//Instruction
+		public RuleCall getInstructionsInstructionParserRuleCall_2_0() { return cInstructionsInstructionParserRuleCall_2_0; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
 	}
-	public class SetupBlockElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "n7.intern.v3.xtext.domain.Domain.SetupBlock");
+	public class InstructionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "n7.intern.v3.xtext.domain.Domain.Instruction");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cCommercialAtKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cLanguageAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cLanguageLanguageEnumRuleCall_1_0 = (RuleCall)cLanguageAssignment_1.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cImportIDAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cImportIDIDTerminalRuleCall_3_0 = (RuleCall)cImportIDAssignment_3.eContents().get(0);
+		private final Keyword cColonColonKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cFunctionNameAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cFunctionNameIDTerminalRuleCall_5_0 = (RuleCall)cFunctionNameAssignment_5.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		
+		//Instruction returns Instruction:
+		//    '@' language=Language '(' importID = ID '::' functionName=ID ')'
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'@' language=Language '(' importID = ID '::' functionName=ID ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'@'
+		public Keyword getCommercialAtKeyword_0() { return cCommercialAtKeyword_0; }
+		
+		//language=Language
+		public Assignment getLanguageAssignment_1() { return cLanguageAssignment_1; }
+		
+		//Language
+		public RuleCall getLanguageLanguageEnumRuleCall_1_0() { return cLanguageLanguageEnumRuleCall_1_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+		
+		//importID = ID
+		public Assignment getImportIDAssignment_3() { return cImportIDAssignment_3; }
+		
+		//ID
+		public RuleCall getImportIDIDTerminalRuleCall_3_0() { return cImportIDIDTerminalRuleCall_3_0; }
+		
+		//'::'
+		public Keyword getColonColonKeyword_4() { return cColonColonKeyword_4; }
+		
+		//functionName=ID
+		public Assignment getFunctionNameAssignment_5() { return cFunctionNameAssignment_5; }
+		
+		//ID
+		public RuleCall getFunctionNameIDTerminalRuleCall_5_0() { return cFunctionNameIDTerminalRuleCall_5_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
+	}
+	public class SetupElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "n7.intern.v3.xtext.domain.Domain.Setup");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cImportsKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cImportsAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cImportsImportParserRuleCall_2_0 = (RuleCall)cImportsAssignment_2.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//Setup returns Setup:
+		//    'imports' '{' (imports+=Import)+ '}'
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'imports' '{' (imports+=Import)+ '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'imports'
+		public Keyword getImportsKeyword_0() { return cImportsKeyword_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
+		
+		//(imports+=Import)+
+		public Assignment getImportsAssignment_2() { return cImportsAssignment_2; }
+		
+		//Import
+		public RuleCall getImportsImportParserRuleCall_2_0() { return cImportsImportParserRuleCall_2_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
+	}
+	public class ImportElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "n7.intern.v3.xtext.domain.Domain.Import");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cCommercialAtKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cLanguageAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cLanguageLanguageEnumRuleCall_1_0 = (RuleCall)cLanguageAssignment_1.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cInstructionsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cInstructionsStringInstructionParserRuleCall_3_0 = (RuleCall)cInstructionsAssignment_3.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cImportIDAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cImportIDIDTerminalRuleCall_3_0 = (RuleCall)cImportIDAssignment_3.eContents().get(0);
+		private final Keyword cColonKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Assignment cReferencesAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
+		private final RuleCall cReferencesReferenceParserRuleCall_5_0_0 = (RuleCall)cReferencesAssignment_5_0.eContents().get(0);
+		private final Keyword cFullStopKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
+		private final Assignment cReferencesAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cReferencesReferenceParserRuleCall_6_0 = (RuleCall)cReferencesAssignment_6.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
-		//SetupBlock returns SetupBlock:
-		//    '@' language=Language '{' instructions += StringInstruction'}'
+		//Import returns Import:
+		//    '@' language=Language '{' importID = ID ':' (references+=Reference '.')*(references+=Reference) '}'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'@' language=Language '{' instructions += StringInstruction'}'
+		//'@' language=Language '{' importID = ID ':' (references+=Reference '.')*(references+=Reference) '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'@'
@@ -737,62 +828,51 @@ public class DomainGrammarAccess extends AbstractElementFinder.AbstractGrammarEl
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 		
-		//instructions += StringInstruction
-		public Assignment getInstructionsAssignment_3() { return cInstructionsAssignment_3; }
+		//importID = ID
+		public Assignment getImportIDAssignment_3() { return cImportIDAssignment_3; }
 		
-		//StringInstruction
-		public RuleCall getInstructionsStringInstructionParserRuleCall_3_0() { return cInstructionsStringInstructionParserRuleCall_3_0; }
+		//ID
+		public RuleCall getImportIDIDTerminalRuleCall_3_0() { return cImportIDIDTerminalRuleCall_3_0; }
+		
+		//':'
+		public Keyword getColonKeyword_4() { return cColonKeyword_4; }
+		
+		//(references+=Reference '.')*
+		public Group getGroup_5() { return cGroup_5; }
+		
+		//references+=Reference
+		public Assignment getReferencesAssignment_5_0() { return cReferencesAssignment_5_0; }
+		
+		//Reference
+		public RuleCall getReferencesReferenceParserRuleCall_5_0_0() { return cReferencesReferenceParserRuleCall_5_0_0; }
+		
+		//'.'
+		public Keyword getFullStopKeyword_5_1() { return cFullStopKeyword_5_1; }
+		
+		//(references+=Reference)
+		public Assignment getReferencesAssignment_6() { return cReferencesAssignment_6; }
+		
+		//Reference
+		public RuleCall getReferencesReferenceParserRuleCall_6_0() { return cReferencesReferenceParserRuleCall_6_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+		public Keyword getRightCurlyBracketKeyword_7() { return cRightCurlyBracketKeyword_7; }
 	}
-	public class SetupElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "n7.intern.v3.xtext.domain.Domain.Setup");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cSetupKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cInstructionsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cInstructionsSetupBlockParserRuleCall_2_0 = (RuleCall)cInstructionsAssignment_2.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+	public class ReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "n7.intern.v3.xtext.domain.Domain.Reference");
+		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
-		//Setup returns Setup:
-		//    'setup' '{'(instructions+=SetupBlock)+'}'
+		//Reference returns Reference:
+		//    name=ID
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'setup' '{'(instructions+=SetupBlock)+'}'
-		public Group getGroup() { return cGroup; }
+		//name=ID
+		public Assignment getNameAssignment() { return cNameAssignment; }
 		
-		//'setup'
-		public Keyword getSetupKeyword_0() { return cSetupKeyword_0; }
-		
-		//'{'
-		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
-		
-		//(instructions+=SetupBlock)+
-		public Assignment getInstructionsAssignment_2() { return cInstructionsAssignment_2; }
-		
-		//SetupBlock
-		public RuleCall getInstructionsSetupBlockParserRuleCall_2_0() { return cInstructionsSetupBlockParserRuleCall_2_0; }
-		
-		//'}'
-		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
-	}
-	public class StringInstructionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "n7.intern.v3.xtext.domain.Domain.StringInstruction");
-		private final Assignment cContentAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cContentUNQUOTEDSTRINGTerminalRuleCall_0 = (RuleCall)cContentAssignment.eContents().get(0);
-		
-		//StringInstruction returns StringInstruction:
-		//    content = UNQUOTEDSTRING
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//content = UNQUOTEDSTRING
-		public Assignment getContentAssignment() { return cContentAssignment; }
-		
-		//UNQUOTEDSTRING
-		public RuleCall getContentUNQUOTEDSTRINGTerminalRuleCall_0() { return cContentUNQUOTEDSTRINGTerminalRuleCall_0; }
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0() { return cNameIDTerminalRuleCall_0; }
 	}
 	
 	public class LanguageElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
@@ -941,9 +1021,10 @@ public class DomainGrammarAccess extends AbstractElementFinder.AbstractGrammarEl
 	private final TerminalRule tDEFAULT_PARAMETER;
 	private final FunctionDefinitionElements pFunctionDefinition;
 	private final FunctionValueElements pFunctionValue;
-	private final SetupBlockElements pSetupBlock;
+	private final InstructionElements pInstruction;
 	private final SetupElements pSetup;
-	private final StringInstructionElements pStringInstruction;
+	private final ImportElements pImport;
+	private final ReferenceElements pReference;
 	private final TerminalRule tUNQUOTEDSTRING;
 	private final TerminalRule tQUALIFIED_NAME;
 	private final LanguageElements eLanguage;
@@ -975,9 +1056,10 @@ public class DomainGrammarAccess extends AbstractElementFinder.AbstractGrammarEl
 		this.tDEFAULT_PARAMETER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "n7.intern.v3.xtext.domain.Domain.DEFAULT_PARAMETER");
 		this.pFunctionDefinition = new FunctionDefinitionElements();
 		this.pFunctionValue = new FunctionValueElements();
-		this.pSetupBlock = new SetupBlockElements();
+		this.pInstruction = new InstructionElements();
 		this.pSetup = new SetupElements();
-		this.pStringInstruction = new StringInstructionElements();
+		this.pImport = new ImportElements();
+		this.pReference = new ReferenceElements();
 		this.tUNQUOTEDSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "n7.intern.v3.xtext.domain.Domain.UNQUOTEDSTRING");
 		this.tQUALIFIED_NAME = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "n7.intern.v3.xtext.domain.Domain.QUALIFIED_NAME");
 		this.eLanguage = new LanguageElements();
@@ -1022,7 +1104,7 @@ public class DomainGrammarAccess extends AbstractElementFinder.AbstractGrammarEl
 	//DomainFramework returns DomainFramework hidden(WS, ML_COMMENT, SL_COMMENT):
 	//    ('@description''('description=STRING')')?
 	//    'domain' name=ID '{'
-	//         setups+=Setup
+	//         (setup = Setup)?
 	//         (function_definitions += FunctionDefinition)*
 	//         (parameters += TypedParameter| parameters += FunctionParameter)*
 	//     '}'
@@ -1114,7 +1196,7 @@ public class DomainGrammarAccess extends AbstractElementFinder.AbstractGrammarEl
 	}
 	
 	//FunctionValue returns FunctionValue:
-	//    name=ID '{'(instructions+=SetupBlock)+ '}'
+	//    name=ID '{' (instructions+= Instruction)+ '}'
 	//;
 	public FunctionValueElements getFunctionValueAccess() {
 		return pFunctionValue;
@@ -1124,19 +1206,19 @@ public class DomainGrammarAccess extends AbstractElementFinder.AbstractGrammarEl
 		return getFunctionValueAccess().getRule();
 	}
 	
-	//SetupBlock returns SetupBlock:
-	//    '@' language=Language '{' instructions += StringInstruction'}'
+	//Instruction returns Instruction:
+	//    '@' language=Language '(' importID = ID '::' functionName=ID ')'
 	//;
-	public SetupBlockElements getSetupBlockAccess() {
-		return pSetupBlock;
+	public InstructionElements getInstructionAccess() {
+		return pInstruction;
 	}
 	
-	public ParserRule getSetupBlockRule() {
-		return getSetupBlockAccess().getRule();
+	public ParserRule getInstructionRule() {
+		return getInstructionAccess().getRule();
 	}
 	
 	//Setup returns Setup:
-	//    'setup' '{'(instructions+=SetupBlock)+'}'
+	//    'imports' '{' (imports+=Import)+ '}'
 	//;
 	public SetupElements getSetupAccess() {
 		return pSetup;
@@ -1146,15 +1228,26 @@ public class DomainGrammarAccess extends AbstractElementFinder.AbstractGrammarEl
 		return getSetupAccess().getRule();
 	}
 	
-	//StringInstruction returns StringInstruction:
-	//    content = UNQUOTEDSTRING
+	//Import returns Import:
+	//    '@' language=Language '{' importID = ID ':' (references+=Reference '.')*(references+=Reference) '}'
 	//;
-	public StringInstructionElements getStringInstructionAccess() {
-		return pStringInstruction;
+	public ImportElements getImportAccess() {
+		return pImport;
 	}
 	
-	public ParserRule getStringInstructionRule() {
-		return getStringInstructionAccess().getRule();
+	public ParserRule getImportRule() {
+		return getImportAccess().getRule();
+	}
+	
+	//Reference returns Reference:
+	//    name=ID
+	//;
+	public ReferenceElements getReferenceAccess() {
+		return pReference;
+	}
+	
+	public ParserRule getReferenceRule() {
+		return getReferenceAccess().getRule();
 	}
 	
 	//terminal UNQUOTEDSTRING:

@@ -35,8 +35,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Domain.impl.DomainFrameworkImpl#getName <em>Name</em>}</li>
  *   <li>{@link Domain.impl.DomainFrameworkImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link Domain.impl.DomainFrameworkImpl#getParameters <em>Parameters</em>}</li>
- *   <li>{@link Domain.impl.DomainFrameworkImpl#getSetups <em>Setups</em>}</li>
  *   <li>{@link Domain.impl.DomainFrameworkImpl#getFunction_definitions <em>Function definitions</em>}</li>
+ *   <li>{@link Domain.impl.DomainFrameworkImpl#getSetup <em>Setup</em>}</li>
  * </ul>
  *
  * @generated
@@ -93,16 +93,6 @@ public class DomainFrameworkImpl extends MinimalEObjectImpl.Container implements
 	protected EList<Parameter> parameters;
 
 	/**
-	 * The cached value of the '{@link #getSetups() <em>Setups</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSetups()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Setup> setups;
-
-	/**
 	 * The cached value of the '{@link #getFunction_definitions() <em>Function definitions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -111,6 +101,16 @@ public class DomainFrameworkImpl extends MinimalEObjectImpl.Container implements
 	 * @ordered
 	 */
 	protected EList<FunctionDefinition> function_definitions;
+
+	/**
+	 * The cached value of the '{@link #getSetup() <em>Setup</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSetup()
+	 * @generated
+	 * @ordered
+	 */
+	protected Setup setup;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -190,18 +190,6 @@ public class DomainFrameworkImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Setup> getSetups() {
-		if (setups == null) {
-			setups = new EObjectContainmentEList<Setup>(Setup.class, this, DomainPackage.DOMAIN_FRAMEWORK__SETUPS);
-		}
-		return setups;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<FunctionDefinition> getFunction_definitions() {
 		if (function_definitions == null) {
 			function_definitions = new EObjectContainmentEList<FunctionDefinition>(FunctionDefinition.class, this, DomainPackage.DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS);
@@ -214,15 +202,58 @@ public class DomainFrameworkImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Setup getSetup() {
+		return setup;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetSetup(Setup newSetup, NotificationChain msgs) {
+		Setup oldSetup = setup;
+		setup = newSetup;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DomainPackage.DOMAIN_FRAMEWORK__SETUP, oldSetup, newSetup);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSetup(Setup newSetup) {
+		if (newSetup != setup) {
+			NotificationChain msgs = null;
+			if (setup != null)
+				msgs = ((InternalEObject)setup).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DomainPackage.DOMAIN_FRAMEWORK__SETUP, null, msgs);
+			if (newSetup != null)
+				msgs = ((InternalEObject)newSetup).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DomainPackage.DOMAIN_FRAMEWORK__SETUP, null, msgs);
+			msgs = basicSetSetup(newSetup, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DomainPackage.DOMAIN_FRAMEWORK__SETUP, newSetup, newSetup));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case DomainPackage.DOMAIN_FRAMEWORK__PARAMETERS:
 				return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
-			case DomainPackage.DOMAIN_FRAMEWORK__SETUPS:
-				return ((InternalEList<?>)getSetups()).basicRemove(otherEnd, msgs);
 			case DomainPackage.DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS:
 				return ((InternalEList<?>)getFunction_definitions()).basicRemove(otherEnd, msgs);
+			case DomainPackage.DOMAIN_FRAMEWORK__SETUP:
+				return basicSetSetup(null, msgs);
 			default:
 				return super.eInverseRemove(otherEnd, featureID, msgs);
 		}
@@ -242,10 +273,10 @@ public class DomainFrameworkImpl extends MinimalEObjectImpl.Container implements
 				return getDescription();
 			case DomainPackage.DOMAIN_FRAMEWORK__PARAMETERS:
 				return getParameters();
-			case DomainPackage.DOMAIN_FRAMEWORK__SETUPS:
-				return getSetups();
 			case DomainPackage.DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS:
 				return getFunction_definitions();
+			case DomainPackage.DOMAIN_FRAMEWORK__SETUP:
+				return getSetup();
 			default:
 				return super.eGet(featureID, resolve, coreType);
 		}
@@ -270,13 +301,12 @@ public class DomainFrameworkImpl extends MinimalEObjectImpl.Container implements
 				getParameters().clear();
 				getParameters().addAll((Collection<? extends Parameter>)newValue);
 				return;
-			case DomainPackage.DOMAIN_FRAMEWORK__SETUPS:
-				getSetups().clear();
-				getSetups().addAll((Collection<? extends Setup>)newValue);
-				return;
 			case DomainPackage.DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS:
 				getFunction_definitions().clear();
 				getFunction_definitions().addAll((Collection<? extends FunctionDefinition>)newValue);
+				return;
+			case DomainPackage.DOMAIN_FRAMEWORK__SETUP:
+				setSetup((Setup)newValue);
 				return;
 			default:
 				super.eSet(featureID, newValue);
@@ -301,11 +331,11 @@ public class DomainFrameworkImpl extends MinimalEObjectImpl.Container implements
 			case DomainPackage.DOMAIN_FRAMEWORK__PARAMETERS:
 				getParameters().clear();
 				return;
-			case DomainPackage.DOMAIN_FRAMEWORK__SETUPS:
-				getSetups().clear();
-				return;
 			case DomainPackage.DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS:
 				getFunction_definitions().clear();
+				return;
+			case DomainPackage.DOMAIN_FRAMEWORK__SETUP:
+				setSetup((Setup)null);
 				return;
 			default:
 				super.eUnset(featureID);
@@ -327,10 +357,10 @@ public class DomainFrameworkImpl extends MinimalEObjectImpl.Container implements
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case DomainPackage.DOMAIN_FRAMEWORK__PARAMETERS:
 				return parameters != null && !parameters.isEmpty();
-			case DomainPackage.DOMAIN_FRAMEWORK__SETUPS:
-				return setups != null && !setups.isEmpty();
 			case DomainPackage.DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS:
 				return function_definitions != null && !function_definitions.isEmpty();
+			case DomainPackage.DOMAIN_FRAMEWORK__SETUP:
+				return setup != null;
 			default:
 				return super.eIsSet(featureID);
 		}

@@ -77,7 +77,7 @@ public class SetupItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DomainPackage.Literals.SETUP__INSTRUCTIONS);
+			childrenFeatures.add(DomainPackage.Literals.SETUP__IMPORTS);
 		}
 		return childrenFeatures;
 	}
@@ -130,7 +130,7 @@ public class SetupItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Setup.class)) {
-			case DomainPackage.SETUP__INSTRUCTIONS:
+			case DomainPackage.SETUP__IMPORTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 			default:
@@ -152,8 +152,8 @@ public class SetupItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DomainPackage.Literals.SETUP__INSTRUCTIONS,
-				 DomainFactory.eINSTANCE.createSetupBlock()));
+				(DomainPackage.Literals.SETUP__IMPORTS,
+				 DomainFactory.eINSTANCE.createImport()));
 	}
 
 	/**

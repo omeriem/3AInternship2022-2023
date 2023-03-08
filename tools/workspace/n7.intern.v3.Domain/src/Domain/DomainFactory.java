@@ -49,6 +49,15 @@ public interface DomainFactory extends EFactory {
 	Setup createSetup();
 
 	/**
+	 * Returns a new object of class '<em>Instruction</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Instruction</em>'.
+	 * @generated
+	 */
+	Instruction createInstruction();
+
+	/**
 	 * Returns a new object of class '<em>Function Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -94,24 +103,6 @@ public interface DomainFactory extends EFactory {
 	AssignationMarker createAssignationMarker();
 
 	/**
-	 * Returns a new object of class '<em>Setup Block</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Setup Block</em>'.
-	 * @generated
-	 */
-	SetupBlock createSetupBlock();
-
-	/**
-	 * Returns a new object of class '<em>String Instruction</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>String Instruction</em>'.
-	 * @generated
-	 */
-	StringInstruction createStringInstruction();
-
-	/**
 	 * Returns a new object of class '<em>Function Block</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -119,6 +110,24 @@ public interface DomainFactory extends EFactory {
 	 * @generated
 	 */
 	FunctionBlock createFunctionBlock();
+
+	/**
+	 * Returns a new object of class '<em>Import</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Import</em>'.
+	 * @generated
+	 */
+	Import createImport();
+
+	/**
+	 * Returns a new object of class '<em>Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Reference</em>'.
+	 * @generated
+	 */
+	Reference createReference();
 
 	/**
 	 * Returns the package supported by this factory.

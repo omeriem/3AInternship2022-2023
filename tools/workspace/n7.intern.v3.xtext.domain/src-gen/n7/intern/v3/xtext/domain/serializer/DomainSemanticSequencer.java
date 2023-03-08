@@ -10,9 +10,10 @@ import Domain.FunctionBlock;
 import Domain.FunctionDefinition;
 import Domain.FunctionMarker;
 import Domain.FunctionValue;
+import Domain.Import;
+import Domain.Instruction;
+import Domain.Reference;
 import Domain.Setup;
-import Domain.SetupBlock;
-import Domain.StringInstruction;
 import com.google.inject.Inject;
 import java.util.Set;
 import n7.intern.v3.xtext.domain.services.DomainGrammarAccess;
@@ -58,6 +59,12 @@ public class DomainSemanticSequencer extends AbstractDelegatingSemanticSequencer
 			case DomainPackage.FUNCTION_VALUE:
 				sequence_FunctionValue(context, (FunctionValue) semanticObject); 
 				return; 
+			case DomainPackage.IMPORT:
+				sequence_Import(context, (Import) semanticObject); 
+				return; 
+			case DomainPackage.INSTRUCTION:
+				sequence_Instruction(context, (Instruction) semanticObject); 
+				return; 
 			case DomainPackage.PARAMETER:
 				if (rule == grammarAccess.getFunctionParameterRule()) {
 					sequence_FunctionParameter(context, (Domain.Parameter) semanticObject); 
@@ -68,14 +75,11 @@ public class DomainSemanticSequencer extends AbstractDelegatingSemanticSequencer
 					return; 
 				}
 				else break;
+			case DomainPackage.REFERENCE:
+				sequence_Reference(context, (Reference) semanticObject); 
+				return; 
 			case DomainPackage.SETUP:
 				sequence_Setup(context, (Setup) semanticObject); 
-				return; 
-			case DomainPackage.SETUP_BLOCK:
-				sequence_SetupBlock(context, (SetupBlock) semanticObject); 
-				return; 
-			case DomainPackage.STRING_INSTRUCTION:
-				sequence_StringInstruction(context, (StringInstruction) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -108,13 +112,7 @@ public class DomainSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     DomainFramework returns DomainFramework
 	 *
 	 * Constraint:
-	 *     (
-	 *         description=STRING? 
-	 *         name=ID 
-	 *         setups+=Setup 
-	 *         function_definitions+=FunctionDefinition* 
-	 *         (parameters+=TypedParameter | parameters+=FunctionParameter)*
-	 *     )
+	 *     (description=STRING? name=ID setup=Setup? function_definitions+=FunctionDefinition* (parameters+=TypedParameter | parameters+=FunctionParameter)*)
 	 * </pre>
 	 */
 	protected void sequence_DomainFramework(ISerializationContext context, DomainFramework semanticObject) {
@@ -193,7 +191,7 @@ public class DomainSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     FunctionValue returns FunctionValue
 	 *
 	 * Constraint:
-	 *     (name=ID instructions+=SetupBlock+)
+	 *     (name=ID instructions+=Instruction+)
 	 * </pre>
 	 */
 	protected void sequence_FunctionValue(ISerializationContext context, FunctionValue semanticObject) {
@@ -204,14 +202,60 @@ public class DomainSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * <pre>
 	 * Contexts:
-	 *     SetupBlock returns SetupBlock
+	 *     Import returns Import
 	 *
 	 * Constraint:
-	 *     (language=Language instructions+=StringInstruction)
+	 *     (language=Language importID=ID references+=Reference* references+=Reference)
 	 * </pre>
 	 */
-	protected void sequence_SetupBlock(ISerializationContext context, SetupBlock semanticObject) {
+	protected void sequence_Import(ISerializationContext context, Import semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     Instruction returns Instruction
+	 *
+	 * Constraint:
+	 *     (language=Language importID=ID functionName=ID)
+	 * </pre>
+	 */
+	protected void sequence_Instruction(ISerializationContext context, Instruction semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DomainPackage.Literals.INSTRUCTION__LANGUAGE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DomainPackage.Literals.INSTRUCTION__LANGUAGE));
+			if (transientValues.isValueTransient(semanticObject, DomainPackage.Literals.INSTRUCTION__IMPORT_ID) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DomainPackage.Literals.INSTRUCTION__IMPORT_ID));
+			if (transientValues.isValueTransient(semanticObject, DomainPackage.Literals.INSTRUCTION__FUNCTION_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DomainPackage.Literals.INSTRUCTION__FUNCTION_NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getInstructionAccess().getLanguageLanguageEnumRuleCall_1_0(), semanticObject.getLanguage());
+		feeder.accept(grammarAccess.getInstructionAccess().getImportIDIDTerminalRuleCall_3_0(), semanticObject.getImportID());
+		feeder.accept(grammarAccess.getInstructionAccess().getFunctionNameIDTerminalRuleCall_5_0(), semanticObject.getFunctionName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     Reference returns Reference
+	 *
+	 * Constraint:
+	 *     name=ID
+	 * </pre>
+	 */
+	protected void sequence_Reference(ISerializationContext context, Reference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DomainPackage.Literals.REFERENCE__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DomainPackage.Literals.REFERENCE__NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getReferenceAccess().getNameIDTerminalRuleCall_0(), semanticObject.getName());
+		feeder.finish();
 	}
 	
 	
@@ -221,31 +265,11 @@ public class DomainSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     Setup returns Setup
 	 *
 	 * Constraint:
-	 *     instructions+=SetupBlock+
+	 *     imports+=Import+
 	 * </pre>
 	 */
 	protected void sequence_Setup(ISerializationContext context, Setup semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     StringInstruction returns StringInstruction
-	 *
-	 * Constraint:
-	 *     content=UNQUOTEDSTRING
-	 * </pre>
-	 */
-	protected void sequence_StringInstruction(ISerializationContext context, StringInstruction semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, DomainPackage.Literals.STRING_INSTRUCTION__CONTENT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DomainPackage.Literals.STRING_INSTRUCTION__CONTENT));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getStringInstructionAccess().getContentUNQUOTEDSTRINGTerminalRuleCall_0(), semanticObject.getContent());
-		feeder.finish();
 	}
 	
 	

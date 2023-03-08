@@ -2,7 +2,7 @@
 <feature
       id="n7.intern.v3.feature.domainGrammar"
       label="DomainGrammar"
-      version="1.0.8.qualifier">
+      version="1.1.1.qualifier">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]

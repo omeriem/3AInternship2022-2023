@@ -76,10 +76,6 @@ public class DomainAdapterFactory extends AdapterFactoryImpl {
 				return createParameterAdapter();
 			}
 			@Override
-			public Adapter caseSetup(Setup object) {
-				return createSetupAdapter();
-			}
-			@Override
 			public Adapter caseFunctionDefinition(FunctionDefinition object) {
 				return createFunctionDefinitionAdapter();
 			}
@@ -100,16 +96,24 @@ public class DomainAdapterFactory extends AdapterFactoryImpl {
 				return createAssignationMarkerAdapter();
 			}
 			@Override
-			public Adapter caseSetupBlock(SetupBlock object) {
-				return createSetupBlockAdapter();
+			public Adapter caseSetup(Setup object) {
+				return createSetupAdapter();
 			}
 			@Override
-			public Adapter caseStringInstruction(StringInstruction object) {
-				return createStringInstructionAdapter();
+			public Adapter caseInstruction(Instruction object) {
+				return createInstructionAdapter();
 			}
 			@Override
 			public Adapter caseFunctionBlock(FunctionBlock object) {
 				return createFunctionBlockAdapter();
+			}
+			@Override
+			public Adapter caseImport(Import object) {
+				return createImportAdapter();
+			}
+			@Override
+			public Adapter caseReference(Reference object) {
+				return createReferenceAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -170,6 +174,20 @@ public class DomainAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSetupAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Domain.Instruction <em>Instruction</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Domain.Instruction
+	 * @generated
+	 */
+	public Adapter createInstructionAdapter() {
 		return null;
 	}
 
@@ -244,34 +262,6 @@ public class DomainAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Domain.SetupBlock <em>Setup Block</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see Domain.SetupBlock
-	 * @generated
-	 */
-	public Adapter createSetupBlockAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link Domain.StringInstruction <em>String Instruction</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see Domain.StringInstruction
-	 * @generated
-	 */
-	public Adapter createStringInstructionAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link Domain.FunctionBlock <em>Function Block</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -282,6 +272,34 @@ public class DomainAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFunctionBlockAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Domain.Import <em>Import</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Domain.Import
+	 * @generated
+	 */
+	public Adapter createImportAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Domain.Reference <em>Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Domain.Reference
+	 * @generated
+	 */
+	public Adapter createReferenceAdapter() {
 		return null;
 	}
 

@@ -1,38 +1,23 @@
-domain SYNCHRO_INTERPOLATION{
-	setup {
-		@python {
-			>import numpy<
-		}
-	}
-	def F( int,float )  :  int  {
-		LAGRANGE  {
-			@python  {
-				>f1<
-			}
-			@java  {
-				>f1<
-			}
-		}
-		ML  {
-			@python  {
-				>f2<
-			}
-		}
-		LINEAIRE  {
-			@python  {
-				>f2<
-			}
-		}
-	}
-	
-	int nb_voisin {
-		@assign(Interpolation)
-	}
-	
-	F interpolate = F.LINEAIRE {
-		@do(Interpolation) {
-			this(p1,p2)
-		}
-	}
-	
+domain Math{
+    imports {
+        @python {
+            NP : numpy
+        }
+    }
+    def Operation( float, float, float, float )  :  float  {
+        MATRICE_MULTIPLATION  {
+            @python (NP::matmul)
+        }
+        
+        MATRICE_SUM  {
+            @python  (NP::sum)
+        }
+    }
+    
+
+    Operation operate = Operation.MATRICE_SUM {
+        @do(Interpolation) {
+            this($1,$2)
+        }
+    }
 }

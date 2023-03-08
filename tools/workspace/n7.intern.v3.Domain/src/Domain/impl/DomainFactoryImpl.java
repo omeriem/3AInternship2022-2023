@@ -59,15 +59,16 @@ public class DomainFactoryImpl extends EFactoryImpl implements DomainFactory {
 		switch (eClass.getClassifierID()) {
 			case DomainPackage.DOMAIN_FRAMEWORK: return createDomainFramework();
 			case DomainPackage.PARAMETER: return createParameter();
-			case DomainPackage.SETUP: return createSetup();
 			case DomainPackage.FUNCTION_DEFINITION: return createFunctionDefinition();
 			case DomainPackage.FUNCTION_VALUE: return createFunctionValue();
 			case DomainPackage.MARKER: return createMarker();
 			case DomainPackage.FUNCTION_MARKER: return createFunctionMarker();
 			case DomainPackage.ASSIGNATION_MARKER: return createAssignationMarker();
-			case DomainPackage.SETUP_BLOCK: return createSetupBlock();
-			case DomainPackage.STRING_INSTRUCTION: return createStringInstruction();
+			case DomainPackage.SETUP: return createSetup();
+			case DomainPackage.INSTRUCTION: return createInstruction();
 			case DomainPackage.FUNCTION_BLOCK: return createFunctionBlock();
+			case DomainPackage.IMPORT: return createImport();
+			case DomainPackage.REFERENCE: return createReference();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -146,6 +147,16 @@ public class DomainFactoryImpl extends EFactoryImpl implements DomainFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Instruction createInstruction() {
+		InstructionImpl instruction = new InstructionImpl();
+		return instruction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public FunctionDefinition createFunctionDefinition() {
 		FunctionDefinitionImpl functionDefinition = new FunctionDefinitionImpl();
 		return functionDefinition;
@@ -196,29 +207,29 @@ public class DomainFactoryImpl extends EFactoryImpl implements DomainFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SetupBlock createSetupBlock() {
-		SetupBlockImpl setupBlock = new SetupBlockImpl();
-		return setupBlock;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public StringInstruction createStringInstruction() {
-		StringInstructionImpl stringInstruction = new StringInstructionImpl();
-		return stringInstruction;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public FunctionBlock createFunctionBlock() {
 		FunctionBlockImpl functionBlock = new FunctionBlockImpl();
 		return functionBlock;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Import createImport() {
+		ImportImpl import_ = new ImportImpl();
+		return import_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Reference createReference() {
+		ReferenceImpl reference = new ReferenceImpl();
+		return reference;
 	}
 
 	/**

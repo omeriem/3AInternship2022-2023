@@ -126,8 +126,8 @@ public class DomainFrameworkItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DomainPackage.Literals.DOMAIN_FRAMEWORK__PARAMETERS);
-			childrenFeatures.add(DomainPackage.Literals.DOMAIN_FRAMEWORK__SETUPS);
 			childrenFeatures.add(DomainPackage.Literals.DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS);
+			childrenFeatures.add(DomainPackage.Literals.DOMAIN_FRAMEWORK__SETUP);
 		}
 		return childrenFeatures;
 	}
@@ -188,8 +188,8 @@ public class DomainFrameworkItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case DomainPackage.DOMAIN_FRAMEWORK__PARAMETERS:
-			case DomainPackage.DOMAIN_FRAMEWORK__SETUPS:
 			case DomainPackage.DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS:
+			case DomainPackage.DOMAIN_FRAMEWORK__SETUP:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 			default:
@@ -216,13 +216,13 @@ public class DomainFrameworkItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DomainPackage.Literals.DOMAIN_FRAMEWORK__SETUPS,
-				 DomainFactory.eINSTANCE.createSetup()));
+				(DomainPackage.Literals.DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS,
+				 DomainFactory.eINSTANCE.createFunctionDefinition()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DomainPackage.Literals.DOMAIN_FRAMEWORK__FUNCTION_DEFINITIONS,
-				 DomainFactory.eINSTANCE.createFunctionDefinition()));
+				(DomainPackage.Literals.DOMAIN_FRAMEWORK__SETUP,
+				 DomainFactory.eINSTANCE.createSetup()));
 	}
 
 	/**
