@@ -10,6 +10,7 @@ class StreamBuffer:
 
     def push(self, data):
         remaining = self.BUFFERSIZE - len(self.chunk)
+        #print(f"BUFFER : remaining {remaining} and data {len(data)} ")
         if len(data) > remaining:
             self.chunk = np.concatenate((self.chunk, data[0: remaining]))
             self.commit()

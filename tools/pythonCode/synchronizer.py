@@ -7,7 +7,7 @@ import ECG
 import EEG
 import buffer
 import synchronizing_queue
-
+from Stream import Stream
 
 class Snapshot:
     def __init__(self,starting_at,size,index_chunk,index_in):
@@ -17,6 +17,8 @@ class Snapshot:
         self.index = {}
         for name in index_chunk.keys():
             self.index[name] = [index_chunk[name],index_in[name]] 
+    def __repr__(self) -> str:
+        return f"Starting at : {self.starting_at}, Size : {self.size}, Index : {self.index}"
 
 
 class Indexer:
@@ -26,25 +28,28 @@ class Indexer:
     def snap(self,name,starting_at,sizes,buffer_size):
         self.indexes[name] = Snapshot(starting_at,\
             sizes,\
-            {name: (starting_at + size - 1)/buffer_size for name,size in sizes.items()},\
+            {name: int((starting_at + size - 1)/buffer_size) for name,size in sizes.items()},\
             {name: (starting_at + size - 1)%buffer_size for name,size in sizes.items()})
 
-
+    def print(self):
+        print(self.indexes)
     def startingAt(self,name):
         return self.indexes[name].starting_at
     def size(self,name):
         return self.indexes[name].size 
     def index(self,name):
         return self.indexes[name].index
-    def pop(self,buffer_size,min_sample_rate,getStreams):
+    def pop(self,connected_name,buffer_size,min_sample_rate,getStreams):
         result = {}
-        for name in self.indexes.keys():
+        for name in connected_name:
             result[name] = {}
             for stream in getStreams(name):
 
                 sample_rate = stream.sample_rate
 
-                zero_C = self.indexes[name].index[stream.name][0]*buffer_size
+                zero = (self.indexes[name].index[stream.name][0])*buffer_size + self.indexes[name].index[stream.name][1] + 1
+
+                zero_C = - zero
                 zero_C_T = zero_C*(1/sample_rate)
                 zero_S = np.floor(zero_C_T*min_sample_rate)
                 size_S = int(buffer_size*min_sample_rate/sample_rate)
@@ -65,9 +70,9 @@ class Indexer:
 
 
 
-                result[name][stream.name] = I
-
-            self.indexes[name].index[stream.name][0] -= 1
+                result[name][stream.name] = {"index" :I,"starting_time":zero_C_T}
+            
+                self.indexes[name].index[stream.name][0] -= 1
         return result
         
     
@@ -78,7 +83,7 @@ class Synchronizer :
         self.name = name
         self.inputBuffers = {}
         self.outputBuffers = {}
-        self.BUFFER_SIZE = 500
+        self.BUFFER_SIZE = 1000
 
 
         self.inputDescriptors = [EEG.EEG.getStreams(), ECG.ECG.getStreams()]
@@ -93,9 +98,10 @@ class Synchronizer :
         self.dataflow_isWaiting = {}
         self.rendez_vous_up_to_date = {}
 
+        self.dataflow_connected_status = {}
+
 
     def buffer(self, dataflow, data):
-        print(f"{self.name} as buffered")
         self.inputBuffers[dataflow.name].push(data)
 
     def connectToMonitor(self, monitor):
@@ -108,11 +114,23 @@ class Synchronizer :
             def receiveChunk(data):
                 self.receive(dataflow, data)
             return receiveChunk
+        self.ref = []
         for dataflow in dataflows :
             self.inputBuffers[dataflow.name] = buffer.Buffer(self.BUFFER_SIZE, dataflow.getStreams(), build(dataflow))
             self.inputDataflows[dataflow.name] = dataflow
             self.dataflow_isWaiting[dataflow.name] = False
             self.rendez_vous_up_to_date[dataflow.name] = False
+            self.dataflow_connected_status[dataflow.name] = False
+            self.ref.append(dataflow.name)
+    
+    def connect(self,dataflow):
+        print(f"CONNECTION {dataflow.name}")
+        self.dataflow_connected_status[dataflow.name] = True
+        self.outdateRendezVous()
+        self.launchRendezVous()
+
+    def disconnect(self,dataflow):
+        self.dataflow_connected_status[dataflow.name] = False
     
     def getInputNames(self):
         return list(self.inputDataflows.keys())
@@ -122,31 +140,40 @@ class Synchronizer :
             def commitChunk(data):
                 self.commit(dataflow, data)
             return commitChunk
-        self.ref = []
-        self.outputStorage = {}
+        self.output_queue = synchronizing_queue.SynchronizingQueue(dataflows)
+        i = 0
+        self.outputName = {}
         for dataflow in dataflows :
             self.ref.append(dataflow.name)
             self.outputBuffers[dataflow.name] = buffer.Buffer(self.BUFFER_SIZE, dataflow.getStreams(), build(dataflow))
             self.outputDataflows[dataflow.name] = dataflow
-            self.outputStorage[dataflow.name] = None
+            self.outputName[self.ref[i]] = dataflow.name
+            i += 1
 
     def receive(self,dataflow, chunk):
-        print(f"queue put {dataflow.name}")
+        print(f"receive from buffer : {dataflow.name}")
         self.queue.put(dataflow,chunk)
         self.rendezVous(dataflow)
+        print(self.queue.snap())
         if self.isRendezVousUpToDate():
             self.synchronize()
 
+
     def commit(self,dataflow, chunk):
-        self.outputStorage[dataflow.name] = chunk
-        if len([s for s in list(self.outputStorage.values()) if s is None]) == 0:
-            self.push()
-            self.outputStorage = {key : None for key, _ in self.outputStorage.items()}
+        print(f"COMMIT {dataflow.name}")
+        self.output_queue.put(dataflow,chunk)
+        self.push()
         
 
     def push(self):
+        print(f"PUSH QUEUE {self.queue.snap()}")
+        connected_status = {self.outputName[name]: self.dataflow_connected_status[name] for name in self.inputDataflows.keys() }
+        result = self.output_queue.tryPop(connected_status)
+
+        print(f"PUSH OUTPUT QUEUE  {self.output_queue.snap()}")
+        if result == None: return
         if self.monitor != None :
-            self.monitor.listen(self.name, self.outputStorage)
+            self.monitor.listen(self.name, result)
 
     def incrementRendezVousCycle(self):
         self.rendez_vous_counter = (self.rendez_vous_counter + 1) % self.rendez_vous_period
@@ -154,25 +181,31 @@ class Synchronizer :
             self.outdateRendezVous()
 
     def outdateRendezVous(self):
+        self.rendez_vous_counter = 0
         for name in self.rendez_vous_up_to_date.keys():
             self.rendez_vous_up_to_date[name] = False
 
 
     def isRendezVousUpToDate(self):
-        return False not in list(self.rendez_vous_up_to_date.values())
-    def isWaiting(self):
-        return True in list(self.dataflow_isWaiting.values())
+        dataflows = [name for name in self.inputDataflows.keys() if self.dataflow_connected_status[name]] 
 
+        return False not in [self.rendez_vous_up_to_date[name] for name in dataflows]
+    def isWaiting(self):
+        dataflows = [name for name in self.inputDataflows.keys() if self.dataflow_connected_status[name]] 
+        return True in [self.dataflow_isWaiting[name] for name in dataflows]
+
+    def launchRendezVous(self):
+        self.snap()
+        dataflows = [name for name in self.inputDataflows.keys() if self.dataflow_connected_status[name]] 
+        for name in dataflows:
+            self.dataflow_isWaiting[name] = True
     def rendezVous(self,dataflow):
         name = dataflow.name
         snap = self.queue.snap()
-        if np.sum(np.array(list(snap.values())) > 0 ) < 2\
-             or self.isRendezVousUpToDate():
+        if self.isRendezVousUpToDate():
             return
         if not self.isRendezVousUpToDate() and not self.isWaiting():
-            self.snap()
-            for name in self.dataflow_isWaiting.keys():
-                self.dataflow_isWaiting[name] = True
+            self.launchRendezVous()
     
         sizes =self.indexer.size(name)
 
@@ -182,15 +215,21 @@ class Synchronizer :
         if self.dataflow_isWaiting[name] and all_over_waiting:
             self.rendez_vous_up_to_date[name] = True
             self.dataflow_isWaiting[name] = False
+        #print(f"is waiting : {self.isWaiting()} with {self.dataflow_isWaiting}")
+        #self.indexer.print()
 
     def synchronize(self):
-        chunks = self.queue.pop()
+        chunks = self.queue.tryPop(self.dataflow_connected_status)
+        if chunks == None:
+            return 
         min_sample_rate = self.getMinSampleRate()
-        indexes = self.indexer.pop(self.BUFFER_SIZE,min_sample_rate,self.getStreamsOf)
+        dataflows = [name for name in self.inputDataflows.keys() if self.dataflow_connected_status[name]] 
+        #self.indexer.print()
+        indexes = self.indexer.pop(dataflows,self.BUFFER_SIZE,min_sample_rate,self.getStreamsOf)
+        #print({key:{ stream:i["starting_time"] for stream,i in item.items()} for key,item in indexes.items()})
         for name,chunk in chunks.items():
             result = self.chunkSynchronization(chunk,indexes[name])
-            self.outputBuffers[list([n for n in self.outputDataflows.keys()])[list(chunks.keys()).index(name)]].push(list(result.values()))
-
+            self.outputBuffers[self.outputName[name]].push(list(result.values()))
         self.incrementRendezVousCycle()
         
 
@@ -198,8 +237,8 @@ class Synchronizer :
         result = {}
         for name,data in chunk.items():
             index = indexes[name]
-            result[name] = np.zeros((len(index)))
-            for I in index:
+            result[name] = np.zeros((len(index["index"])))
+            for I in index["index"]:
                 t = I["t"]
                 h = I["h"]
                 l = I["lower_bound"]
@@ -213,7 +252,8 @@ class Synchronizer :
 
 
     def getMinSampleRate(self):
-        return np.min([ np.min([stream.sample_rate for stream in dataflow.getStreams()]) for dataflow in self.inputDataflows.values()])
+        dataflows = [self.inputDataflows[name] for name in self.inputDataflows.keys() if self.dataflow_connected_status[name]] 
+        return np.min([ np.min([stream.sample_rate for stream in dataflow.getStreams()]) for dataflow in dataflows])
 
     def getStreamsOf(self,name):
         return self.inputDataflows[name].getStreams()
@@ -235,10 +275,19 @@ class Synchronizer :
 
 def sin(sample_rate,start,end):
     dt = 1/sample_rate
-    f = 1
+    f = 2
     w = 2*np.pi*f
     t = np.arange(start, end, dt)
     signal = np.sin(w*t) #+ 0.5* np.random.randn(len(t))
+
+    return signal
+
+def cos(sample_rate,start,end):
+    dt = 1/sample_rate
+    f = 2
+    w = 2*np.pi*f
+    t = np.arange(start, end, dt)
+    signal = np.cos(w*t) #+ 0.5* np.random.randn(len(t))
 
     return signal
 
@@ -280,48 +329,73 @@ class MonitorProxy:
         pass
 
     def listen(self, name, storage):
-        #print(f"{name} : {storage}")
-        for n,streams in storage.items():
-            if len(streams) > 1 :
-                fig, ax = plt.subplots(len(streams),1)
-                i= 0
-                for n2,signal in streams.items():
-                    ax[i].plot(signal,label = n2)
-                    ax[i].legend()
-                    i+=1
-            else :
-                fig, ax = plt.subplots(1,1)
-                n2,signal = list(streams.items())[0]
-                ax.plot(signal,label = n2)
-                ax.legend()
+        print(f"MONITOR RECEIVE {name} : {storage.keys()}")
+
+        fig, ax = plt.subplots(len(storage),1)
+        j = 0
+
+        sin1 = sin(sr1,0,20)
+        sin2 = sin(sr2,0,20)
+
+        eeg = storage["s3"]["eeg"]
+        ecg = storage["s4"]["ecg"]
+        fig, ax = plt.subplots(2,1)
+        ax[0].plot(sin1[:1000],color="r",label = "s1 asynchronous")
+        ax[0].plot(sin2[:1000],color="b",label = "s2 asynchronous")
+        ax[0].legend()
+
+        ax[1].plot(eeg,color="r",label = "s1 synchronous")
+        ax[1].plot(ecg,color="b",label = "s2 synchronous")
+        ax[1].legend()
         plt.show()
+
+
+sr2 = 1200
+class ECGProxy:
+    def __init__(self,name):
+        self.name = name
+    @staticmethod
+    def getStreams():
+        return [Stream("ecg",float, sr2)]
+
+sr1 = 1000
+class EEGProxy:
+    def __init__(self,name):
+        self.name = name
+    @staticmethod
+    def getStreams():
+        return [Stream("eeg",float, sr1)]
 
 def main():
 
-    sr1 = 100
-    sr2 = 186
 
     monitor = MonitorProxy()
 
     synchronizer = Synchronizer("Sync")
     synchronizer.connectToMonitor(monitor)
 
-    s1 = EEG("s1")
-    s2 = ECG("s2")
+    s1 = EEGProxy("s1")
+    s2 = ECGProxy("s2")
 
     synchronizer.input(s1, s2)
-    s3 = EEG("s1")
-    s4 = ECG("s2")
+    s3 = EEGProxy("s3")
+    s4 = ECGProxy("s4")
     synchronizer.output(s3, s4)
 
     sin1 = sin(sr1,0,20)
     sin2 = sin(sr2,0,20)
 
-    synchronizer.buffer(s1, [sin1[:1000]])
-    synchronizer.buffer(s2, [sin2[:1000]])
-    synchronizer.buffer(s1, [sin1[1000:2000]])
-    synchronizer.buffer(s2, [sin2[1000:2000]])
 
+    synchronizer.connect(s1)
+    synchronizer.connect(s2)
+
+    synchronizer.buffer(s1, [sin1[:1000]])
+
+    synchronizer.buffer(s2, [sin2[:1000]])
+    synchronizer.buffer(s2, [sin2[1000:2000]])
+    synchronizer.buffer(s2, [sin2[2000:3000]])
+    synchronizer.buffer(s1, [sin1[1000:2000]])
+    synchronizer.buffer(s1, [sin1[2000:3000]])
     #synchronizer.buffer("EEG",sin1[:1000])
     #synchronizer.buffer("ECG",sin2[:1000])
     #synchronizer.buffer("ECG",sin2[1000:2000])
