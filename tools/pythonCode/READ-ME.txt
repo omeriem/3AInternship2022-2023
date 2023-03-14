@@ -1,2 +1,2 @@
-Dans ce dossier, nous trouverons les codes
+Simulation en python de fichiers générés par l'i²dsl.
 
