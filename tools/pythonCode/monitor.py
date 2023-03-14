@@ -6,7 +6,13 @@ from ECG import ECG
 from SynchronizedECG_Holder import SynchronizedECG
 from SynchronizedEEG_Holder import SynchronizedEEG
 
+"""
+TODO : currently not working,
+class monitor : allows to associate the interfacers and the dataflows by redirecting the incoming and outgoing flows
 
+should allow to launch a server on which each dataflow sends data, once received these data are redirected to the interfacer,
+the interfacers process this data and send it back to the monitor which sends it back to the specified dataflow
+"""
 class Monitor:
     def __init__(self) -> None:
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -74,7 +80,9 @@ class Monitor:
 
     def listen(self,from_interfacer,*dataflows_chunks):
         print(from_interfacer + " : " + str(len(dataflows_chunks)))
-
+"""
+initialization and connection of all graph nodes
+"""
 def main():
     monitor = Monitor()
 

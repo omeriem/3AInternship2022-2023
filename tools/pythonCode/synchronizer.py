@@ -9,6 +9,20 @@ import buffer
 import synchronizing_queue
 from Stream import Stream
 
+"""
+Class Snapshot : allows to "save" the state of the stack at the time of the rendezvous,
+starting at : represents the index of the last element of the dataflow stack at the time of the rendezvous, starting at allows to know where the stack was at the rendezvous,
+size : a dict representing the number of elements to wait for to complete the rendezvous delay according to the
+    sample rates of each stream, e.g. if we give a rendezvous in 1sec a stream of sample rate 1000Hz will have to wait for 1000 elements while a stream of 1200Hz will have to wait for 1200,
+index_chunk and index_in : are respectively the index of the chunk in the stack and the index of the element in the chunk ending the wait for the appointment,
+    
+example : we give a rendezvous in 1sec for a 1200Hz sample stream, we suppose that there are
+    already n chunk in the grid (with 1000 element per chunk),
+    then the index of the last element in the stack at the time of the appointment (starting_at) is n*1000,
+    the number of element to wait (size) is 1200,
+    and the index of the element marking the end of the wait is n*1000 + 1200 => index_chunk = n+1 and index_in = 200
+
+"""
 class Snapshot:
     def __init__(self,starting_at,size,index_chunk,index_in):
         self.starting_at = starting_at
@@ -20,7 +34,10 @@ class Snapshot:
     def __repr__(self) -> str:
         return f"Starting at : {self.starting_at}, Size : {self.size}, Index : {self.index}"
 
-
+"""
+class Indexer : allows to save the current snapshots 
+and convert the real index of a chunk into an index relative to the rendezvous with respect to the sample rate of the streams and the minimal sample rate
+"""
 class Indexer:
     def __init__(self,dataflows):
         self.indexes = {d.name:None for d in dataflows}
@@ -39,6 +56,16 @@ class Indexer:
         return self.indexes[name].size 
     def index(self,name):
         return self.indexes[name].index
+    """
+    pop : allows to get the relative indexes of the streams of the dataflows connecting and updating the snapshots
+    a relative index is a dict composed of real index (i) (index of a chunk [0,1,..,n]),
+    the delta (h) representing the time difference between two measurements of 
+    sample rate S => h=1/S allowing the calculation of the discrete derivative of the signal 
+    dS/dt = (s(t+h)-s(t))/h,
+    lower_bound representing s(t),
+    upper_bound representing s(t+h)
+    and t being the time of the measurement taken with the minimal sample rate
+    """
     def pop(self,connected_name,buffer_size,min_sample_rate,getStreams):
         result = {}
         for name in connected_name:
@@ -77,7 +104,11 @@ class Indexer:
         
     
 
+"""
+class Synchronizer : allowing to synchronize several dataflow 
+including several datastreams with different sample rates according to the smallest sample rate
 
+"""
 class Synchronizer : 
     def __init__(self,name) -> None:
         self.name = name
@@ -100,13 +131,21 @@ class Synchronizer :
 
         self.dataflow_connected_status = {}
 
-
+    """
+        PUBLIC:
+        allows to add data to the buffer corresponding to the sending dataflow,
+        once the buffer has received enough data 
+        to make a chunk of known size, this chunk will be sent back to the synchronizer 
+    """
     def buffer(self, dataflow, data):
         self.inputBuffers[dataflow.name].push(data)
 
     def connectToMonitor(self, monitor):
         self.monitor = monitor
-
+    """
+        PUBLIC:
+        is used to initialize the synchronizer inputs
+    """
     def input(self, *dataflows):
         self.queue = synchronizing_queue.SynchronizingQueue(dataflows)
         self.indexer = Indexer(dataflows)
@@ -122,7 +161,10 @@ class Synchronizer :
             self.rendez_vous_up_to_date[dataflow.name] = False
             self.dataflow_connected_status[dataflow.name] = False
             self.ref.append(dataflow.name)
-    
+    """
+        PUBLIC : 
+        allows you to connect a dataflow and thus signify its presence, launch an appointment
+    """
     def connect(self,dataflow):
         print(f"CONNECTION {dataflow.name}")
         self.dataflow_connected_status[dataflow.name] = True
@@ -135,6 +177,11 @@ class Synchronizer :
     def getInputNames(self):
         return list(self.inputDataflows.keys())
 
+
+    """
+        PUBLIC : 
+        allows to initialize the synchronizer outputs
+    """
     def output(self, *dataflows):
         def build(dataflow):
             def commitChunk(data):
@@ -150,6 +197,9 @@ class Synchronizer :
             self.outputName[self.ref[i]] = dataflow.name
             i += 1
 
+    """
+         once a chunk is received from the buffer it is stored in the queue to be synchronized
+    """
     def receive(self,dataflow, chunk):
         print(f"receive from buffer : {dataflow.name}")
         self.queue.put(dataflow,chunk)
@@ -164,7 +214,9 @@ class Synchronizer :
         self.output_queue.put(dataflow,chunk)
         self.push()
         
-
+    """
+        allows to send synchonized data to monitor
+    """
     def push(self):
         print(f"PUSH QUEUE {self.queue.snap()}")
         connected_status = {self.outputName[name]: self.dataflow_connected_status[name] for name in self.inputDataflows.keys() }
@@ -199,6 +251,10 @@ class Synchronizer :
         dataflows = [name for name in self.inputDataflows.keys() if self.dataflow_connected_status[name]] 
         for name in dataflows:
             self.dataflow_isWaiting[name] = True
+
+    """
+        allows you to make an appointment and update the indexes 
+    """
     def rendezVous(self,dataflow):
         name = dataflow.name
         snap = self.queue.snap()
@@ -218,6 +274,10 @@ class Synchronizer :
         #print(f"is waiting : {self.isWaiting()} with {self.dataflow_isWaiting}")
         #self.indexer.print()
 
+
+    """
+        retrieves chunks from the stack and synchronizes them
+    """
     def synchronize(self):
         chunks = self.queue.tryPop(self.dataflow_connected_status)
         if chunks == None:
@@ -232,7 +292,9 @@ class Synchronizer :
             self.outputBuffers[self.outputName[name]].push(list(result.values()))
         self.incrementRendezVousCycle()
         
-
+    """ 
+    synchronize a chunk
+    """
     def chunkSynchronization(self,chunk,indexes):
         result = {}
         for name,data in chunk.items():
@@ -271,7 +333,10 @@ class Synchronizer :
         
 
 
+"""
+TEST -----------------------------
 
+"""
 
 def sin(sample_rate,start,end):
     dt = 1/sample_rate
@@ -366,7 +431,7 @@ class EEGProxy:
     def getStreams():
         return [Stream("eeg",float, sr1)]
 
-def main():
+def test():
 
 
     monitor = MonitorProxy()
@@ -425,4 +490,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    test()
