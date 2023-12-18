@@ -1,4 +1,4 @@
-# 3AInternship2022-2023
+# 3AInternship2022-2023 (4 students from 3rd year at N7) 
 
 TODO : 
 
